@@ -1,0 +1,21 @@
+.search-box {
+    display: flex;
+    flex-direction: row;
+    width: 682px;
+    height: 86px;
+    border: 1px solid #252525;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 20px;
+    margin-top: 28px;
+
+    &-text {
+        font-size: 36px;
+        color: #53565C;
+    }
+
+    &-icon {
+        width: 42px;
+        height: 40px;
+    }
+}

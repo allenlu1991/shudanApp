@@ -1,0 +1,37 @@
+.search-results-scrollview {
+    margin-top: 106px;
+}
+
+.search-results {
+    width: 100%;
+
+    &-item {
+        height: 324px;
+        width: 100%;
+        padding: 34px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    
+    &-item-title {
+        font-size: 38px;
+        color: #030303;
+    }
+
+    &-item-abstract {
+        font-size: 28px;
+        color: #212121;
+    }
+
+    &-item-site {
+        font-size: 28px;
+        color: #969696;
+    }
+
+    &-separator {
+        height: 16px;
+        width: 100%;
+        background: #F7F7F7;
+    }
+}

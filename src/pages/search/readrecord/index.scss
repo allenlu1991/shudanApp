@@ -1,0 +1,23 @@
+.read-record {
+    width: 682px;
+
+    &-head {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        margin-top: 36px;
+    }
+
+    &-head-icon {
+        width: 14px;
+        height: 40px;
+        margin-top: 4px;
+        margin-right: 12px;
+    }
+
+    &-head-title {
+        font-size: 32px;
+        font-family: PingFangSC-Semibold;
+        color: #252525;
+    }
+}

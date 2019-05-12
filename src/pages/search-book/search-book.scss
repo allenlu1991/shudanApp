@@ -1,0 +1,9 @@
+@import "@styles/theme.scss";
+
+.search-book {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+}

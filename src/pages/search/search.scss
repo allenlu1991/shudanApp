@@ -1,0 +1,13 @@
+@import "@styles/theme.scss";
+
+.search {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &-separator {
+        height: 16px;
+        width: 100%;
+        background: #F7F7F7;
+    }
+}

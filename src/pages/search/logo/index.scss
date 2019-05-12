@@ -1,0 +1,17 @@
+.search-logo {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 18px;
+
+    &-icon {
+        width: 74px;
+        height: 72px;
+        margin-right: 18px;
+    }
+
+    &-text {
+        width: 224px;
+        height: 70px;
+    }
+}

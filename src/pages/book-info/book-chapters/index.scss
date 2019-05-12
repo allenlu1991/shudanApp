@@ -1,0 +1,55 @@
+.book-chapters {
+    width: 100%;
+    padding: 0px 34px;
+
+    &-separator {
+        height: 2px;
+        width: 100%;
+        background-color: #F8F8F8;
+    }
+
+    &-head {
+        height: 90px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    &-head-title {
+        font-size: 32px;
+        color: #131313;
+        line-height: 90px;
+        font-weight: bold;
+    }
+
+    &-head-counts {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    &-head-counts-text {
+        font-size: 28px;
+        color: #aaaaaa;
+        line-height: 90px;
+        height: 90px;
+        margin-right: 10px;
+    }
+
+    &-head-counts-icon {
+        width: 16px;
+        height: 28px;
+    }
+
+    &-content-item {
+        height: 86px;
+        line-height: 86px;
+    }
+
+    &-content-item-text {
+        color: #787878;
+        font-size: 28px;
+    }
+}

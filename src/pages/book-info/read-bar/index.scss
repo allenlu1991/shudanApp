@@ -1,0 +1,29 @@
+.read-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    padding: 0px 34px;
+    height: 108px;
+
+    &-share {
+        width: 50%;
+        text-align: center;
+        line-height: 74px;
+        height: 74px;
+        font-size: 32px;
+        color: #353535;
+    }
+
+    &-read {
+        width: 50%;
+        text-align: center;
+        line-height: 74px;
+        height: 74px;
+        font-size: 32px;
+        color: #FFFFFF;
+        font-weight: bold;
+        background: linear-gradient(90deg, #FF615F 0%, #DE1514 100%);
+        border-radius: 37px;
+    }
+}

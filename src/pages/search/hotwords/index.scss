@@ -1,0 +1,123 @@
+@import "@styles/theme.scss";
+
+.hot-words {
+    width: 682px;
+    margin-top: 40px;
+
+    &-head {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    &-head-title {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    &-head-title-icon {
+        width: 14px;
+        height: 40px;
+        margin-top: 4px;
+        margin-right: 12px;
+    }
+
+    &-head-title-text {
+        font-size: 32px;
+        font-family: PingFangSC-Semibold;
+        color: #252525;
+    }
+
+    &-head-refresh {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    &-head-refresh-icon {
+        width: 36px;
+        height: 28px;
+        margin-left: 12px;
+    }
+
+    &-head-refresh-text {
+        font-family: PingFangSC-Regular;
+        font-size: 28px;
+        color: #8C8C8C;
+    }
+
+    &-content {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding: 16px 0;
+    }
+
+    &-content-item {
+        width: 50%;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    &-content-item-text {
+        font-size: 28px;
+        font-family: PingFangSC-Regular;
+        color: #282828;
+    }
+
+    &-content-item-firstnum {
+        font-family: PingFangSC-Semibold;
+        font-size: 20px;
+        color: #ffffff;
+        width: 40px;
+        height: 40px;
+        background: #F94E4B;
+        border-radius: 2px;
+        text-align: center;
+        line-height: 40px;
+        margin-right: 12px;
+    }
+
+    &-content-item-secondnum {
+        font-family: PingFangSC-Semibold;
+        font-size: 20px;
+        color: #ffffff;
+        width: 40px;
+        height: 40px;
+        background: #E98622;
+        border-radius: 2px;
+        text-align: center;
+        line-height: 40px;
+        margin-right: 12px;
+    }
+
+    &-content-item-thirdnum {
+        font-family: PingFangSC-Semibold;
+        font-size: 20px;
+        color: #ffffff;
+        width: 40px;
+        height: 40px;
+        background: #EAAD3C;
+        border-radius: 2px;
+        text-align: center;
+        line-height: 40px;
+        margin-right: 12px;
+    }
+
+    &-content-item-othernum {
+        font-family: PingFangSC-Semibold;
+        font-size: 20px;
+        color: #ffffff;
+        width: 40px;
+        height: 40px;
+        background: #CDCDCD;
+        border-radius: 2px;
+        text-align: center;
+        line-height: 40px;
+        margin-right: 12px;
+    }
+}
