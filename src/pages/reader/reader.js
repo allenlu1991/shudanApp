@@ -31,8 +31,8 @@ class Read extends Component {
     return (
       <View className='read'>
         <BookContent />
-        {/* <BookMenu />
-        <UserGuide /> */}
+        <BookMenu />
+        {/* <UserGuide /> */}
         {/* <ChaptersSelector /> */}
       </View>
     )
