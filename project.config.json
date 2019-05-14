@@ -4,10 +4,12 @@
 	"description": "shudan app",
 	"appid": "wx727678871bef0a6c",
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": false,
 		"postcss": false,
-		"minified": false
+		"minified": false,
+		"newFeature": true,
+		"autoAudits": false
 	},
 	"compileType": "miniprogram",
 	"simulatorType": "wechat",
