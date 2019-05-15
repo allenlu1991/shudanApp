@@ -27,10 +27,10 @@ export default class BookMenu extends Component {
               <View className='book-menu-bar-style-font-small'>Aa-</View>
               <View className='book-menu-bar-style-font-large'>Aa+</View>
             </View>
-            <View className='book-menu-bar-style'>
-              <View className='book-menu-bar-style-normal'></View>
-              <View className='book-menu-bar-style-night'></View>
-              <View className='book-menu-bar-style-eyecare'></View>
+            <View className='book-menu-bar-style-mode'>
+              <View className='book-menu-bar-style-mode-normal'></View>
+              <View className='book-menu-bar-style-mode-night'></View>
+              <View className='book-menu-bar-style-mode-eyecare'></View>
             </View>
           </View>
         </View>

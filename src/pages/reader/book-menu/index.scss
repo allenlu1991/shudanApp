@@ -1,8 +1,157 @@
+@mixin menu-chapters {
+    background: #E6E7EC;
+    border-radius: 8px;
+    width: 200px;
+    height: 62px;
+    color: #000000;
+    font-size: 28px;
+    line-height: 62px;
+    text-align: center;
+}
+
+@mixin menu-font {
+    background: #E6E7EC;
+    border-radius: 8px;
+    width: 142px;
+    height: 62px;
+    color: #000000;
+    font-size: 28px;
+    line-height: 62px;
+    text-align: center;
+}
+
+@mixin menu-mode {
+    border-radius: 62px;
+    width: 62px;
+    height: 62px;
+}
+
+@mixin menu-sidebar {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.16);
+    border-radius: 32px 0px 0px 32px;
+    font-size: 28px;
+    width: 182px;
+    height: 62px;
+    line-height: 62px;
+    text-align: center;
+    margin-bottom: 32px;
+}
+
 .book-menu {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+
+    &-sidebar {
+        margin-bottom: 36px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    &-sidebar-home {
+        @include menu-sidebar;
+        background: #FFFFFF;
+        color: #000000;
+    }
+
+    &-sidebar-site {
+        @include menu-sidebar;
+        background: #FFFFFF;
+        color: #000000;
+    }
+
+    &-sidebar-share {
+        @include menu-sidebar;
+        background: linear-gradient(90deg, #FF615F 0%, #DE1514 100%);
+        color: #FFFFFF;
+    }
+
     &-bar {
+        padding: 0px 40px;
         height: 316px;
         width: 100%;
         display: flex;
         flex-direction: column;
+        align-items: center;
+        background: #FFFFFF;
+        box-shadow: 0 -2px 4px 0 rgba(0,0,0,0.08);
+        box-sizing: border-box;
     }
+
+    &-bar-title {
+        height: 104px;
+        font-size: 28px;
+        color: #6D6D6D;
+        line-height: 104px;
+    }
+
+    &-bar-chapters {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-bottom: 46px;
+    }
+
+    &-bar-chapters-pre {
+        @include menu-chapters;
+    }
+
+    &-bar-chapters-link {
+        @include menu-chapters;
+    }
+
+    &-bar-chapters-next {
+        @include menu-chapters;
+    }
+
+    &-bar-style {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    &-bar-style-font {
+        // flex-shrink: 0; //不压缩
+        width: 50%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    &-bar-style-font-small {
+        @include menu-font;
+    }
+
+    &-bar-style-font-large {
+        @include menu-font;
+    }
+
+    &-bar-style-mode {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: row;
+        width: 50%;
+        padding-left: 50px;
+        justify-content: space-between;
+    }
+
+    &-bar-style-mode-normal {
+        @include menu-mode;
+        background: #F2EEEB;
+        border: 2px solid #FD5B59;
+    }
+
+    &-bar-style-mode-night {
+        @include menu-mode;
+        background: #1C1C1C;
+    }
+
+    &-bar-style-mode-eyecare {
+        @include menu-mode;
+        background: #C7EDCB;
+    }
+
 }
