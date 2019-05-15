@@ -43,12 +43,12 @@ export default class ChaptersSelector extends Component {
                     <Text className='chapters-selector-box-item-text'>第14章 你的身上，有一个凶兆！</Text>
                 </View>
                 <View className='chapters-selector-box-separator'></View>
-                <View className='chapters-selector-box-separator'></View>
+     
                 <View className='chapters-selector-box-item'>
                     <Text className='chapters-selector-box-item-text'>第14章 你的身上，有一个凶兆！</Text>
                 </View>
                 <View className='chapters-selector-box-separator'></View>
-                <View className='chapters-selector-box-separator'></View>
+
                 <View className='chapters-selector-box-item'>
                     <Text className='chapters-selector-box-item-text'>第14章 你的身上，有一个凶兆！</Text>
                 </View>
