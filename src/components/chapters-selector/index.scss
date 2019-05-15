@@ -1,0 +1,55 @@
+@mixin box-item-text {
+    line-height: 90px;
+    height: 90px;
+    font-size: 32px;
+}
+
+.chapters-selector {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    left: 0;
+    top: 0;
+    &-box {
+        width: 592px;
+    }
+
+    &-box-container {
+        width: 592px;
+        background: #FFFFFF;
+        padding: 0px 32px;
+        box-sizing: border-box;
+    }
+
+    &-box-item {
+        height: 90px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &-box-item-text {
+        @include box-item-text;
+        color: #373737;
+    }
+
+    &-box-item-text-selected {
+        @include box-item-text;
+        color: #F42423;
+    }
+
+    &-box-item-icon {
+        width: 32px;
+        height: 34px;
+    }
+
+    &-box-separator {
+        border: 2px solid #F8F8F8;
+    }
+
+    &-mask {
+        background: rgba(38,38,38,0.57);
+        width: 158px;
+    }
+}

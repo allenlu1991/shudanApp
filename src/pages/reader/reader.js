@@ -5,6 +5,7 @@ import { connect } from '@tarojs/redux'
 import BookContent from './book-content'
 import BookMenu from './book-menu'
 import UserGuide from './user-guide'
+import { ChaptersSelector } from '@components'
 
 import './reader.scss'
 
@@ -31,9 +32,9 @@ class Read extends Component {
     return (
       <View className='read'>
         <BookContent />
-        <BookMenu />
+        {/* <BookMenu /> */}
         {/* <UserGuide /> */}
-        {/* <ChaptersSelector /> */}
+        <ChaptersSelector />
       </View>
     )
   }
