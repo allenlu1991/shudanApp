@@ -12,6 +12,8 @@
     top: 0;
     &-box {
         width: 592px;
+        background: #FFFFFF;
+        box-sizing: border-box;
     }
 
     &-box-container {
@@ -42,6 +44,7 @@
     &-box-item-icon {
         width: 32px;
         height: 34px;
+        flex-shrink: 0;
     }
 
     &-box-separator {
