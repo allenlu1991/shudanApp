@@ -5,7 +5,7 @@ import { connect } from '@tarojs/redux'
 import MyUserInfo from './my-user-info'
 import Menu from './menu'
 
-import './myinfo.scss'
+import './my-info.scss'
 
 
 class MyInfo extends Component {

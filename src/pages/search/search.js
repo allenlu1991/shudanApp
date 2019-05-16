@@ -2,6 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 
+import { BookLoading } from '@components'
 import Logo from './Logo'
 import SearchBox from './searchbox'
 import HotWords from './hotwords'
@@ -35,7 +36,7 @@ class Search extends Component {
         <HotWords />
         <View className='search-separator'></View>
         <ReadRecord />
-        {/* <BookLoading /> */}
+        <BookLoading />
       </View>
     )
   }
