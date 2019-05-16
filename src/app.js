@@ -20,11 +20,12 @@ class App extends Component {
 
   config = {
     pages: [
+      'pages/search/search',
+      'pages/my/my',
       'pages/reader/reader',
       'pages/book-info/book-info',
       'pages/search-book/search-book',
-      'pages/search/search',
-      'pages/my/my',
+      'pages/my-info/my-info',
     ],
     window: {
       backgroundTextStyle: 'light',

@@ -2,40 +2,31 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
 import './index.scss'
 
-import bookCover from '@assets/search/book.jpg'
+import rightIcon from '@assets/my/right.png'
 
-export default class ReadRecordContent extends Component {
+export default class Menu extends Component {
 
   render () {
     return (
-      <View className='read-record-content'>
-        <View className='read-record-content-item'>
-          <Image className='read-record-content-item-cover' src={bookCover}></Image>
-          <View className='read-record-content-item-info'>
-            <Text className='read-record-content-item-info-name'>斗破苍穹</Text>
-            <Text className='read-record-content-item-info-lastread'>读至第100章/共998章</Text>
-            <Text className='read-record-content-item-info-lastreadtime'>上次阅读时间：05-23 11:33</Text>
+      <View className='menu'>
+        <View className='menu-container'>
+          <View className='menu-container-separator'></View>
+          <View className='menu-container-item'>
+            <Text className='menu-container-item-text'>免责声明</Text>
+            <Image className='menu-container-item-icon' src={rightIcon}></Image>
           </View>
-        </View>
-        <View className='read-record-content-item-separator'></View>
-        <View className='read-record-content-item'>
-          <Image className='read-record-content-item-cover' src={bookCover}></Image>
-          <View className='read-record-content-item-info'>
-            <Text className='read-record-content-item-info-name'>斗破苍穹</Text>
-            <Text className='read-record-content-item-info-lastread'>读至第100章/共998章</Text>
-            <Text className='read-record-content-item-info-lastreadtime'>上次阅读时间：05-23 11:33</Text>
+          <View className='menu-container-separator'></View>
+          <View className='menu-container-item'>
+            <Text className='menu-container-item-text'>权利人保护引导</Text>
+            <Image className='menu-container-item-icon' src={rightIcon}></Image>
           </View>
-        </View>
-        <View className='read-record-content-item-separator'></View>
-        <View className='read-record-content-item'>
-          <Image className='read-record-content-item-cover' src={bookCover}></Image>
-          <View className='read-record-content-item-info'>
-            <Text className='read-record-content-item-info-name'>斗破苍穹</Text>
-            <Text className='read-record-content-item-info-lastread'>读至第100章/共998章</Text>
-            <Text className='read-record-content-item-info-lastreadtime'>上次阅读时间：05-23 11:33</Text>
+          <View className='menu-container-separator'></View>
+          <View className='menu-container-item'>
+            <Text className='menu-container-item-text'>用户反馈</Text>
+            <Image className='menu-container-item-icon' src={rightIcon}></Image>
           </View>
+          <View className='menu-container-separator'></View>
         </View>
-        <View className='read-record-content-item-separator'></View>
       </View>
     )
   }

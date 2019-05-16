@@ -2,6 +2,9 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 
+import UserInfo from './user-info'
+import { ReadRecordContent } from '@components'
+
 import './my.scss'
 
 
@@ -25,8 +28,8 @@ class My extends Component {
     return (
       <View className='my'>
         <UserInfo />
-        <ReadRecord />
-        <WeLogin />
+        <ReadRecordContent />
+        {/* <WeLogin /> */}
       </View>
     )
   }

@@ -28,7 +28,9 @@ class Search extends Component {
   render () {
     return (
       <View className='search'>
+        {/* <View style={{height:'40px', width: '100%'}}></View> */}
         <Logo />
+        {/* <View style={{height:'15px', width: '100%'}}></View> */}
         <SearchBox />
         <HotWords />
         <View className='search-separator'></View>
