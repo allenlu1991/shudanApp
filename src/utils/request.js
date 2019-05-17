@@ -1,25 +1,27 @@
 import Taro from '@tarojs/taro'
-import { API_USER, API_USER_LOGIN } from '@constants/api'
+// import { API_USER, API_USER_LOGIN } from '@constants/api'
 
-const CODE_SUCCESS = '200'
-const CODE_AUTH_EXPIRED = '600'
+// const CODE_SUCCESS = '200'
+// const CODE_AUTH_EXPIRED = '600'
 
-function getStorage(key) {
-  return Taro.getStorage({ key }).then(res => res.data).catch(() => '')
-}
+// function getStorage(key) {
+//   return Taro.getStorage({ key }).then(res => res.data).catch(() => '')
+// }
 
-function updateStorage(data = {}) {
-  return Promise.all([
-    Taro.setStorage({ key: 'token', data: data['3rdSession'] || '' }),
-    Taro.setStorage({ key: 'uid', data: data['uid'] || ''})
-  ])
-}
+// function updateStorage(data = {}) {
+//   return Promise.all([
+//     Taro.setStorage({ key: 'token', data: data['3rdSession'] || '' }),
+//     Taro.setStorage({ key: 'uid', data: data['uid'] || ''})
+//   ])
+// }
 
 /**
  * 简易封装网络请求
  * // NOTE 需要注意 RN 不支持 *StorageSync，此处用 async/await 解决
  * @param {*} options
  */
+
+ /*
 export default async function fetch(options) {
   const { url, payload, method = 'GET', showToast = true, autoLogin = true } = options
   const token = await getStorage('token')
@@ -35,6 +37,7 @@ export default async function fetch(options) {
     header
   }).then(async (res) => {
     const { code, data } = res.data
+
     if (code !== CODE_SUCCESS) {
       if (code === CODE_AUTH_EXPIRED) {
         await updateStorage({})
@@ -65,6 +68,41 @@ export default async function fetch(options) {
     if (err.code === CODE_AUTH_EXPIRED && autoLogin) {
       Taro.navigateTo({
         url: '/pages/user-login/user-login'
+      })
+    }
+
+    return Promise.reject({ message: defaultMsg, ...err })
+  })
+}
+*/
+
+export default async function fetch(options) {
+  const { url, payload, method = 'GET', showToast = true, autoLogin = true } = options
+  const header = {}
+
+  if (method === 'POST') {
+    header['content-type'] = 'application/json'
+  }
+
+  return Taro.request({
+    url,
+    method,
+    data: payload,
+    header
+  }).then(async (res) => {
+    const { statusCode, data } = res
+
+    if (statusCode !== 200) {
+      return Promise.reject(res.data)
+    }
+
+    return data
+  }).catch((err) => {
+    const defaultMsg = '请求异常'
+    if (showToast) {
+      Taro.showToast({
+        title: err && err.errorMsg || defaultMsg,
+        icon: 'none'
       })
     }
 

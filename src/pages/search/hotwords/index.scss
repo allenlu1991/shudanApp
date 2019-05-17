@@ -1,5 +1,14 @@
 @import "@styles/theme.scss";
 
+@keyframes refresh-move {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}
+
 .hot-words {
     width: 682px;
     margin-top: 40px;
@@ -39,6 +48,10 @@
         width: 36px;
         height: 28px;
         margin-left: 12px;
+    }
+
+    &-head-refresh-icon-circle {
+        animation:refresh-move 1.5s infinite;
     }
 
     &-head-refresh-text {

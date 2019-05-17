@@ -6,8 +6,36 @@ import titleIcon from '@assets/search/title-icon.png'
 import refreshIcon from '@assets/search/refresh-icon.png'
 
 export default class HotWords extends Component {
+  static defaultProps = {
+    list: []
+  }
+
+  state = {
+    n: 1,
+    loading: false,
+  }
+
+  handleRefreshClick = () => {
+    // this.setState({
+    //   loading: true,
+    // });
+
+    this.props.hotWordsRefresh({
+      n: this.state.n + 1,
+    }).then((res)=>{
+      // this.setState({
+      //   loading: false,
+      // });
+    })
+
+    this.setState({
+      n: this.state.n + 1
+    })
+
+  }
 
   render () {
+    const { list } = this.props
 
     return (
       <View className='hot-words'>
@@ -16,13 +44,38 @@ export default class HotWords extends Component {
             <Image className='hot-words-head-title-icon' src={titleIcon}></Image>
             <Text className='hot-words-head-title-text'>热门搜索</Text>
           </View>
-          <View className='hot-words-head-refresh'>
+          <View className='hot-words-head-refresh' onClick={this.handleRefreshClick.bind(this)}>
             <Text className='hot-words-head-refresh-text'>换一换</Text>
-            <Image className='hot-words-head-refresh-icon' src={refreshIcon}></Image>
+            <Image className={['hot-words-head-refresh-icon', this.state.loading && 'hot-words-head-refresh-icon-circle'].join(' ')} src={refreshIcon}></Image>
           </View>
         </View>
         <View className='hot-words-content'>
-          <View className='hot-words-content-item'>
+          {list.map((item, index) => {
+            let numClass = 'hot-words-content-item-othernum'
+            switch(index) {
+              case 0:
+                numClass = 'hot-words-content-item-firstnum'
+                break
+              case 1:
+                numClass = 'hot-words-content-item-secondnum'
+                break
+              case 2:
+                numClass = 'hot-words-content-item-thirdnum'
+                break
+              default:
+                numClass = 'hot-words-content-item-othernum'
+            }
+
+            return (
+              <View className='hot-words-content-item' taroKey={index}>
+                <View className={numClass}>{index+1}</View>
+                <View className='hot-words-content-item-text'>{item}</View>
+              </View>
+            )
+            
+          })}
+
+          {/* <View className='hot-words-content-item'>
             <View className='hot-words-content-item-firstnum'>1</View>
             <View className='hot-words-content-item-text'>最强道士在都市</View>
           </View>
@@ -53,7 +106,7 @@ export default class HotWords extends Component {
           <View className='hot-words-content-item'>
             <View className='hot-words-content-item-othernum'>8</View>
             <View className='hot-words-content-item-text'>全职房东</View>
-          </View>
+          </View> */}
         </View>
       </View>
     )

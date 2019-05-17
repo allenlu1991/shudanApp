@@ -1,0 +1,1 @@
+export const HOT_WORDS = 'HOT_WORDS'
