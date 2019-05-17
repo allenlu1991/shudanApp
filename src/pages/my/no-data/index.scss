@@ -1,0 +1,22 @@
+.no-data {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 292px;
+    
+    &-tips {
+        font-size: 24px;
+        color: #898686;
+        margin-bottom: 18px;
+    }
+
+    &-bttn {
+        width: 324px;
+        height: 72px;
+        font-size: 28px;
+        color: #E45258;
+        border: 2px solid #E45258;
+        border-radius: 36px;
+        background: #ffffff;
+    }
+}

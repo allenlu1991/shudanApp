@@ -3,9 +3,11 @@ import { View, Button, Text } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 
 import UserInfo from './user-info'
-import { ReadRecordContent } from '@components'
+import { ReadRecordContent, WeLogin } from '@components'
+import Nodata from './no-data'
 
 import './my.scss'
+
 
 
 class My extends Component {
@@ -28,6 +30,7 @@ class My extends Component {
     return (
       <View className='my'>
         <UserInfo />
+        {/* <Nodata /> */}
         <ReadRecordContent />
         {/* <WeLogin /> */}
       </View>

@@ -34,7 +34,7 @@ class Read extends Component {
         <BookContent />
         {/* <BookMenu /> */}
         {/* <UserGuide /> */}
-        {/* <ChaptersSelector /> */}
+        <ChaptersSelector />
       </View>
     )
   }

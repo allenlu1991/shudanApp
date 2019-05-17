@@ -36,7 +36,7 @@ class Search extends Component {
         <HotWords />
         <View className='search-separator'></View>
         <ReadRecord />
-        <BookLoading />
+        {/* <BookLoading /> */}
       </View>
     )
   }

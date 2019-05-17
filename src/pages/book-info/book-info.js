@@ -8,6 +8,8 @@ import BookDesc from './book-desc'
 import BookChapters from './book-chapters'
 import ReadBar from './read-bar'
 
+import { ChaptersSelector } from '@components'
+
 import './book-info.scss'
 
 let systemInfo = Taro.getSystemInfoSync();
@@ -45,9 +47,9 @@ class BookInfo extends Component {
           <View className='book-info-separator'></View>
           <BookChapters />
         </ScrollView>
-        
-        {/* <ChaptersSelector /> */}
         <ReadBar />
+
+        {/* <ChaptersSelector /> */}
       </View>
     )
   }

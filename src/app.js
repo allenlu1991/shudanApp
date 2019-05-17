@@ -20,10 +20,12 @@ class App extends Component {
 
   config = {
     pages: [
-      'pages/search/search',
-      'pages/my/my',
       'pages/reader/reader',
       'pages/book-info/book-info',
+      'pages/my/my',
+      'pages/search/search',
+      
+      
       'pages/search-book/search-book',
       'pages/my-info/my-info',
     ],

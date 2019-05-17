@@ -49,6 +49,7 @@
     position: absolute;
     right: 0;
     transform-origin: 0% 100%;
+    box-sizing: border-box;
 }
 
 .loader-inner:first-child{

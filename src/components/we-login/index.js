@@ -1,41 +1,21 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Image } from '@tarojs/components'
+import { View, Text, Image, Button } from '@tarojs/components'
 import './index.scss'
 
-import bookCover from '@assets/search/book.jpg'
+import wechatIcon from '@assets/components/we-login/wechat.png'
 
-export default class ReadRecordContent extends Component {
+export default class WeLogin extends Component {
 
   render () {
     return (
-      <View className='read-record-content'>
-        <View className='read-record-content-item'>
-          <Image className='read-record-content-item-cover' src={bookCover}></Image>
-          <View className='read-record-content-item-info'>
-            <Text className='read-record-content-item-info-name'>斗破苍穹</Text>
-            <Text className='read-record-content-item-info-lastread'>读至第100章/共998章</Text>
-            <Text className='read-record-content-item-info-lastreadtime'>上次阅读时间：05-23 11:33</Text>
-          </View>
-        </View>
-        <View className='read-record-content-item-separator'></View>
-        <View className='read-record-content-item'>
-          <Image className='read-record-content-item-cover' src={bookCover}></Image>
-          <View className='read-record-content-item-info'>
-            <Text className='read-record-content-item-info-name'>斗破苍穹</Text>
-            <Text className='read-record-content-item-info-lastread'>读至第100章/共998章</Text>
-            <Text className='read-record-content-item-info-lastreadtime'>上次阅读时间：05-23 11:33</Text>
-          </View>
-        </View>
-        <View className='read-record-content-item-separator'></View>
-        <View className='read-record-content-item'>
-          <Image className='read-record-content-item-cover' src={bookCover}></Image>
-          <View className='read-record-content-item-info'>
-            <Text className='read-record-content-item-info-name'>斗破苍穹</Text>
-            <Text className='read-record-content-item-info-lastread'>读至第100章/共998章</Text>
-            <Text className='read-record-content-item-info-lastreadtime'>上次阅读时间：05-23 11:33</Text>
-          </View>
-        </View>
-        <View className='read-record-content-item-separator'></View>
+      <View className='we-login'>
+        <View className='we-login-tips'>登录查看个人主页</View>
+
+        <Button className='we-login-bttn' open-type="">
+          <Image className='we-login-bttn-icon' src={wechatIcon}></Image>
+          <Text className='we-login-bttn-text'>微信一键登录</Text>
+        </Button>
+
       </View>
     )
   }
