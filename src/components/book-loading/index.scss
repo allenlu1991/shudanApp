@@ -4,9 +4,11 @@
     position: absolute;
     top: 0; 
     left: 0; 
+    z-index: 999;
 }
 
 .book-loading {
+    z-index: 1000;
     width: 194px;
     height: 194px;
     display: flex;

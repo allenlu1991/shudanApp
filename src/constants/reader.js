@@ -1,0 +1,1 @@
+export const READ_CONTENT = 'READ_CONTENT'

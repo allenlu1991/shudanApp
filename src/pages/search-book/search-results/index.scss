@@ -17,11 +17,21 @@
     &-item-title {
         font-size: 38px;
         color: #030303;
+        overflow : hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
     }
 
     &-item-abstract {
         font-size: 28px;
         color: #212121;
+        overflow : hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
     }
 
     &-item-site {

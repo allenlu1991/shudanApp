@@ -55,6 +55,14 @@
         line-height: 42px;
     }
 
+    &-abstract-text-fold {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical
+    }
+
     &-abstract-bttn {
         width: 100%;
         display: flex;

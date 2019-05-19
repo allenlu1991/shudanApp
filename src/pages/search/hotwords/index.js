@@ -12,20 +12,31 @@ export default class HotWords extends Component {
 
   state = {
     n: 1,
-    loading: false,
+    animation: ''
+  }
+
+  refreshAnimation = Taro.createAnimation({
+    transformOrigin: "50% 50% 0",
+    duration: 1500,
+    timingFunction: "ease",
+    delay: 0
+  })
+
+  searchBywords(words) {
+    Taro.navigateTo({
+      url: '/pages/search-book/search-book?wd=' + encodeURIComponent(words)
+    })
   }
 
   handleRefreshClick = () => {
-    // this.setState({
-    //   loading: true,
-    // });
+    this.refreshAnimation.rotate(360*this.state.n).step()
+
+    this.setState({
+      animation: this.refreshAnimation.export()
+    })
 
     this.props.hotWordsRefresh({
       n: this.state.n + 1,
-    }).then((res)=>{
-      // this.setState({
-      //   loading: false,
-      // });
     })
 
     this.setState({
@@ -46,7 +57,7 @@ export default class HotWords extends Component {
           </View>
           <View className='hot-words-head-refresh' onClick={this.handleRefreshClick.bind(this)}>
             <Text className='hot-words-head-refresh-text'>换一换</Text>
-            <Image className={['hot-words-head-refresh-icon', this.state.loading && 'hot-words-head-refresh-icon-circle'].join(' ')} src={refreshIcon}></Image>
+            <Image className='hot-words-head-refresh-icon' animation={this.state.animation} src={refreshIcon}></Image>
           </View>
         </View>
         <View className='hot-words-content'>
@@ -67,7 +78,7 @@ export default class HotWords extends Component {
             }
 
             return (
-              <View className='hot-words-content-item' taroKey={index}>
+              <View className='hot-words-content-item' taroKey={index} onClick={this.searchBywords.bind(this,item)}>
                 <View className={numClass}>{index+1}</View>
                 <View className='hot-words-content-item-text'>{item}</View>
               </View>

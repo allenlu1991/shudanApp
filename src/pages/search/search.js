@@ -38,16 +38,16 @@ class Search extends Component {
   render () {
     return (
       <View className='search'>
-        {/* <View style={{height:'40px', width: '100%'}}></View> */}
+        <View style={{height:'40px', width: '100%'}}></View>
         <Logo />
-        {/* <View style={{height:'15px', width: '100%'}}></View> */}
+        <View style={{height:'15px', width: '100%'}}></View>
         <SearchBox />
         <HotWords 
           list={this.props.hotWords}
           hotWordsRefresh={this.props.dispatchHotWords}
         />
-        <View className='search-separator'></View>
-        <ReadRecord />
+        {/* <View className='search-separator'></View> */}
+        {/* <ReadRecord /> */}
         {/* <BookLoading /> */}
       </View>
     )

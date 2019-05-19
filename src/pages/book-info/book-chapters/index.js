@@ -1,49 +1,64 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
+import { connect } from '@tarojs/redux'
+
 import './index.scss'
 import rightIcon from '@assets/book-info/right.png'
 
+import * as actions from '@actions/book-info'
+
+@connect(state => state.bookInfo, { ...actions })
 export default class BookChapters extends Component {
+  static defaultProps = {
+    chaptersInfo: {
+      chaptersCount: 0,
+      chapters: []
+    },
+    url: '',
+    wd: '',
+  }
+
+  openSelector() {
+    this.props.onOpenSelector()
+    // this.props.dispatchOpenChapters()
+  }
+
+  chapterClickHandle(contentUrl, contentName, bookName, charptersCount, charpterNum) {
+    Taro.navigateTo({
+      url: '/pages/reader/reader?content_url=' + encodeURIComponent(contentUrl) + '&content_name=' + encodeURIComponent(contentName) + '&chapters_url=' + encodeURIComponent(this.props.url) + '&wd=' + encodeURIComponent(this.props.wd) + '&book_name=' + encodeURIComponent(bookName) + '&chapter_count=' + charptersCount + '&chapter_num=' + charpterNum
+    })
+  }
 
   render () {
 
+    const {chaptersInfo} = this.props
+
     return (
       <View className='book-chapters'>
-        <View className='book-chapters-head'>
+        <View className='book-chapters-head' onClick={this.openSelector.bind(this)}>
           <Text className='book-chapters-head-title'>查看目录</Text>
           <View className='book-chapters-head-counts'>
-            <Text className='book-chapters-head-counts-text'>共1272章</Text>
+            <Text className='book-chapters-head-counts-text'>共{chaptersInfo.chaptersCount}章</Text>
             <Image className='book-chapters-head-counts-icon' src={rightIcon}></Image>
           </View>
         </View>
         <View className='book-chapters-separator'></View>
         <View className='book-chapters-content'>
-          <View className='book-chapters-content-item'>
-            <Text className='book-chapters-content-item-text'>第1272章 斗帝破空</Text>
-          </View>
-          <View className='book-chapters-separator'></View>
-          <View className='book-chapters-content-item'>
-            <Text className='book-chapters-content-item-text'>第1271章 斗帝破空</Text>
-          </View>
-          <View className='book-chapters-separator'></View>
-          <View className='book-chapters-content-item'>
-            <Text className='book-chapters-content-item-text'>第1270章 斗帝破空</Text>
-          </View>
-          <View className='book-chapters-separator'></View>
-          <View className='book-chapters-content-item'>
-            <Text className='book-chapters-content-item-text'>第1269章 斗帝破空</Text>
-          </View>
-          <View className='book-chapters-separator'></View>
-          <View className='book-chapters-content-item'>
-            <Text className='book-chapters-content-item-text'>第1268章 斗帝破空</Text>
-          </View>
-          <View className='book-chapters-separator'></View>
-          <View className='book-chapters-content-item'>
-            <Text className='book-chapters-content-item-text'>第1267章 斗帝破空</Text>
-          </View>
-          <View className='book-chapters-separator'></View>
+          {chaptersInfo.chapters.map((item,index)=>{
+            if(index < 5) {
+              return(
+                <View taroKey={index}>
+                  <View className='book-chapters-content-item' onClick={this.chapterClickHandle.bind(this, item.chapter_url, item.title, chaptersInfo.bookName, chaptersInfo.chaptersCount, index+1)}>
+                    <Text className='book-chapters-content-item-text'>{item.title}</Text>
+                  </View>
+                  <View className='book-chapters-separator'></View>
+                </View>
+              )
+            }
+          })}
         </View>
       </View>
     )
   }
+    
 }

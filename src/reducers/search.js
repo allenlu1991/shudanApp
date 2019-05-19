@@ -1,7 +1,6 @@
 import {
   HOT_WORDS
 } from '@constants/search'
-import { start } from 'repl';
 
 const INITIAL_STATE = {
   hotWords: []

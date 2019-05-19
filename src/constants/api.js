@@ -8,7 +8,16 @@ export const hostDev = HOST_DEV
 /* eslint-enable */
 
 //hotwords
-export const API_HOT_WORDS = `${HOST}/bookapi/v2/hotWords`
+export const API_HOT_WORDS = `${host}/bookapi/v2/hotWords`
+
+//search book
+export const API_SEARCH_BOOK = `${host}/bookapi/v2/search`
+
+//book info
+export const API_BOOK_INFO = `${host}/bookapi/v2/chapters`
+
+//book content
+export const API_READ_CONTENT = `${host}/bookapi/v2/content`
 
 // // pic
 // export const CDN = 'https://yanxuan.nosdn.127.net'
