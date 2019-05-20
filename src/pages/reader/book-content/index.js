@@ -11,14 +11,15 @@ import wxParse from './wxParse/wxParse'
 let systemInfo = Taro.getSystemInfoSync();
 let ratio = systemInfo.windowWidth / 750;
 
-let readerStyle = {
-  titleSize: 40*ratio,
-  contentSize: 32*ratio,
-  // color: '#333', //夜间 #424952
-  color: '#7C7674',
-  lineHeight: 60*ratio,
-  backgroundColor: '#F2EEEA' //#C7EDCC 护眼色  #080C10 黑夜
-}
+// let readerStyle = {
+//   titleSize: 40*ratio,
+//   contentSize: 32*ratio,
+//   lineHeight: 60*ratio,
+//   // color: '#333', //夜间 #424952
+//   color: '#7C7674',
+  
+//   backgroundColor: '#F2EEEA' //#C7EDCC 护眼色  #080C10 黑夜
+// }
 
 // let readerStyle = {
 //   titleSize: 40*ratio,
@@ -38,17 +39,6 @@ let readerStyle = {
 //   backgroundColor: '#C7EDCC' //#C7EDCC 护眼色  #080C10 黑夜
 // }
 
-let titleStyle = {
-  fontSize: readerStyle.titleSize + 'px',
-  color: readerStyle.color
-}
-
-let bodyStyle = {
-  fontSize: readerStyle.contentSize + 'px',
-  color: readerStyle.color,
-  lineHeight: readerStyle.lineHeight + 'px',
-}
-
 export default class BookContent extends Component {
   static defaultProps = {
     data: {
@@ -59,23 +49,30 @@ export default class BookContent extends Component {
 
   state = {
     lock: false,
-    scrollViewStyle: {}
+    scrollViewStyle: {},
   }
 
   scrollHandle(e) {
     this.props.onScrollHandle(e)
   }
 
-  showChapters() {
+  showChapters(e) {
+    e.stopPropagation() //阻止事件冒泡
     this.props.onShowChapters()
   }
 
-  nextChapter() {
+  nextChapter(e) {
+    e.stopPropagation()
     this.props.onNextChapter()
   }
 
-  preChapter() {
+  preChapter(e) {
+    e.stopPropagation()
     this.props.onPreChapter()
+  }
+
+  menuToggle() {
+    this.props.onMenuToggle()
   }
 
   componentDidMount() {
@@ -91,8 +88,66 @@ export default class BookContent extends Component {
   }
 
   render () {
-    const {data, scrollTop} = this.props
- 
+    const {data, scrollTop, readMode, readerFontCss} = this.props
+    let readerStyle = {
+      ...readerFontCss,
+      // color: '#333', //夜间 #424952
+      color: '#7C7674',
+      backgroundColor: '#F2EEEA' //#C7EDCC 护眼色  #080C10 黑夜
+    }
+
+    switch (readMode) {
+      case 'night':{
+        readerStyle.color = '#424952'
+        readerStyle.backgroundColor = '#080C10'
+
+        Taro.setNavigationBarColor({
+          frontColor: '#ffffff',
+          backgroundColor: '#080C10',
+          animation: {
+            duration: 0,
+            timingFunc: 'linear'
+          }
+        })
+        break
+      }
+      case 'eyecare': {
+        readerStyle.color = '#333'
+        readerStyle.backgroundColor = '#C7EDCC'
+
+        Taro.setNavigationBarColor({
+          frontColor: '#000000',
+          backgroundColor: '#C7EDCC',
+          animation: {
+            duration: 0,
+            timingFunc: 'linear'
+          }
+        })
+        break
+      }
+      default:
+        Taro.setNavigationBarColor({
+          frontColor: '#000000',
+          backgroundColor: '#F2EEEA',
+          animation: {
+            duration: 0,
+            timingFunc: 'linear'
+          }
+        })
+        break;
+    }
+
+    let titleStyle = {
+      fontSize: readerStyle.titleSize + 'px',
+      color: readerStyle.color
+    }
+    
+    let bodyStyle = {
+      fontSize: readerStyle.contentSize + 'px',
+      color: readerStyle.color,
+      lineHeight: readerStyle.lineHeight + 'px',
+    }
+
     //去除多余的换行符
     if(data && data.body) {
       const body = data.body.replace(/(<br\s?\/?>)+/gi, '$1')
@@ -102,7 +157,7 @@ export default class BookContent extends Component {
     return (
       <View className='book-content' style={{background: readerStyle.backgroundColor}}>
 
-        <ScrollView onScroll={this.scrollHandle.bind(this)} scrollTop={scrollTop} scrollY style={this.state.scrollViewStyle} className='book-content-container'>
+        <ScrollView onScroll={this.scrollHandle.bind(this)} scrollTop={scrollTop} scrollY style={this.state.scrollViewStyle} className='book-content-container' onClick={this.menuToggle.bind(this)}>
           <View className='book-content-container-title' style={titleStyle}>
           {data.title}
           </View>

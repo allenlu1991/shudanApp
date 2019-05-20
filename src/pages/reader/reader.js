@@ -13,6 +13,9 @@ import './reader.scss'
 
 import * as actions from '@actions/reader'
 
+let systemInfo = Taro.getSystemInfoSync();
+let ratio = systemInfo.windowWidth / 750;
+
 @connect(state => state.reader, { ...actions })
 class Read extends Component {
 
@@ -31,7 +34,17 @@ class Read extends Component {
     wd: '',
     contentData:{},
     scrollTop: 0.000001,
+    menuAppear: false, //控制菜单是否展示
+    menuDefaultAppear: false, //第一次菜单是否展示
+    readMode: 'normal', //阅读模式, 有：normal, night, eyecare
+    readerFontCss: {
+      titleSize: 40*ratio,
+      contentSize: 32*ratio,
+      lineHeight: 60*ratio,
+    },
   }
+
+  
 
   onDisappear() {
     this.setState({
@@ -41,16 +54,13 @@ class Read extends Component {
     Taro.setNavigationBarTitle({
       title: this.$router.params.book_name
     })
+  }
 
-    Taro.setNavigationBarColor({
-      frontColor: '#000000',
-      backgroundColor: '#F2EEEA',
-      animation: {
-        duration: 0,
-        timingFunc: 'linear'
-      }
+  onMenuToggle() {
+    this.setState({
+      menuAppear: !this.state.menuAppear,
+      menuDefaultAppear: true
     })
-
   }
 
   onScrollHandle(e) {
@@ -75,6 +85,46 @@ class Read extends Component {
   onPreChapter() {
     
     this.getBookContent(this.state.chaptersUrl, this.state.currentChapterNum - 1, this.state.wd)
+  }
+
+  onIncSize() {
+    console.log(ratio,this.state.readerFontCss.titleSize/ratio,this.state.readerFontCss.titleSize)
+    if (this.state.readerFontCss.titleSize >= 50*ratio) {
+      Taro.showToast({
+        title: '已经是最大号字啦~',
+        icon: 'none',
+      })
+      return
+    }
+    this.state.readerFontCss.titleSize = this.state.readerFontCss.titleSize + 5*ratio;
+    this.state.readerFontCss.lineHeight = this.state.readerFontCss.lineHeight + 10*ratio;
+    this.state.readerFontCss.contentSize = this.state.readerFontCss.contentSize + 5*ratio;
+    this.setState({
+      readerFontCss: this.state.readerFontCss
+    });
+  }
+
+  onDecSize() {
+    console.log(ratio,this.state.readerFontCss.titleSize/ratio,this.state.readerFontCss.titleSize)
+    if (this.state.readerFontCss.titleSize <= 30*ratio) {
+      Taro.showToast({
+        title: '已经是最小号字啦~',
+        icon: 'none',
+      })
+      return
+    }
+    this.state.readerFontCss.titleSize = this.state.readerFontCss.titleSize - 5*ratio;
+    this.state.readerFontCss.contentSize = this.state.readerFontCss.contentSize - 5*ratio;
+    this.state.readerFontCss.lineHeight = this.state.readerFontCss.lineHeight - 10*ratio;
+    this.setState({
+      readerFontCss: this.state.readerFontCss
+    });
+  }
+
+  onChangeReadMode(readMode) {
+    this.setState({
+      readMode,
+    })
   }
 
   getBookContent(chaptersUrl, chapterNum = 1, wd='') {
@@ -180,17 +230,33 @@ class Read extends Component {
   render () {
     
     return (
-      <View className='read'>
+      <View className='reader'>
         {this.state.loading && <BookLoading />}
         <BookContent 
           data={this.state.contentData}
+          readMode = {this.state.readMode}
+          readerFontCss = {this.state.readerFontCss}
           onShowChapters={this.onShowChapters.bind(this)}
           onNextChapter={this.onNextChapter.bind(this)}
           onPreChapter={this.onPreChapter.bind(this)}
           scrollTop={this.state.scrollTop}
           onScrollHandle={this.onScrollHandle.bind(this)}
+          onMenuToggle={this.onMenuToggle.bind(this)}
         />
-        {/* <BookMenu /> */}
+        {
+          this.state.menuDefaultAppear &&
+          <BookMenu
+            appear={this.state.menuAppear}
+            title={this.state.contentData ? this.state.contentData.title : ''}
+            readMode = {this.state.readMode}
+            onChangeReadMode = {this.onChangeReadMode.bind(this)}
+            onShowChapters={this.onShowChapters.bind(this)}
+            onNextChapter={this.onNextChapter.bind(this)}
+            onPreChapter={this.onPreChapter.bind(this)}
+            onIncSize = {this.onIncSize.bind(this)}
+            onDecSize={this.onDecSize.bind(this)}
+          />
+        }
         {/* <UserGuide /> */}
         { this.state.showChapters &&
         <ChaptersSelector 

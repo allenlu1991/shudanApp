@@ -16,7 +16,9 @@ import './search.scss'
 class Search extends Component {
 
   config = {
-    navigationBarTitleText: ''
+    navigationBarTitleText: '',
+    // navigationBarTextStyle: 'black',
+    // navigationBarBackgroundColor: '#ffffff',
   }
 
   componentWillReceiveProps (nextProps) {
@@ -24,6 +26,17 @@ class Search extends Component {
   }
 
   componentWillUnmount () { }
+
+  componentWillMount() {
+    // Taro.setNavigationBarColor({
+    //   frontColor: '#000000',
+    //   backgroundColor: '#ffffff',
+    //   animation: {
+    //     duration: 0,
+    //     timingFunc: 'linear'
+    //   }
+    // })
+  }
 
   componentDidMount() {
     this.props.dispatchHotWords({
@@ -36,6 +49,15 @@ class Search extends Component {
   componentDidHide () { }
 
   render () {
+    Taro.setNavigationBarColor({
+      frontColor: '#000000',
+      backgroundColor: '#ffffff',
+      animation: {
+        duration: 0,
+        timingFunc: 'linear'
+      }
+    })
+
     return (
       <View className='search'>
         <View style={{height:'40px', width: '100%'}}></View>

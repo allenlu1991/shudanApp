@@ -38,12 +38,16 @@
 }
 
 .book-menu {
-    position: absolute;
-    bottom: 0;
+    // position: absolute;
+    // bottom: 0;
+    position: relative;
     width: 100%;
 
     &-sidebar {
-        margin-bottom: 36px;
+        position: absolute;
+        right: 0px;
+        bottom: 352px;
+        // margin-bottom: 36px;
         display: flex;
         flex-direction: column;
         align-items: flex-end;
@@ -68,6 +72,9 @@
     }
 
     &-bar {
+        position: absolute;
+        right: 0px;
+        bottom: 0px;
         padding: 0px 40px;
         height: 316px;
         width: 100%;
@@ -141,7 +148,6 @@
     &-bar-style-mode-normal {
         @include menu-mode;
         background: #F2EEEB;
-        border: 2px solid #FD5B59;
     }
 
     &-bar-style-mode-night {
@@ -154,4 +160,58 @@
         background: #C7EDCB;
     }
 
+}
+
+.style-mode-active {
+    border: 2px solid #FD5B59;
+}
+
+.displaynone {
+    display: none;
+}
+
+@keyframes disappear {
+    from {bottom:0px;}
+    to {bottom:-316px;}
+}
+
+@keyframes appear {
+    from {bottom:-316px;}
+    to {bottom:0px;}
+}
+
+@keyframes disappear_right {
+    from {right:0px;}
+    to {right:-182px;}
+}
+
+@keyframes appear_right {
+    from {right:-182px;}
+    to {right:0px;}
+}
+
+.move_disappear {
+    animation: disappear 0.5s 1;
+    animation-fill-mode:forwards;
+    animation-timing-function: ease-out;
+}
+
+.move_appear {
+    animation: appear 0.5s 1;
+    animation-fill-mode:forwards;
+    animation-timing-function: ease-out;
+}
+
+
+
+.move_disappear_right {
+    animation: disappear_right 0.5s 1;
+    animation-fill-mode:forwards;
+    animation-timing-function: ease-out;
+}
+
+.move_appear_right {
+    animation: appear_right 0.5s 1;
+    animation-fill-mode:forwards;
+    animation-timing-function: ease-out;
 }
