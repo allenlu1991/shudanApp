@@ -150,7 +150,7 @@ export default class BookContent extends Component {
 
     //去除多余的换行符
     if(data && data.body) {
-      const body = data.body.replace(/(<br\s?\/?>)+/gi, '$1')
+      const body = data.body.replace(/(<br\s?\/?>\s*)+/gi, '$1').replace(/<(script|a).*?>.*?<\/(script|a)>/gi, '')
       wxParse.wxParse('article', 'html', body, this.$scope, 5)
     }
 

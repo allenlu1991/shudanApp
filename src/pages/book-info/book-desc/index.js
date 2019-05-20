@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
 import './index.scss'
-import bookCover from '@assets/search/book.jpg'
+import bookDefaultCover from '@assets/book-info/default_book.png'
 import upIcon from '@assets/book-info/up.png'
 import downIcon from '@assets/book-info/down.png'
 
@@ -21,7 +21,7 @@ export default class BookDesc extends Component {
     return (
       <View className='book-desc'>
         <View className='book-desc-base'>
-          <Image className='book-desc-base-cover' src={bookInfo.bookCover}></Image>
+          <Image className='book-desc-base-cover' src={!!bookInfo.bookCover ? bookInfo.bookCover : bookDefaultCover}></Image>
           <Text className='book-desc-base-name'>{bookInfo.bookName}</Text>
           <Text className='book-desc-base-author'>{bookInfo.author}</Text>
           <Text className='book-desc-base-site'>来源：{bookInfo.domainName}</Text>
