@@ -3,8 +3,8 @@
  * 只所以不在代码中直接引用，是因为 eslint 会报 no-undef 的错误，因此用如下方式处理
  */
 /* eslint-disable */
-const devMode = false
-// devMode = true
+let devMode = false
+devMode = true
 
 export const host = devMode ? HOST_DEV : HOST
 export const hostDev = HOST_DEV

@@ -26,6 +26,8 @@ class BookInfo extends Component {
     scrollViewStyle: {},
     loading: false,
     openSelector: false,
+    bookInfoData: {},
+    chaptersData: [],
   }
 
   onReadCurrent() {
@@ -81,6 +83,30 @@ class BookInfo extends Component {
           loading: false
         })
 
+        if(res.status=='success') {
+          
+
+          let bookInfoData = {
+            ...res.data,
+            chapters: res.data.chapters.slice(0,5)
+          }
+
+          this.setState({
+            bookInfoData,
+          })
+
+          let charptsPerNum = 1000
+          for (let index = 0; index < Math.ceil(res.data.chapters.length/charptsPerNum); index++) {
+            
+            //用回调函数保证执行顺序
+            this.forceUpdate(()=>{
+              this.state.chaptersData[index] = res.data.chapters.slice(index*charptsPerNum, (index+1)*charptsPerNum)
+            })
+
+            this.forceUpdate()
+          }
+        }
+ 
         const dataKey = md5(this.$router.params.url)
         Taro.setStorageSync(dataKey, res.data)
       })
@@ -95,24 +121,28 @@ class BookInfo extends Component {
   componentDidHide () { }
 
   render () {
+    console.log(this.state)
+
     if(this.state.loading) {
       return (
         <BookLoading />
       )
     }
 
+    
+
     if(!this.state.loading && this.props.bookInfoRes && this.props.bookInfoRes.status == 'success') {
       return (
         <View className='book-info'>
-          <ScrollView scrollY style={this.state.scrollViewStyle}>
+          {/* <ScrollView scrollY style={this.state.scrollViewStyle}>
             <BookDesc
-              bookInfo={this.props.bookInfoRes.data}
+              bookInfo={this.state.bookInfoData}
             />
             <View className='book-info-separator'></View>
             <BookChapters 
               //只要当 JSX 组件传入的参数是函数，参数名就必须以 on 开头
               onOpenSelector={this.onOpenSelector.bind(this)}
-              chaptersInfo={this.props.bookInfoRes.data}
+              chaptersInfo={this.state.bookInfoData}
               wd={this.$router.params.wd}
               url={this.$router.params.url}
             />
@@ -122,13 +152,13 @@ class BookInfo extends Component {
           />
 
           {
-          this.state.openSelector && 
-          <ChaptersSelector 
-            data={this.props.bookInfoRes.data}
-            onDisappear={this.onDisappear.bind(this)}
-            url={this.$router.params.url}
-          />
-          }
+          // this.state.openSelector && 
+          // <ChaptersSelector 
+          //   data={this.props.bookInfoRes.data}
+          //   onDisappear={this.onDisappear.bind(this)}
+          //   url={this.$router.params.url}
+          // />
+          } */}
         </View>
       )
     } else if(this.props.bookInfoRes.status == 'fail'){
