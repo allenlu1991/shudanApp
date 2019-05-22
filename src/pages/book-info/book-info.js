@@ -26,12 +26,15 @@ class BookInfo extends Component {
     scrollViewStyle: {},
     loading: false,
     openSelector: false,
-    bookInfoData: {},
-    chaptersData: [],
+  }
+
+  bookChapters = {
+
   }
 
   onReadCurrent() {
-    const {chapters,bookName,chaptersCount} = this.props.bookInfoRes.data
+    console.log(this.props)
+    const {chapters,bookName,chaptersCount} = this.props.bookInfoData
     const {url, wd} = this.$router.params
     Taro.navigateTo({
       url: '/pages/reader/reader?content_url=' + encodeURIComponent(chapters[0].chapter_url) + '&content_name=' + encodeURIComponent(chapters[0].title) + '&chapters_url=' + encodeURIComponent(url) + '&wd=' + encodeURIComponent(wd) + '&book_name=' + encodeURIComponent(bookName) + '&chapter_count=' + chaptersCount + '&chapter_num=' + 1
@@ -80,33 +83,9 @@ class BookInfo extends Component {
         wd: this.$router.params.wd,
       }).then((res)=>{
         this.setState({
-          loading: false
+          loading: false,
         })
-
-        if(res.status=='success') {
-          
-
-          let bookInfoData = {
-            ...res.data,
-            chapters: res.data.chapters.slice(0,5)
-          }
-
-          this.setState({
-            bookInfoData,
-          })
-
-          let charptsPerNum = 1000
-          for (let index = 0; index < Math.ceil(res.data.chapters.length/charptsPerNum); index++) {
-            
-            //用回调函数保证执行顺序
-            this.forceUpdate(()=>{
-              this.state.chaptersData[index] = res.data.chapters.slice(index*charptsPerNum, (index+1)*charptsPerNum)
-            })            
-          }
-
-          this.forceUpdate()
-        }
- 
+        
         const dataKey = md5(this.$router.params.url)
         Taro.setStorageSync(dataKey, res.data)
       })
@@ -114,14 +93,74 @@ class BookInfo extends Component {
     
   }
 
-  componentWillUnmount () { }
+  //小程序不支持一次性setData太多数据，因此也没有使用redux（调用action只是为了发起请求）
+  setStateSlice(res) {
+    if(res && res.status == 'success') {
+      let bookInfoData = {
+        ...res.data
+      }
+
+      let bookChaptersData = {
+        chapters: res.data.chapters
+      }
+
+      let chapterSliceArr = []
+      for (let index = 0; index < bookChaptersData.chapters.length; index+=1000) {
+        if(bookChaptersData.chapters.length - index >= 1000) {
+          chapterSliceArr.push(bookChaptersData.chapters.slice(index,index+1000))
+        } else {
+          chapterSliceArr.push(bookChaptersData.chapters.slice(index))
+        }
+        
+      }
+
+      for (let index = 0; index < chapterSliceArr.length; index++) {
+        const chaptersItem = chapterSliceArr[index];
+
+        const stateItem = {
+          ['chapters'+index]:chaptersItem, 
+        }
+
+        this.setState(stateItem)
+      }
+
+      this.setState({
+        chaptersSliceNum: chapterSliceArr.length
+      })
+      
+
+      if(bookInfoData.chapters && bookInfoData.chapters.length > 5) {
+        bookInfoData.chapters = bookInfoData.chapters.slice(0,5)
+      }
+
+      this.setState({
+        bookInfoData,
+      })
+
+
+    }
+  }
+
+  onScrollLower() {
+
+    let bookChaptersData = {
+      chapters: this.bookChapters.chapters.slice(2000,4000)
+    }
+
+    this.setState({
+      bookChaptersData
+    })
+  }
+
+  componentWillUnmount () { 
+
+  }
 
   componentDidShow () { }
 
   componentDidHide () { }
 
   render () {
-    console.log(this.state)
 
     if(this.state.loading) {
       return (
@@ -129,36 +168,42 @@ class BookInfo extends Component {
       )
     }
 
-    
+    if(!this.state.loading && this.props.bookInfoRes.status == 'success') {
 
-    if(!this.state.loading && this.props.bookInfoRes && this.props.bookInfoRes.status == 'success') {
+
       return (
         <View className='book-info'>
           <ScrollView scrollY style={this.state.scrollViewStyle}>
             <BookDesc
-              bookInfo={this.state.bookInfoData}
+              bookInfo={this.props.bookInfoData}
             />
+            
             <View className='book-info-separator'></View>
             <BookChapters 
               //只要当 JSX 组件传入的参数是函数，参数名就必须以 on 开头
               onOpenSelector={this.onOpenSelector.bind(this)}
-              chaptersInfo={this.state.bookInfoData}
+              chaptersInfo={this.props.bookInfoData}
               wd={this.$router.params.wd}
               url={this.$router.params.url}
             />
           </ScrollView>
+
           <ReadBar 
             onReadCurrent={this.onReadCurrent.bind(this)}
           />
 
           {
+
+
           this.state.openSelector && 
           <ChaptersSelector 
-            data={this.state.chaptersData}
+            // data={this.props.chaptersData}
             onDisappear={this.onDisappear.bind(this)}
             url={this.$router.params.url}
+            onScrollLower={this.onScrollLower.bind(this)}
           />
           }
+
         </View>
       )
     } else if(this.props.bookInfoRes.status == 'fail'){

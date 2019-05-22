@@ -12,11 +12,12 @@ import './reader.scss'
 
 
 import * as actions from '@actions/reader'
+import { dispatchGetOneChapter } from '@actions/book-info'
 
 let systemInfo = Taro.getSystemInfoSync();
 let ratio = systemInfo.windowWidth / 750;
 
-@connect(state => state.reader, { ...actions })
+@connect(state => state, { ...actions, dispatchGetOneChapter })
 class Read extends Component {
 
   config = {
@@ -128,7 +129,12 @@ class Read extends Component {
   }
 
   getBookContent(chaptersUrl, chapterNum = 1, wd='') {
-    const bookInfo = Taro.getStorageSync(md5(chaptersUrl))
+    this.props.dispatchGetOneChapter({
+      chapterNum,
+    })
+
+    // const bookInfo = Taro.getStorageSync(md5(chaptersUrl))
+    const bookInfo = this.props.bookInfo.bookInfoData
 
     if(!bookInfo) {
       Taro.showToast({
@@ -139,13 +145,13 @@ class Read extends Component {
       return
     }
 
-    if(chapterNum <= bookInfo.chapters.length && chapterNum >= 1) {
+    if(chapterNum <= bookInfo.chaptersCount && chapterNum >= 1) {
       this.setState({
         loading: true,
       })
 
-      let content_url = bookInfo.chapters[chapterNum-1].chapter_url
-      let content_name = bookInfo.chapters[chapterNum-1].title
+      let content_url = this.props.bookInfo.oneChapterInfo.chapter_url
+      let content_name = this.props.bookInfo.oneChapterInfo.title
       let chapters_url = chaptersUrl
       let book_name = bookInfo.bookName
       let chapter_count = bookInfo.chaptersCount
@@ -168,7 +174,7 @@ class Read extends Component {
         })
       })
 
-    }else if(chapterNum > bookInfo.chapters.length) {
+    }else if(chapterNum > bookInfo.chaptersCount) {
       Taro.showToast({
         title: '已是最后一章',
         icon: 'none',
@@ -215,10 +221,10 @@ class Read extends Component {
     Taro.setNavigationBarTitle({
       title: this.$router.params.book_name
     })
-
-    this.setState({
-      bookData: Taro.getStorageSync(md5(this.$router.params.chapters_url))
-    })
+    
+    // this.setState({
+    //   bookData: Taro.getStorageSync(md5(this.$router.params.chapters_url))
+    // })
   }
 
   componentWillUnmount () { }
@@ -228,6 +234,17 @@ class Read extends Component {
   componentDidHide () { }
 
   render () {
+    // let charptersData = {
+    //   chapters: this.state.bookData.chapters,
+    //   chaptersCount: this.state.bookData.chaptersCount
+    // }
+    if(this.props.reader.bookContent.status == 'fail') {
+      Taro.showToast({
+        title: '呜呜~ 书丢了',
+        icon: 'none',
+        duration: 2000,
+      })
+    }
     
     return (
       <View className='reader'>
@@ -260,7 +277,7 @@ class Read extends Component {
         {/* <UserGuide /> */}
         { this.state.showChapters &&
         <ChaptersSelector 
-          data={this.state.bookData}
+          // data={charptersData}
           onDisappear={this.onDisappear.bind(this)}
           url={this.$router.params.chapters_url}
           onGetBookContent={this.getBookContent.bind(this)}

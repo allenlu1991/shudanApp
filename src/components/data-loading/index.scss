@@ -1,0 +1,31 @@
+.data-loading {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 90px;
+    width: 100%;
+    
+    &-icon {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        border: 5px solid #BEBEBE;
+        border-left: 5px solid #D73226;
+        animation: loading 1s linear infinite;
+        margin-right: 16px;
+    }
+
+    &-text {
+        color: #989898;
+        font-size: 24px;
+        line-height: 30px;
+        height: 30px;
+    }
+}
+
+@keyframes loading
+{
+    from{transform:rotate(0deg);}
+    to{transform:rotate(360deg);}
+}

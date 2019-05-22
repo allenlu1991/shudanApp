@@ -1,7 +1,11 @@
 import {
   BOOK_INFO,
   OPEN_CHAPTERS,
-  CLOSE_CHAPTERS
+  CLOSE_CHAPTERS,
+  PRE_CHAPTERS,
+  NEXT_CHAPTERS,
+  CURRENT_CHAPTERS,
+  GET_ONE_CHAPTER,
 } from '@constants/book-info'
 
 import {
@@ -32,12 +36,56 @@ export const dispatchOpenChapters = payload => {
 }
 
 /**
- * 打开目录
+ * 关闭目录
  * @param {*} payload
  */
 export const dispatchCloseChapters = payload => {
   return({
     type: CLOSE_CHAPTERS,
+    payload
+  })
+}
+
+/**
+ * 获取下一部分目录
+ * @param {*} payload
+ */
+export const dispatchNextChapters = payload => {
+  return({
+    type: NEXT_CHAPTERS,
+    payload
+  })
+}
+
+/**
+ * 获取上一部分目录
+ * @param {*} payload
+ */
+export const dispatchPreChapters = payload => {
+  return({
+    type: PRE_CHAPTERS,
+    payload
+  })
+}
+
+/**
+ * 获取当前章节所在目录
+ * @param {*} payload
+ */
+export const dispatchCurrentChapters = payload => {
+  return({
+    type: CURRENT_CHAPTERS,
+    payload
+  })
+}
+
+/**
+ * 获取当前某一个章节信息
+ * @param {*} payload
+ */
+export const dispatchGetOneChapter = payload => {
+  return({
+    type: GET_ONE_CHAPTER,
     payload
   })
 }
