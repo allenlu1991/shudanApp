@@ -74,6 +74,9 @@ export default class ChaptersSelector extends Component {
     //     )
     // }
     const {data, currentChapterNum} = this.props
+    console.log(this.state)
+    console.log(this.props)
+
     return (
       <View className='chapters-selector'>
         <ScrollView className='chapters-selector-box' scrollY style={this.state.scrollViewStyle} >
@@ -84,7 +87,8 @@ export default class ChaptersSelector extends Component {
                 </View>
                 <View className='chapters-selector-box-separator'></View> */}
                 {
-                    data.chapters.map((item,index)=>{
+                    data[0].map((item,index)=>{
+                        
                         let itemTextStyle = 'chapters-selector-box-item-text'
                         if(currentChapterNum == index + 1) {
                             itemTextStyle = 'chapters-selector-box-item-text-selected'
@@ -99,7 +103,7 @@ export default class ChaptersSelector extends Component {
                             </View>
                         )
                     })
-                }
+                }    
                 
             </View>
         </ScrollView>

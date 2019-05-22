@@ -101,10 +101,10 @@ class BookInfo extends Component {
             //用回调函数保证执行顺序
             this.forceUpdate(()=>{
               this.state.chaptersData[index] = res.data.chapters.slice(index*charptsPerNum, (index+1)*charptsPerNum)
-            })
-
-            this.forceUpdate()
+            })            
           }
+
+          this.forceUpdate()
         }
  
         const dataKey = md5(this.$router.params.url)
@@ -134,7 +134,7 @@ class BookInfo extends Component {
     if(!this.state.loading && this.props.bookInfoRes && this.props.bookInfoRes.status == 'success') {
       return (
         <View className='book-info'>
-          {/* <ScrollView scrollY style={this.state.scrollViewStyle}>
+          <ScrollView scrollY style={this.state.scrollViewStyle}>
             <BookDesc
               bookInfo={this.state.bookInfoData}
             />
@@ -152,13 +152,13 @@ class BookInfo extends Component {
           />
 
           {
-          // this.state.openSelector && 
-          // <ChaptersSelector 
-          //   data={this.props.bookInfoRes.data}
-          //   onDisappear={this.onDisappear.bind(this)}
-          //   url={this.$router.params.url}
-          // />
-          } */}
+          this.state.openSelector && 
+          <ChaptersSelector 
+            data={this.state.chaptersData}
+            onDisappear={this.onDisappear.bind(this)}
+            url={this.$router.params.url}
+          />
+          }
         </View>
       )
     } else if(this.props.bookInfoRes.status == 'fail'){
