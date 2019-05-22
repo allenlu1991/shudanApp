@@ -106,6 +106,7 @@ class BookInfo extends Component {
             bookInfoData.chapters = bookInfoData.chapters.slice(0,5)
           }
 
+
           this.setState({
             bookInfoData,
             bookChaptersData,
@@ -118,6 +119,7 @@ class BookInfo extends Component {
           })
         }
         
+
         const dataKey = md5(this.$router.params.url)
         Taro.setStorageSync(dataKey, res.data)
       })
@@ -193,6 +195,8 @@ class BookInfo extends Component {
   componentDidHide () { }
 
   render () {
+    console.log(this.state)
+
     if(this.state.loading) {
       return (
         <BookLoading />
@@ -201,6 +205,7 @@ class BookInfo extends Component {
 
     console.log(this.state)
     if(!this.state.loading && this.state.bookStatus == 'success') {
+
 
       return (
         <View className='book-info'>
@@ -224,6 +229,7 @@ class BookInfo extends Component {
           />
 
           {
+
           this.state.openSelector && 
           <ChaptersSelector 
             data={this.state.bookChaptersData}
@@ -232,6 +238,7 @@ class BookInfo extends Component {
             onScrollLower={this.onScrollLower.bind(this)}
           />
           }
+
         </View>
       )
     } else if(this.state.bookStatus == 'fail'){
