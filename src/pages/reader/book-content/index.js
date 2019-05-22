@@ -173,6 +173,8 @@ export default class BookContent extends Component {
             </View>
           }
           
+          {
+          data && data.title &&
           <View className='book-content-container-chapterLink'>
             <View className="book-content-container-chapterLink-next" onClick={this.nextChapter.bind(this)}>下一章</View>
             <View className='book-content-container-chapterLink-otherlink'>
@@ -180,6 +182,7 @@ export default class BookContent extends Component {
               <View className="book-content-container-chapterLink-otherlink-chapterMenu" onClick={this.showChapters.bind(this)}>目录</View>
             </View>
           </View>
+          }
         </ScrollView>
     </View> 
     )

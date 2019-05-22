@@ -26,10 +26,10 @@ class BookInfo extends Component {
     scrollViewStyle: {},
     loading: false,
     openSelector: false,
-    bookInfoData: {},
-    chaptersSliceNum: 0,
-    bookChaptersData:{},
-    bookStatus: ''
+    // bookInfoData: {},
+    // chaptersSliceNum: 0,
+    // bookChaptersData:{},
+    // bookStatus: ''
   }
 
   bookChapters = {
@@ -89,35 +89,35 @@ class BookInfo extends Component {
           loading: false,
         })
         
-        if(res && res.status == 'success') {
-          let bookInfoData = {
-            ...res.data
-          }
+        // if(res && res.status == 'success') {
+        //   let bookInfoData = {
+        //     ...res.data
+        //   }
 
-          this.bookChapters = {
-            chapters: res.data.chapters
-          }
+        //   this.bookChapters = {
+        //     chapters: res.data.chapters
+        //   }
 
-          let bookChaptersData = {
-            chapters: res.data.chapters.slice(0,2000)
-          }
+        //   let bookChaptersData = {
+        //     chapters: res.data.chapters.slice(0,2000)
+        //   }
     
-          if(bookInfoData.chapters && bookInfoData.chapters.length > 5) {
-            bookInfoData.chapters = bookInfoData.chapters.slice(0,5)
-          }
+        //   if(bookInfoData.chapters && bookInfoData.chapters.length > 5) {
+        //     bookInfoData.chapters = bookInfoData.chapters.slice(0,5)
+        //   }
 
 
-          this.setState({
-            bookInfoData,
-            bookChaptersData,
-            bookStatus: 'success'
-          })
+        //   this.setState({
+        //     bookInfoData,
+        //     bookChaptersData,
+        //     bookStatus: 'success'
+        //   })
     
-        } else {
-          this.setState({
-            bookStatus: 'fail'
-          })
-        }
+        // } else {
+        //   this.setState({
+        //     bookStatus: 'fail'
+        //   })
+        // }
         
 
         const dataKey = md5(this.$router.params.url)
@@ -195,7 +195,6 @@ class BookInfo extends Component {
   componentDidHide () { }
 
   render () {
-    console.log(this.state)
 
     if(this.state.loading) {
       return (
@@ -203,22 +202,21 @@ class BookInfo extends Component {
       )
     }
 
-    console.log(this.state)
-    if(!this.state.loading && this.state.bookStatus == 'success') {
+    if(!this.state.loading && this.props.bookInfoRes.status == 'success') {
 
 
       return (
         <View className='book-info'>
           <ScrollView scrollY style={this.state.scrollViewStyle}>
             <BookDesc
-              bookInfo={this.state.bookInfoData}
+              bookInfo={this.props.bookInfoData}
             />
             
             <View className='book-info-separator'></View>
             <BookChapters 
               //只要当 JSX 组件传入的参数是函数，参数名就必须以 on 开头
               onOpenSelector={this.onOpenSelector.bind(this)}
-              chaptersInfo={this.state.bookInfoData}
+              chaptersInfo={this.props.bookInfoData}
               wd={this.$router.params.wd}
               url={this.$router.params.url}
             />
@@ -232,7 +230,7 @@ class BookInfo extends Component {
 
           this.state.openSelector && 
           <ChaptersSelector 
-            data={this.state.bookChaptersData}
+            // data={this.props.chaptersData}
             onDisappear={this.onDisappear.bind(this)}
             url={this.$router.params.url}
             onScrollLower={this.onScrollLower.bind(this)}
@@ -241,7 +239,7 @@ class BookInfo extends Component {
 
         </View>
       )
-    } else if(this.state.bookStatus == 'fail'){
+    } else if(this.props.bookInfoRes.status == 'fail'){
       Taro.showToast({
         icon: 'none',
         title: '呜呜~书丢了~',
