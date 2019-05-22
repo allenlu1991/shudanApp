@@ -228,6 +228,10 @@ class Read extends Component {
   componentDidHide () { }
 
   render () {
+    let charptersData = {
+      chapters: this.state.bookData.chapters,
+      chaptersCount: this.state.bookData.chaptersCount
+    }
     
     return (
       <View className='reader'>
@@ -260,7 +264,7 @@ class Read extends Component {
         {/* <UserGuide /> */}
         { this.state.showChapters &&
         <ChaptersSelector 
-          data={this.state.bookData}
+          data={charptersData}
           onDisappear={this.onDisappear.bind(this)}
           url={this.$router.params.chapters_url}
           onGetBookContent={this.getBookContent.bind(this)}

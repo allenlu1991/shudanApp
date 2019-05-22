@@ -67,6 +67,10 @@ export default class ChaptersSelector extends Component {
     })
   }
 
+  scrollLower() {
+    this.props.onScrollLower()
+  }
+
   render () {
     // if(this.state.loading) {
     //     return(
@@ -76,7 +80,7 @@ export default class ChaptersSelector extends Component {
     const {data, currentChapterNum} = this.props
     return (
       <View className='chapters-selector'>
-        <ScrollView className='chapters-selector-box' scrollY style={this.state.scrollViewStyle} >
+        <ScrollView className='chapters-selector-box' scrollY style={this.state.scrollViewStyle} onScrollToLower={this.scrollLower.bind(this)}>
             <View className='chapters-selector-box-container'>
                 {/* <View className='chapters-selector-box-item'>
                     <Text className='chapters-selector-box-item-text-selected'>第10章 你的身上，有一个凶兆！</Text>
@@ -89,6 +93,7 @@ export default class ChaptersSelector extends Component {
                         if(currentChapterNum == index + 1) {
                             itemTextStyle = 'chapters-selector-box-item-text-selected'
                         }
+                          
                         return(
                             <View taroKey={index}>
                                 <View className='chapters-selector-box-item' onClick={this.chapterClickHandle.bind(this, item.chapter_url, item.title, data.bookName, data.chaptersCount, index+1)}>
@@ -98,6 +103,7 @@ export default class ChaptersSelector extends Component {
                                 <View className='chapters-selector-box-separator'></View>
                             </View>
                         )
+
                     })
                 }
                 

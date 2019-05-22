@@ -11,12 +11,12 @@ const INITIAL_STATE = {
 
 export default function bookInfo(state = INITIAL_STATE, action) {
   switch(action.type) {
-    case BOOK_INFO: {
-      return {
-        ...state,
-        bookInfoRes: action.payload,
-      }
-    }
+    // case BOOK_INFO: {
+    //   return {
+    //     ...state,
+    //     bookInfoRes: action.payload,
+    //   }
+    // }
     case OPEN_CHAPTERS: {
       return {
         ...state,
