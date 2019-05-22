@@ -215,7 +215,7 @@ class Read extends Component {
     Taro.setNavigationBarTitle({
       title: this.$router.params.book_name
     })
-
+    
     // this.setState({
     //   bookData: Taro.getStorageSync(md5(this.$router.params.chapters_url))
     // })
@@ -232,6 +232,13 @@ class Read extends Component {
     //   chapters: this.state.bookData.chapters,
     //   chaptersCount: this.state.bookData.chaptersCount
     // }
+    if(this.props.bookContent.status == 'fail') {
+      Taro.showToast({
+        title: '呜呜~ 书丢了',
+        icon: 'none',
+        duration: 2000,
+      })
+    }
     
     return (
       <View className='reader'>
