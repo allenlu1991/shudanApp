@@ -32,3 +32,20 @@ export function getContentInfo(contentKey) {
 export function setContentInfo(contentKey, contentData) {
     Taro.setStorageSync(contentKey, contentData)
 }
+
+/**
+ * 获取记录信息
+ * @param {*} key
+ */
+export function getBookRecord(key) {
+    return Taro.getStorageSync(key)
+}
+
+/**
+ * 设置记录信息
+ * @param {*} key
+ * @param {*} data
+ */
+export function setBookRecord(key, data) {
+    Taro.setStorageSync(key, data)
+}

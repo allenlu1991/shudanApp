@@ -13,11 +13,12 @@ import './reader.scss'
 
 import * as actions from '@actions/reader'
 import { dispatchGetOneChapter } from '@actions/book-info'
+import { dispatchInsertOneRecord } from '@actions/read-record'
 
 let systemInfo = Taro.getSystemInfoSync();
 let ratio = systemInfo.windowWidth / 750;
 
-@connect(state => state, { ...actions, dispatchGetOneChapter })
+@connect(state => state, { ...actions, dispatchGetOneChapter, })
 class Read extends Component {
 
   config = {
@@ -44,8 +45,6 @@ class Read extends Component {
       lineHeight: 60*ratio,
     },
   }
-
-  
 
   onDisappear() {
     this.setState({
@@ -191,6 +190,19 @@ class Read extends Component {
     }
   }
 
+  // setReadRecord({chaptersUrl, bookName, bookCover, chapterNum, }) {
+  //   let shelfData = {
+  //     bookInfo: {
+  //       url: chaptersUrl,
+  //       name: bookName,
+  //       cover: bookCover,
+  //     },
+  //     readNum: chapterNum,
+  //     laterScrollTop: 0, //上次滑动的距离
+  //     lastTime: this.getNowFormatDate(),
+  //   }
+  // }
+
   componentWillReceiveProps (nextProps) {
     // console.log(this.props, nextProps)
   }
@@ -221,10 +233,6 @@ class Read extends Component {
     Taro.setNavigationBarTitle({
       title: this.$router.params.book_name
     })
-    
-    // this.setState({
-    //   bookData: Taro.getStorageSync(md5(this.$router.params.chapters_url))
-    // })
   }
 
   componentWillUnmount () { }
@@ -234,10 +242,6 @@ class Read extends Component {
   componentDidHide () { }
 
   render () {
-    // let charptersData = {
-    //   chapters: this.state.bookData.chapters,
-    //   chaptersCount: this.state.bookData.chaptersCount
-    // }
     if(this.props.reader.bookContent.status == 'fail') {
       Taro.showToast({
         title: '呜呜~ 书丢了',
