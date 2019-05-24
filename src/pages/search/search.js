@@ -4,7 +4,6 @@ import { connect } from '@tarojs/redux'
 
 import * as actions from '@actions/search'
 import { dispatchGetAllRecord } from '@actions/read-record'
-import { getBookRecordCache } from '@utils/cache'
 
 import { BookLoading } from '@components'
 import Logo from './Logo'
@@ -38,7 +37,7 @@ class Search extends Component {
     this.props.dispatchHotWords({
       n: 1
     })
-    
+
     this.props.dispatchGetAllRecord()
   }
 
@@ -51,15 +50,6 @@ class Search extends Component {
   componentDidHide () { }
 
   render () {
-    Taro.setNavigationBarColor({
-      frontColor: '#000000',
-      backgroundColor: '#ffffff',
-      animation: {
-        duration: 0,
-        timingFunc: 'linear'
-      }
-    })
-
     let {bookShelfData} = this.props.readRecord
 
     let isShowRecord = !!bookShelfData && bookShelfData.length > 0

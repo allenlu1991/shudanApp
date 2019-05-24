@@ -71,7 +71,66 @@ export function setBookRecordCache(oneRecord) {
 
     bookShelfData.unshift(oneRecord)
 
+    //最多保留30本小说记录
+    if(bookShelfData.length > 30) {
+        bookShelfData.pop()
+    }
+
     Taro.setStorageSync(cachekey, bookShelfData)
 
     return bookShelfData
+}
+
+/**
+ * 获取搜索记录
+ * @param {*} key
+ */
+export function getSearchRecord() {
+    let cachekey = 'searchRecord'
+    let searchRecord = Taro.getStorageSync(cachekey)
+    if(!searchRecord){
+        searchRecord = []
+    }
+    return searchRecord
+}
+
+/**
+ * 设置搜索记录
+ * @param {*} key
+ * @param {*} data
+ */
+export function setSearchRecord(data) {
+    let cachekey = 'searchRecord'
+    let searchRecord = Taro.getStorageSync(cachekey)
+    if(!searchRecord){
+        searchRecord = []
+    }
+
+    let index = searchRecord.indexOf(data)
+    if(index > -1) { //存在则删除
+        searchRecord.splice(index, 1)
+    }
+
+    searchRecord.unshift(data)
+
+    if(searchRecord.length > 10) {
+        searchRecord.pop()
+    }
+
+    Taro.setStorageSync(cachekey, searchRecord)
+
+    return searchRecord
+}
+
+/**
+ * 设置搜索记录
+ * @param {*} key
+ * @param {*} data
+ */
+export function clearSearchRecord() {
+    let cachekey = 'searchRecord'
+    let searchRecord = []
+
+    Taro.setStorageSync(cachekey, searchRecord)
+    return searchRecord
 }

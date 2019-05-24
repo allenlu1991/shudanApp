@@ -11,34 +11,6 @@ import wxParse from './wxParse/wxParse'
 let systemInfo = Taro.getSystemInfoSync();
 let ratio = systemInfo.windowWidth / 750;
 
-// let readerStyle = {
-//   titleSize: 40*ratio,
-//   contentSize: 32*ratio,
-//   lineHeight: 60*ratio,
-//   // color: '#333', //夜间 #424952
-//   color: '#7C7674',
-  
-//   backgroundColor: '#F2EEEA' //#C7EDCC 护眼色  #080C10 黑夜
-// }
-
-// let readerStyle = {
-//   titleSize: 40*ratio,
-//   contentSize: 32*ratio,
-//   // color: '#333', //夜间 #424952
-//   color: '#424952',
-//   lineHeight: 60*ratio,
-//   backgroundColor: '#080C10' //#C7EDCC 护眼色  #080C10 黑夜
-// }
-
-// let readerStyle = {
-//   titleSize: 40*ratio,
-//   contentSize: 32*ratio,
-//   // color: '#333', //夜间 #424952
-//   color: '#333',
-//   lineHeight: 60*ratio,
-//   backgroundColor: '#C7EDCC' //#C7EDCC 护眼色  #080C10 黑夜
-// }
-
 export default class BookContent extends Component {
   static defaultProps = {
     data: {
@@ -125,7 +97,7 @@ export default class BookContent extends Component {
         })
         break
       }
-      default:
+      case 'normal': {
         Taro.setNavigationBarColor({
           frontColor: '#000000',
           backgroundColor: '#F2EEEA',
@@ -134,6 +106,9 @@ export default class BookContent extends Component {
             timingFunc: 'linear'
           }
         })
+        break
+      }
+      default:
         break;
     }
 

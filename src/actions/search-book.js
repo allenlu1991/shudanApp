@@ -1,5 +1,8 @@
 import {
-  SEARCH_BOOK
+  SEARCH_BOOK,
+  GET_SEARCH_RECORD,
+  SET_SEARCH_RECORD,
+  CLEAR_SEARCH_RECORD,
 } from '@constants/search-book'
 
 import {
@@ -9,7 +12,7 @@ import {
 import { createAction } from '@utils/redux'
 
 /**
- * 热门搜索词数据
+ * 获取搜索结果
  * @param {*} payload
  */
 export const dispatchSearchBook = payload => createAction({
@@ -17,3 +20,36 @@ export const dispatchSearchBook = payload => createAction({
   type: SEARCH_BOOK,
   payload
 })
+
+/**
+ * 添加搜索记录
+ * @param {*} payload
+ */
+export const dispatchSetSearchRecord = payload => {
+  return {
+    type: SET_SEARCH_RECORD,
+    payload
+  } 
+}
+
+/**
+ * 获取搜索记录
+ * @param {*} payload
+ */
+export const dispatchGetSearchRecord = payload => {
+  return {
+    type: GET_SEARCH_RECORD,
+    payload
+  } 
+}
+
+/**
+ * 清楚搜索记录
+ * @param {*} payload
+ */
+export const dispatchClearSearchRecord = payload => {
+  return {
+    type: CLEAR_SEARCH_RECORD,
+    payload
+  } 
+}

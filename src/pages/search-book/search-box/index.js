@@ -16,14 +16,26 @@ export default class SearchBox extends Component {
     if(!!wd) {
       this.setState({
         inputValue: wd,
-        focus: false
+        focus: false,
+        cancle: true,
       })
       this.searchByWd(wd)
     }
   }
 
   searchByWd(wd) {
+    if(!wd) {
+      Taro.showToast({
+        title: '搜索不能为空哦~',
+        icon: 'none',
+        duration: 2000,
+      })
+
+      return
+    }
+
     this.props.onSearchLoading({
+      wd,
       loading: true
     })
 
@@ -32,7 +44,8 @@ export default class SearchBox extends Component {
     }).then((res)=>{
       this.props.onSearchLoading({
         wd,
-        loading: false
+        loading: false,
+        searched: true,
       })
     })
   }
@@ -43,26 +56,32 @@ export default class SearchBox extends Component {
   }
 
   changeHandle(e) {
-    let inputValue = e.target.value;
-    if(!!inputValue) {
+    let inputValue = e.target.value
+    this.changeInputValue(inputValue)
+  }
+  
+  changeInputValue(value) {
+    this.props.onSearchLoading({
+      wd: value,
+    })
+
+    if(!!value) {
       this.setState({
         cancle: true,
-        inputValue
+        inputValue: value,
+        focus: true,
       })
-    }else {
+    } else {
       this.setState({
         cancle: false,
-        inputValue
+        inputValue: value,
+        focus: true,
       })
     }
   }
 
   clearInput() {
-    this.setState({
-      cancle: false,
-      inputValue: '',
-      focus: true,
-    })
+    this.changeInputValue('')
   }
 
   blurHandle() {

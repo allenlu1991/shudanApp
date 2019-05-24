@@ -9,7 +9,7 @@ import Nodata from './no-data'
 import './my.scss'
 
 
-
+@connect(state => state.readRecord)
 class My extends Component {
 
   config = {
@@ -17,7 +17,7 @@ class My extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    console.log(this.props, nextProps)
+    // console.log(this.props, nextProps)
   }
 
   componentWillUnmount () { }
@@ -29,9 +29,19 @@ class My extends Component {
   render () {
     return (
       <View className='my'>
-        <UserInfo />
-        {/* <Nodata /> */}
-        <ReadRecordContent />
+        <UserInfo 
+          userInfo = {{
+            readBookCount: this.props.bookShelfData.length,
+          }}
+        />
+        {
+          this.props.bookShelfData.length == 0 &&
+          <Nodata />
+        }
+        {
+          this.props.bookShelfData.length > 0 &&
+          <ReadRecordContent />
+        }
         {/* <WeLogin /> */}
       </View>
     )

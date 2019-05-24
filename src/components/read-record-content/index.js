@@ -6,7 +6,7 @@ import { connect } from '@tarojs/redux'
 
 import { getBookRecord, setBookRecord } from '@utils/cache'
 
-import bookCover from '@assets/search/book.jpg'
+import defaultCover from '@assets/book-info/default_book.png'
 import * as actions from '@actions/read-record'
 
 @connect(state => state.readRecord, { ...actions })
@@ -29,7 +29,7 @@ export default class ReadRecordContent extends Component {
           return(
             <View taroKey={index}>
               <View className='read-record-content-item' onClick={this.readCurrent.bind(this, item)}>
-                <Image className='read-record-content-item-cover' src={item.cover}></Image>
+                <Image className='read-record-content-item-cover' src={!!item.cover?item.cover:defaultCover}></Image>
                 <View className='read-record-content-item-info'>
                   <Text className='read-record-content-item-info-name'>{item.name}</Text>
                   <Text className='read-record-content-item-info-lastread'>读至 {item.chapterName}(共{item.chapterCount}章)</Text>

@@ -21,10 +21,21 @@ class SearchBook extends Component {
   state = {
     loading: false,
     wd: '',
+    searched: false,
   }
 
-  onSearchLoading= (loadingStatus={}) => {
-    this.setState(loadingStatus)
+  onSearchLoading= ({wd, loading, searched = false}) => {
+    this.setState({
+      wd,
+      loading,
+      searched
+    })
+
+    if(!!wd && searched == true) {
+      this.props.dispatchSetSearchRecord({
+        wd,
+      })
+    }
   }
 
   componentWillReceiveProps (nextProps) {
@@ -52,10 +63,17 @@ class SearchBook extends Component {
           onSearchLoading={this.onSearchLoading}
           wd={this.state.wd}
         />
-        {/* <SearchHistory /> */}
+
+       {
+         !this.state.wd &&
+         <SearchHistory 
+          dispatchSearchBook={this.props.dispatchSearchBook}
+          onSearchLoading={this.onSearchLoading}
+         />
+       } 
         {this.state.loading && <SearchLoading />}
         {
-          !this.state.loading && !!this.state.wd &&
+          !this.state.loading && this.state.searched && !!this.state.wd &&
           <SearchResults
             list={this.props.results}
             wd={this.state.wd}

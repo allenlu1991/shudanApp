@@ -4,7 +4,7 @@
  */
 /* eslint-disable */
 let devMode = false
-devMode = true
+// devMode = true
 
 export const host = devMode ? HOST_DEV : HOST
 export const hostDev = HOST_DEV

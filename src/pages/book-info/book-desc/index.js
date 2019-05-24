@@ -27,14 +27,19 @@ export default class BookDesc extends Component {
           <Text className='book-desc-base-site'>来源：{bookInfo.domainName}</Text>
         </View>
         <View className='book-desc-separator'></View>
-        <View className='book-desc-abstract' onClick={this.abstractClickHandle.bind(this)}>
-          <View className={this.state.fold ? 'book-desc-abstract-text book-desc-abstract-text-fold' : 'book-desc-abstract-text'}>
-          {bookInfo.bookAbstract}
+
+        {
+          !!bookInfo.bookAbstract && 
+          <View className='book-desc-abstract' onClick={this.abstractClickHandle.bind(this)}>
+            <View className={this.state.fold ? 'book-desc-abstract-text book-desc-abstract-text-fold' : 'book-desc-abstract-text'}>
+            {bookInfo.bookAbstract}
+            </View>
+            <View className='book-desc-abstract-bttn'>
+              <Image className='book-desc-abstract-bttn-icon' src={this.state.fold ? downIcon : upIcon}></Image>
+            </View>
           </View>
-          <View className='book-desc-abstract-bttn'>
-            <Image className='book-desc-abstract-bttn-icon' src={this.state.fold ? downIcon : upIcon}></Image>
-          </View>
-        </View>
+        }
+        
       </View>
     )
   }

@@ -85,6 +85,13 @@ class BookInfo extends Component {
         this.setState({
           loading: false,
         })
+
+        if(res.status == 'fail'){
+          Taro.showToast({
+            icon: 'none',
+            title: '呜呜~书丢了~',
+          })
+        }
         
         // const dataKey = md5(this.$router.params.url)
         // Taro.setStorageSync(dataKey, res.data)
@@ -206,11 +213,6 @@ class BookInfo extends Component {
 
         </View>
       )
-    } else if(this.props.bookInfoRes.status == 'fail'){
-      Taro.showToast({
-        icon: 'none',
-        title: '呜呜~书丢了~',
-      })
     }
 
   }

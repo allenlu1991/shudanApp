@@ -99,7 +99,6 @@ class Read extends Component {
   }
 
   onIncSize() {
-    // console.log(ratio,this.state.readerFontCss.titleSize/ratio,this.state.readerFontCss.titleSize)
     if (this.state.readerFontCss.titleSize >= 50*ratio) {
       Taro.showToast({
         title: '已经是最大号字啦~',
@@ -116,7 +115,6 @@ class Read extends Component {
   }
 
   onDecSize() {
-    // console.log(ratio,this.state.readerFontCss.titleSize/ratio,this.state.readerFontCss.titleSize)
     if (this.state.readerFontCss.titleSize <= 30*ratio) {
       Taro.showToast({
         title: '已经是最小号字啦~',
@@ -144,7 +142,6 @@ class Read extends Component {
       chapterNum,
     })
 
-    // const bookInfo = Taro.getStorageSync(md5(chaptersUrl))
     const bookInfo = this.props.bookInfo.bookInfoData
 
     if(!bookInfo) {
@@ -202,8 +199,12 @@ class Read extends Component {
           }
 
           this.props.dispatchUpdateOneRecord(shelfData)
-           //记录信息
-          // this.setReadRecord(chapters_url, book_name, book_cover, chapter_num)
+        } else {
+          Taro.showToast({
+            title: '呜呜~ 书丢了',
+            icon: 'none',
+            duration: 2000,
+          })
         }
        
       })
@@ -233,18 +234,6 @@ class Read extends Component {
     }
   }
 
-  // setReadRecord(chaptersUrl, bookName, bookCover, chapterNum, laterScrollTop = 0) {
-  //   let shelfData = {
-  //     url: chaptersUrl,
-  //     name: bookName,
-  //     cover: bookCover,
-  //     readNum: chapterNum,
-  //     laterScrollTop, //上次滑动的距离
-  //     lastTime: getNowFormatDate(),
-  //   }
-  //   setBookRecordCache(shelfData)
-  // }
-
   componentWillReceiveProps (nextProps) {
     // console.log(this.props, nextProps)
   }
@@ -257,7 +246,6 @@ class Read extends Component {
         loading: true,
       })
   
-      // console.log(this.props)
       this.props.dispatchBookInfo({
         url: chapters_url,
         wd,
@@ -267,30 +255,10 @@ class Read extends Component {
         })
   
         this.getBookContent(chapters_url, parseInt(chapter_num), wd)
-        // const dataKey = md5(this.$router.params.url)
-        // Taro.setStorageSync(dataKey, res.data)
       })
     } else {
       this.getBookContent(chapters_url, parseInt(chapter_num), wd)
     }
-
-    // this.props.dispatchBookContent({
-    //   content_url,
-    //   content_name,
-    //   chapters_url,
-    //   wd,
-    //   book_name,
-    //   chapter_count,
-    //   chapter_num,
-    // }).then((res)=>{
-    //   this.setState({
-    //     loading: false,
-    //     currentChapterNum: !!chapter_num ? parseInt(chapter_num) : 1,
-    //     chaptersUrl: chapters_url,
-    //     wd: wd,
-    //     contentData: res.data
-    //   })
-    // })
   }
 
   componentDidMount() {
@@ -306,14 +274,6 @@ class Read extends Component {
   componentDidHide () { }
 
   render () {
-    if(this.props.reader.bookContent.status == 'fail') {
-      Taro.showToast({
-        title: '呜呜~ 书丢了',
-        icon: 'none',
-        duration: 2000,
-      })
-    }
-    
     return (
       <View className='reader'>
         {this.state.loading && <BookLoading />}
