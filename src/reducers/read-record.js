@@ -1,27 +1,30 @@
+import { setBookRecordCache, getBookRecordCache } from '@utils/cache'
+
 import {
   GET_ALL_RECORD,
-  INSERT_ONE_RECORD,
   UPDATE_ONE_RECORD,
 } from '@constants/read-record'
 
 const INITIAL_STATE = {
-  hotWords: []
+  bookShelfData: []
 }
 
 export default function readRecord(state = INITIAL_STATE, action) {
   switch(action.type) {
-    // case HOT_WORDS: {
-    //   return {
-    //     ...state,
-    //     hotWords: action.payload
-    //   }
-    // }
-    // case HOME_INFO: {
-    //   return {
-    //     ...state,
-    //     homeInfo: action.payload
-    //   }
-    // }
+    case UPDATE_ONE_RECORD: {
+      let bookShelfData = setBookRecordCache(action.payload)
+      return {
+        ...state,
+        bookShelfData,
+      }
+    }
+    case GET_ALL_RECORD: {
+      let bookShelfData = getBookRecordCache()
+      return {
+        ...state,
+        bookShelfData,
+      }
+    }
     // case HOME_SEARCH_COUNT: {
     //   return {
     //     ...state,

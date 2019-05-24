@@ -33,7 +33,7 @@ class BookInfo extends Component {
   }
 
   onReadCurrent() {
-    console.log(this.props)
+    // console.log(this.props)
     const {chapters,bookName,chaptersCount} = this.props.bookInfoData
     const {url, wd} = this.$router.params
     Taro.navigateTo({
@@ -86,8 +86,8 @@ class BookInfo extends Component {
           loading: false,
         })
         
-        const dataKey = md5(this.$router.params.url)
-        Taro.setStorageSync(dataKey, res.data)
+        // const dataKey = md5(this.$router.params.url)
+        // Taro.setStorageSync(dataKey, res.data)
       })
     }
     

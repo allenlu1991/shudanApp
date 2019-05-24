@@ -3,6 +3,8 @@ import { View, Button, Text } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 
 import * as actions from '@actions/search'
+import { dispatchGetAllRecord } from '@actions/read-record'
+import { getBookRecordCache } from '@utils/cache'
 
 import { BookLoading } from '@components'
 import Logo from './Logo'
@@ -12,7 +14,12 @@ import ReadRecord from './readrecord'
 
 import './search.scss'
 
-@connect(state => state.search, { ...actions })
+@connect(state => {
+  return {
+    readRecord: state.readRecord,
+    search: state.search,
+  }
+}, { ...actions, dispatchGetAllRecord })
 class Search extends Component {
 
   config = {
@@ -28,20 +35,15 @@ class Search extends Component {
   componentWillUnmount () { }
 
   componentWillMount() {
-    // Taro.setNavigationBarColor({
-    //   frontColor: '#000000',
-    //   backgroundColor: '#ffffff',
-    //   animation: {
-    //     duration: 0,
-    //     timingFunc: 'linear'
-    //   }
-    // })
+    this.props.dispatchHotWords({
+      n: 1
+    })
+    
+    this.props.dispatchGetAllRecord()
   }
 
   componentDidMount() {
-    this.props.dispatchHotWords({
-      n: 1
-    });
+    
   }
 
   componentDidShow () { }
@@ -58,18 +60,36 @@ class Search extends Component {
       }
     })
 
+    let {bookShelfData} = this.props.readRecord
+
+    let isShowRecord = !!bookShelfData && bookShelfData.length > 0
+
     return (
       <View className='search'>
-        {/* <View style={{height:'40px', width: '100%'}}></View> */}
+        {
+        !isShowRecord &&
+        <View style={{height:'40px', width: '100%'}}></View>
+        }
         <Logo />
-        {/* <View style={{height:'15px', width: '100%'}}></View> */}
+        {
+        !isShowRecord &&
+        <View style={{height:'15px', width: '100%'}}></View>
+        }
         <SearchBox />
         <HotWords 
-          list={this.props.hotWords}
+          list={this.props.search.hotWords}
           hotWordsRefresh={this.props.dispatchHotWords}
         />
-        <View className='search-separator'></View>
-        <ReadRecord />
+        
+        {
+          isShowRecord && 
+          <View className='search-separator'></View>
+        }
+        {
+          isShowRecord && 
+          <ReadRecord />
+        }
+
         {/* <BookLoading /> */}
       </View>
     )

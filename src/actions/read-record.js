@@ -1,13 +1,13 @@
 import {
   GET_ALL_RECORD,
-  INSERT_ONE_RECORD,
   UPDATE_ONE_RECORD,
 } from '@constants/read-record'
-import {
-    API_HOT_WORDS
-} from '@constants/api'
 
-import { createAction } from '@utils/redux'
+// import {
+//     API_HOT_WORDS
+// } from '@constants/api'
+
+// import { createAction } from '@utils/redux'
 
 /**
  * 热门搜索词数据
@@ -23,9 +23,16 @@ import { createAction } from '@utils/redux'
  * 插入一条记录
  * @param {*} payload
  */
-export const dispatchInsertOneRecord = payload => {
+export const dispatchUpdateOneRecord = payload => {
   return({
-    type: INSERT_ONE_RECORD,
+    type: UPDATE_ONE_RECORD,
+    payload
+  })
+}
+
+export const dispatchGetAllRecord = payload => {
+  return({
+    type: GET_ALL_RECORD,
     payload
   })
 }

@@ -37,8 +37,13 @@ export function setContentInfo(contentKey, contentData) {
  * 获取记录信息
  * @param {*} key
  */
-export function getBookRecord(key) {
-    return Taro.getStorageSync(key)
+export function getBookRecordCache() {
+    let cachekey = 'bookShelfData'
+    let bookShelfData = Taro.getStorageSync(cachekey)
+    if(!bookShelfData){
+        bookShelfData = []
+    }
+    return bookShelfData
 }
 
 /**
@@ -46,6 +51,27 @@ export function getBookRecord(key) {
  * @param {*} key
  * @param {*} data
  */
-export function setBookRecord(key, data) {
-    Taro.setStorageSync(key, data)
+export function setBookRecordCache(oneRecord) {
+    let cachekey = 'bookShelfData'
+    let bookShelfData = Taro.getStorageSync(cachekey)
+    if(!bookShelfData){
+        bookShelfData = []
+    }
+
+    let index;
+    bookShelfData.forEach((item, i) => {
+        if(item.url == oneRecord.url){
+            index = i
+        }
+    })
+    
+    if(index !== undefined) { //如果存在，则删除元素
+        bookShelfData.splice(index, 1)
+    }
+
+    bookShelfData.unshift(oneRecord)
+
+    Taro.setStorageSync(cachekey, bookShelfData)
+
+    return bookShelfData
 }
