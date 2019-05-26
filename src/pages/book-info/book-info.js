@@ -77,11 +77,13 @@ class BookInfo extends Component {
       loading: true,
       scrollViewStyle
     })
+    
     if(this.$router.params && this.$router.params.url && this.$router.params.wd) {
       this.props.dispatchBookInfo({
         url:this.$router.params.url,
         wd: this.$router.params.wd,
       }).then((res)=>{
+        console.log(res)
         this.setState({
           loading: false,
         })
@@ -166,6 +168,16 @@ class BookInfo extends Component {
   componentDidShow () { }
 
   componentDidHide () { }
+
+  onShareAppMessage (res) {
+    
+    let {bookName} = this.props.bookInfoData
+
+    return {
+      title: bookName,
+      path: '/pages/book-info/book-info?url=' + (this.$router.params.url) + '&wd=' + ('share')
+    }
+  }
 
   render () {
 

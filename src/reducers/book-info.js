@@ -1,3 +1,6 @@
+import { setBookInfoCache } from '@utils/cache'
+import md5 from 'md5'
+
 import {
   BOOK_INFO,
   OPEN_CHAPTERS,
@@ -18,7 +21,7 @@ const INITIAL_STATE = {
   currentChapterSliceNum: 1,
   isFirstChapterSlice: true,
   isLastChapterSlice: false,
-  chaptersNumPerSlice: 2000,
+  chaptersNumPerSlice: 100,
   oneChapterInfo: {},
 }
 
@@ -30,15 +33,22 @@ export default function bookInfo(state = INITIAL_STATE, action) {
       if(action.payload.status == 'success') {
         bookInfoData = {
           ...action.payload.data,
+          ...action.reqPayload,
           chapters: action.payload.data.chapters.slice(0,5)
         }
         chaptersData = {
+          ...action.reqPayload,
           chapters: action.payload.data.chapters.slice(0,state.chaptersNumPerSlice)
         }
 
         bookInfoAllData = {
           ...action.payload.data,
+          ...action.reqPayload,
         }
+
+        let bookKey = md5(action.reqPayload.url)
+        //缓存模块会维护更新策略
+        setBookInfoCache(bookKey, action.payload)
       }
       return {
         ...state,

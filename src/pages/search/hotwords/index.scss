@@ -80,6 +80,11 @@
         font-size: 28px;
         font-family: PingFangSC-Regular;
         color: #282828;
+        overflow : hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
     }
 
     &-content-item-firstnum {
@@ -93,6 +98,7 @@
         text-align: center;
         line-height: 40px;
         margin-right: 12px;
+        flex-shrink: 0;
     }
 
     &-content-item-secondnum {
@@ -106,6 +112,7 @@
         text-align: center;
         line-height: 40px;
         margin-right: 12px;
+        flex-shrink: 0;
     }
 
     &-content-item-thirdnum {
@@ -119,6 +126,7 @@
         text-align: center;
         line-height: 40px;
         margin-right: 12px;
+        flex-shrink: 0;
     }
 
     &-content-item-othernum {
@@ -132,5 +140,6 @@
         text-align: center;
         line-height: 40px;
         margin-right: 12px;
+        flex-shrink: 0;
     }
 }

@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Image } from '@tarojs/components'
+import { View, Text, Image, Button } from '@tarojs/components'
 import './index.scss'
 
 export default class BookMenu extends Component {
@@ -26,6 +26,26 @@ export default class BookMenu extends Component {
 
   decSize() {
     this.props.onDecSize()
+  }
+
+  goBackHome() {
+    Taro.switchTab({
+      url: '/pages/search/search'
+    })
+  }
+
+  checkSite() {
+    Taro.showModal({
+      title: '书籍源地址',
+      content: '内容来自\r\n' + this.props.url + '\r\n书单查查不储存任何内容',
+      confirmText: '复制链接',
+    }).then((res)=>{
+      if(res.confirm) {
+        Taro.setClipboardData({
+          data: this.props.url,
+        })
+      }
+    })
   }
 
   render () {
@@ -64,9 +84,9 @@ export default class BookMenu extends Component {
     return (
       <View className='book-menu'>
         <View className={sideBarStyle}>
-          <View className='book-menu-sidebar-share'>分享书籍</View>
-          <View className='book-menu-sidebar-site'>查看源址</View>
-          <View className='book-menu-sidebar-home'>返回首页</View>
+          <Button className='book-menu-sidebar-share' open-type="share">分享书籍</Button>
+          <View className='book-menu-sidebar-site' onClick={this.checkSite.bind(this)}>查看源址</View>
+          <View className='book-menu-sidebar-home' onClick={this.goBackHome.bind(this)}>返回首页</View>
         </View>
 
         <View className={menuBarStyel}>

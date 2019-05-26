@@ -14,6 +14,7 @@
         height: 150px;
         box-shadow: 0 4px 8px 0 rgba(0,0,0,0.22);
         margin-right: 32px;
+        flex-shrink: 0;
     }
 
     &-item-info {
@@ -27,12 +28,22 @@
         font-family: PingFangSC-Medium;
         font-size: 28px;
         color: #101010;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical
     }
 
     &-item-info-lastread {
         font-family: PingFangSC-Regular;
         font-size: 24px;
         color: #9E9E9E;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical
     }
 
     &-item-info-lastreadtime {

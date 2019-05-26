@@ -22,12 +22,11 @@ class App extends Component {
     pages: [
       'pages/search/search',
       'pages/search-book/search-book',
-      
       'pages/reader/reader',
       'pages/book-info/book-info',
       'pages/my/my',
-      
       'pages/my-info/my-info',
+      'pages/content/content',
     ],
     window: {
       backgroundTextStyle: 'light',

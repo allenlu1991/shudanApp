@@ -23,6 +23,8 @@ export const API_BOOK_INFO = `${host}/bookapi/v2/chapters`
 //book content
 export const API_READ_CONTENT = `${host}/bookapi/v2/content`
 
+//agreement content
+export const API_AGREEMENT_CONTENT = `${host}/bookapi/v2/agreement`
 // // pic
 // export const CDN = 'https://yanxuan.nosdn.127.net'
 

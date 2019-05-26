@@ -9,6 +9,9 @@ import './my-info.scss'
 
 
 class MyInfo extends Component {
+  state = {
+    userInfo: {}
+  }
 
   config = {
     navigationBarTitleText: '个人主页'
@@ -16,6 +19,17 @@ class MyInfo extends Component {
 
   componentWillReceiveProps (nextProps) {
     console.log(this.props, nextProps)
+  }
+
+  componentWillMount() {
+    Taro.getUserInfo().then((res)=>{
+      const userInfo = res.userInfo
+      this.setState({
+        userInfo,
+      })
+    }).catch((err)=>{
+      console.log(err)
+    })
   }
 
   componentWillUnmount () { }
@@ -27,7 +41,9 @@ class MyInfo extends Component {
   render () {
     return (
       <View className='my-info'>
-        <MyUserInfo />
+        <MyUserInfo 
+          userInfo = {this.state.userInfo}
+        />
         <Menu />
       </View>
     )

@@ -1,3 +1,6 @@
+import { getBookInfoCache } from '@utils/cache'
+import md5 from 'md5'
+
 import {
   BOOK_INFO,
   OPEN_CHAPTERS,
@@ -15,13 +18,13 @@ import {
 import { createAction } from '@utils/redux'
 
 /**
- * 热门搜索词数据
+ * 书籍内容数据
  * @param {*} payload
  */
 export const dispatchBookInfo = payload => createAction({
-  url: API_BOOK_INFO,
-  type: BOOK_INFO,
-  payload
+    url: API_BOOK_INFO,
+    type: BOOK_INFO,
+    payload
 })
 
 /**

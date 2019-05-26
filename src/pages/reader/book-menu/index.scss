@@ -69,6 +69,11 @@
         @include menu-sidebar;
         background: linear-gradient(90deg, #FF615F 0%, #DE1514 100%);
         color: #FFFFFF;
+        border: none;
+    }
+
+    &-sidebar-share::after{ 
+        border: none; 
     }
 
     &-bar {
@@ -91,6 +96,11 @@
         font-size: 28px;
         color: #6D6D6D;
         line-height: 104px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical
     }
 
     &-bar-chapters {

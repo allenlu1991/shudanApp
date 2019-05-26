@@ -1,4 +1,6 @@
 import Taro from '@tarojs/taro'
+import { getUrlDataCache } from '@utils/cache'
+import md5 from 'md5'
 // import { API_USER, API_USER_LOGIN } from '@constants/api'
 
 // const CODE_SUCCESS = '200'
@@ -82,6 +84,17 @@ export default async function fetch(options) {
 
   if (method === 'POST') {
     header['content-type'] = 'application/json'
+  }
+
+  //存在缓存，返回缓存结果
+  if(!!payload.url) {
+    let cacheUrl = md5(payload.url)
+    let urlDataCache = getUrlDataCache(cacheUrl)
+  
+    if(!!urlDataCache) {
+      urlDataCache.cached = true
+      return Promise.resolve(urlDataCache) 
+    }
   }
 
   return Taro.request({

@@ -3,6 +3,8 @@ import { View, Text, Image, ScrollView } from '@tarojs/components'
 import './index.scss'
 
 import { connect } from '@tarojs/redux'
+import { getContentCache } from '@utils/cache'
+import md5 from 'md5'
 
 import {BookLoading, DataLoading} from '@components'
 
@@ -36,7 +38,7 @@ export default class ChaptersSelector extends Component {
   chapterClickHandle(contentUrl, contentName, bookName, charptersCount, charpterNum) {
     this.disAppear()
     if(!!this.props.onGetBookContent) {
-        this.props.onGetBookContent(this.props.url, charpterNum, this.props.wd) 
+        this.props.onGetBookContent(this.props.url, charpterNum, this.props.wd, {})
         return
     }
 
@@ -104,6 +106,8 @@ export default class ChaptersSelector extends Component {
   getNextChapters() {
 
     this.props.dispatchNextChapters()
+
+    !this.props.isFirstChapterSlice &&
     this.setState({
       scrollPos: this.state.miniNum + ratio*90,
       miniNum: -this.state.miniNum
@@ -114,11 +118,26 @@ export default class ChaptersSelector extends Component {
   getPreChapters() {
 
     this.props.dispatchPreChapters()
+
+    !this.props.isFirstChapterSlice &&
     this.setState({
       scrollPos: this.state.miniNum + ratio*90,
       miniNum: -this.state.miniNum
     })
 
+  }
+
+  isCached(url) {
+    let cacheArr = getContentCache()
+    if(!cacheArr){
+      cacheArr = []
+    }
+    let key = md5(url)
+    if(cacheArr.indexOf(key) > -1) {
+      return true
+    } else {
+      false
+    }
   }
 
   render () {
@@ -137,11 +156,6 @@ export default class ChaptersSelector extends Component {
                 <View className='loading-pre-chapters' onClick={this.getPreChapters.bind(this)}>点击加载前面目录</View>
               }
               <View className='chapters-selector-box-container'>
-                  {/* <View className='chapters-selector-box-item'>
-                      <Text className='chapters-selector-box-item-text-selected'>第10章 你的身上，有一个凶兆！</Text>
-                      <Image className='chapters-selector-box-item-icon' src={downloadedIcon}></Image>
-                  </View>
-                  <View className='chapters-selector-box-separator'></View> */}
                   {
                       chaptersData.chapters.map((item,index)=>{                      
 
@@ -149,7 +163,10 @@ export default class ChaptersSelector extends Component {
                             <View taroKey={index} id={`item${index+1}`}>
                                 <View className='chapters-selector-box-item' onClick={this.chapterClickHandle.bind(this, item.chapter_url, item.title, bookInfoData.bookName, bookInfoData.chaptersCount, chaptersNumPerSlice*(currentChapterSliceNum-1) + index + 1)}>
                                     <Text className={currentChapterNum == (chaptersNumPerSlice*(currentChapterSliceNum-1) + index + 1) ? 'chapters-selector-box-item-text-selected' : 'chapters-selector-box-item-text'}>{item.title}</Text>
-                                    {/* <Image className='chapters-selector-box-item-icon' src={downloadedIcon}></Image> */}
+                                    {/* {
+                                    this.isCached(item.chapter_url) &&
+                                    <Image className='chapters-selector-box-item-icon' src={downloadedIcon}></Image>
+                                    } */}
                                 </View>
                                 <View className='chapters-selector-box-separator'></View>
                             </View>

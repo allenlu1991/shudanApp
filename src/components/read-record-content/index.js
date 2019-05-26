@@ -13,10 +13,10 @@ import * as actions from '@actions/read-record'
 export default class ReadRecordContent extends Component {
   
   readCurrent(bookData) {
-    const {url, name, chapterCount, readNum} = bookData
+    const {url, name, chapterCount, readNum, laterScrollTop} = bookData
     const wd = ''
     Taro.navigateTo({
-      url: '/pages/reader/reader?chapters_url=' + encodeURIComponent(url) + '&wd=' + encodeURIComponent(wd) + '&book_name=' + encodeURIComponent(name) + '&chapter_count=' + chapterCount + '&chapter_num=' + readNum
+      url: '/pages/reader/reader?chapters_url=' + encodeURIComponent(url) + '&wd=' + encodeURIComponent(wd) + '&book_name=' + encodeURIComponent(name) + '&chapter_count=' + chapterCount + '&chapter_num=' + readNum + '&laterScrollTop=' + laterScrollTop
     })
   }
 

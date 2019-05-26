@@ -71,7 +71,18 @@ class SearchBook extends Component {
           onSearchLoading={this.onSearchLoading}
          />
        } 
-        {this.state.loading && <SearchLoading />}
+        {
+        this.state.loading && 
+        <SearchLoading 
+          type='loading'
+        />
+        }
+        {
+        !this.state.loading && this.props.results.length == 0 && this.state.searched &&
+        <SearchLoading 
+          type='nodata'
+        />
+        }
         {
           !this.state.loading && this.state.searched && !!this.state.wd &&
           <SearchResults

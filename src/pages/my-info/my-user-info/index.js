@@ -12,9 +12,9 @@ export default class MyUserInfo extends Component {
       <View className='my-user-info'>
         <View className='my-user-info-container'>
           <View className='my-user-info-container-userinfo'>
-            <Image className='my-user-info-container-userinfo-avatar' src={avatarIcon}></Image>
+            <Image className='my-user-info-container-userinfo-avatar' src={this.props.userInfo.avatarUrl}></Image>
             <View className='my-user-info-container-userinfo-text'>
-              <Text className='my-user-info-container-userinfo-text-name'>陆文祥</Text>
+              <Text className='my-user-info-container-userinfo-text-name'>{this.props.userInfo.nickName}</Text>
             </View>
           </View>
         </View>

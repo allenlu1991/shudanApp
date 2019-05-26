@@ -14,7 +14,12 @@
         height: 74px;
         font-size: 32px;
         color: #353535;
+        background: #FFFFFF;
     }
+
+    &-share::after{ 
+        border: none; 
+    } 
 
     &-read {
         width: 50%;

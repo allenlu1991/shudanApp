@@ -9,7 +9,7 @@ import {
 import { createAction } from '@utils/redux'
 
 /**
- * 热门搜索词数据
+ * 获取章节内容数据
  * @param {*} payload
  */
 export const dispatchBookContent = payload => createAction({

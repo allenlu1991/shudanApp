@@ -4,6 +4,7 @@ import searchBook from './search-book'
 import bookInfo from './book-info'
 import reader from './reader'
 import readRecord from './read-record'
+import content from './content'
 
 
 export default combineReducers({
@@ -12,4 +13,5 @@ export default combineReducers({
   bookInfo,
   reader,
   readRecord,
+  content,
 })
