@@ -23,8 +23,6 @@ class Search extends Component {
 
   config = {
     navigationBarTitleText: '',
-    // navigationBarTextStyle: 'black',
-    // navigationBarBackgroundColor: '#ffffff',
   }
 
   componentWillReceiveProps (nextProps) {
@@ -48,6 +46,13 @@ class Search extends Component {
   componentDidShow () { }
 
   componentDidHide () { }
+
+  onShareAppMessage (res) {
+    return {
+      title: '想看的书，查一查就有！',
+      path: '/pages/search/search'
+    }
+  }
 
   render () {
     let {bookShelfData} = this.props.readRecord

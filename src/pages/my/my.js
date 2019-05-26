@@ -5,6 +5,11 @@ import { connect } from '@tarojs/redux'
 import UserInfo from './user-info'
 import { ReadRecordContent, WeLogin } from '@components'
 import Nodata from './no-data'
+import fetch from '@utils/request'
+
+import {
+  API_USER,
+} from '@constants/api'
 
 import './my.scss'
 
@@ -52,6 +57,19 @@ class My extends Component {
         hasUserInfo: true,
         userInfo,
       })
+
+      let payload = {
+        ...userInfo
+      }
+
+      fetch({
+        url: API_USER, 
+        payload, 
+        method: 'POST',
+      }).then(res => {
+        // console.log(res)
+      })
+
     }
   }
 

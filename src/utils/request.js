@@ -1,6 +1,11 @@
 import Taro from '@tarojs/taro'
 import { getUrlDataCache } from '@utils/cache'
 import md5 from 'md5'
+
+import {
+  API_USER,
+} from '@constants/api'
+
 // import { API_USER, API_USER_LOGIN } from '@constants/api'
 
 // const CODE_SUCCESS = '200'
@@ -78,9 +83,51 @@ export default async function fetch(options) {
 }
 */
 
+function parseCookie(cookie, name) {
+    let cookies = cookie;
+    let list = cookies.split("; ")          // 解析出名/值对列表
+        
+    for(let i = 0; i < list.length; i++) {
+      let arr = list[i].split("=");          // 解析出名和值
+      if(arr[0] == name)
+        return decodeURIComponent(arr[1]);   // 对cookie值解码
+    }
+    return "";
+}
+
+function getStorage(key) {
+  return Taro.getStorage({ key }).then(res => res.data).catch(() => '')
+}
+
+function getSession() {
+  return Taro.login().then(res=>{
+    let code = res.code
+    let method = 'GET'
+    return Taro.request({
+      url: API_USER,
+      method,
+      data: {
+        code,
+      },
+    }).then(res => {
+      if(res.statusCode == 200) {
+
+        let cookie = res.header["set-cookie"];
+        if (!!cookie) {
+
+          Taro.setStorageSync('session', cookie)
+          return cookie
+        }
+      }
+
+      return ''
+    }).catch(() => '')
+  })
+}
+
 export default async function fetch(options) {
   const { url, payload, method = 'GET', showToast = true, autoLogin = true } = options
-  const header = {}
+  let header = {}
 
   if (method === 'POST') {
     header['content-type'] = 'application/json'
@@ -96,6 +143,35 @@ export default async function fetch(options) {
       return Promise.resolve(urlDataCache) 
     }
   }
+
+  let session = await getStorage('session')
+
+  //过期处理
+  if(!!session) {
+
+    let cookieExpires = parseCookie(session, 'Expires')
+    let expiresTime = new Date(cookieExpires).getTime()
+    let nowTime = new Date().getTime()
+
+    if(nowTime > expiresTime) {
+      session =  await getSession()
+    }
+  }
+
+  //不存在session
+  if(!session) {
+    session =  await getSession()
+  }
+
+  //仍然不存在
+  if(!session) {
+    Taro.showToast({
+      title: '获取不到登录信息',
+      icon: 'none'
+    })
+  }
+
+  header['cookie'] = !!session ? session : ''
 
   return Taro.request({
     url,

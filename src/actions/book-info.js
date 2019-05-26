@@ -1,6 +1,3 @@
-import { getBookInfoCache } from '@utils/cache'
-import md5 from 'md5'
-
 import {
   BOOK_INFO,
   OPEN_CHAPTERS,

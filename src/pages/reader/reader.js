@@ -344,6 +344,8 @@ class Read extends Component {
     setAppOptionCache('finishGuide', true)
     this.setState({
       finishGuide: true,
+      menuAppear: true, //控制菜单是否展示
+      menuDefaultAppear: true, //第一次菜单是否展示
     })
   }
 
