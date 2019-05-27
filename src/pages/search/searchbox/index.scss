@@ -8,6 +8,8 @@
     justify-content: space-between;
     padding: 0px 20px;
     margin-top: 28px;
+    background: #fff;
+    border-radius: 0;
 
     &-text {
         font-size: 36px;
@@ -17,5 +19,14 @@
     &-icon {
         width: 42px;
         height: 40px;
+    }
+
+    &-bttn::after {
+        border: none;
+    }
+    &-bttn {
+        padding: 0;
+        background: #fff;
+        border-radius: 0;
     }
 }

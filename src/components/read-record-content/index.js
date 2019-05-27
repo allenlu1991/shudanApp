@@ -3,6 +3,8 @@ import { View, Text, Image } from '@tarojs/components'
 import './index.scss'
 
 import { connect } from '@tarojs/redux'
+import formSubmitHandle from '@utils/formidHandle'
+import md5 from 'md5'
 
 import { getBookRecord, setBookRecord } from '@utils/cache'
 
@@ -11,7 +13,21 @@ import * as actions from '@actions/read-record'
 
 @connect(state => state.readRecord, { ...actions })
 export default class ReadRecordContent extends Component {
-  
+
+  defautImgObj = {
+
+  }
+
+  imgErrorHandle(cover) {
+    let url = md5(cover)
+    this.defautImgObj[url] = true
+  }
+
+  isDefault(cover) {
+    let url = md5(cover)
+    return this.defautImgObj.hasOwnProperty(url)
+  }
+
   readCurrent(bookData) {
     const {url, name, chapterCount, readNum, laterScrollTop} = bookData
     const wd = ''
@@ -21,6 +37,7 @@ export default class ReadRecordContent extends Component {
   }
 
   render () {
+    // console.log(this.defautImgObj)
     return (
       <View className='read-record-content'>
 
@@ -28,8 +45,10 @@ export default class ReadRecordContent extends Component {
         this.props.bookShelfData.map((item,index)=>{
           return(
             <View taroKey={index}>
+              <Form report-submit onSubmit={(e)=>formSubmitHandle(e)}>
+              <Button className='formid-bttn' form-type="submit">
               <View className='read-record-content-item' onClick={this.readCurrent.bind(this, item)}>
-                <Image className='read-record-content-item-cover' src={!!item.cover?item.cover:defaultCover}></Image>
+                <Image className='read-record-content-item-cover' onError={this.imgErrorHandle.bind(this,item.cover)} src={!!item.cover && !this.isDefault(item.cover) ? item.cover : defaultCover}></Image>
                 <View className='read-record-content-item-info'>
                   <Text className='read-record-content-item-info-name'>{item.name}</Text>
                   <Text className='read-record-content-item-info-lastread'>读至 {item.chapterName}(共{item.chapterCount}章)</Text>
@@ -37,6 +56,8 @@ export default class ReadRecordContent extends Component {
                 </View>
               </View>
               <View className='read-record-content-item-separator'></View>
+              </Button>
+              </Form>
             </View>
           )
         })

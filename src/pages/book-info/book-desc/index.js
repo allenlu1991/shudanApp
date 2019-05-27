@@ -8,6 +8,7 @@ import downIcon from '@assets/book-info/down.png'
 export default class BookDesc extends Component {
   state = {
     fold: true,
+    defaultImg: false,
   }
 
   abstractClickHandle() {
@@ -16,12 +17,18 @@ export default class BookDesc extends Component {
     })
   }
 
+  imgErrorHandle() {
+    this.setState({
+      defaultImg: true,
+    })
+  }
+
   render () {
     const {bookInfo} = this.props
     return (
       <View className='book-desc'>
         <View className='book-desc-base'>
-          <Image className='book-desc-base-cover' src={!!bookInfo.bookCover ? bookInfo.bookCover : bookDefaultCover}></Image>
+          <Image className='book-desc-base-cover' onError={this.imgErrorHandle.bind(this)} src={!!bookInfo.bookCover && !defaultImg ? bookInfo.bookCover : bookDefaultCover}></Image>
           <Text className='book-desc-base-name'>{bookInfo.bookName}</Text>
           <Text className='book-desc-base-author'>{bookInfo.author}</Text>
           <Text className='book-desc-base-site'>来源：{bookInfo.domainName}</Text>

@@ -1,7 +1,8 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Image } from '@tarojs/components'
+import { View, Text, Image, Form, Button } from '@tarojs/components'
 import './index.scss'
 import searchBoxIcon from '@assets/search/search-box-icon.png'
+import formSubmitHandle from '@utils/formidHandle'
 
 export default class SearchBox extends Component {
 
@@ -13,10 +14,12 @@ export default class SearchBox extends Component {
 
   render () {
     return (
-      <View className='search-box' onClick={this.handleSearchClick.bind(this)}>
-        <Text className='search-box-text'>输入书名或作者</Text>
-        <Image className='search-box-icon' src={searchBoxIcon}></Image>
-      </View>
+      <Form report-submit onSubmit={(e)=>formSubmitHandle(e)}>
+        <Button className='search-box' form-type="submit" onClick={this.handleSearchClick.bind(this)}>
+          <Text className='search-box-text'>输入书名或作者</Text>
+          <Image className='search-box-icon' src={searchBoxIcon}></Image>
+        </Button>
+      </Form>
     )
   }
 }

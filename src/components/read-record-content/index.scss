@@ -22,11 +22,13 @@
         flex-direction: column;
         justify-content: space-between;
         padding: 6px 0px;
+        align-items: flex-start;
     }
 
     &-item-info-name {
         font-family: PingFangSC-Medium;
         font-size: 28px;
+        line-height: 40px;
         color: #101010;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -38,6 +40,7 @@
     &-item-info-lastread {
         font-family: PingFangSC-Regular;
         font-size: 24px;
+        line-height: 34px;
         color: #9E9E9E;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -49,6 +52,7 @@
     &-item-info-lastreadtime {
         font-family: PingFangSC-Regular;
         font-size: 24px;
+        line-height: 34px;
         color: #9E9E9E;
     }
 
@@ -58,4 +62,13 @@
         background: #F8F8F8;
     }
 
+}
+
+.formid-bttn::after {
+    border: none;
+}
+.formid-bttn {
+    padding: 0;
+    background: #fff;
+    border-radius: 0;
 }

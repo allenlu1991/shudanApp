@@ -29,3 +29,6 @@ export const API_AGREEMENT_CONTENT = `${host}/bookapi/v2/agreement`
 //user
 export const API_USER = `${host}/bookapi/v2/user`
 
+//formid
+export const API_FORMID = `${host}/bookapi/v2/formids`
+

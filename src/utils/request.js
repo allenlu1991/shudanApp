@@ -6,6 +6,8 @@ import {
   API_USER,
 } from '@constants/api'
 
+let session = ''
+
 // import { API_USER, API_USER_LOGIN } from '@constants/api'
 
 // const CODE_SUCCESS = '200'
@@ -111,10 +113,8 @@ function getSession() {
       },
     }).then(res => {
       if(res.statusCode == 200) {
-
-        let cookie = res.header["set-cookie"];
+        let cookie = res.header["set-cookie"] || res.header["Set-Cookie"];
         if (!!cookie) {
-
           Taro.setStorageSync('session', cookie)
           return cookie
         }
@@ -144,33 +144,32 @@ export default async function fetch(options) {
     }
   }
 
-  let session = await getStorage('session')
+  if(!session) { //这个过程只是程序启动的时候执行一次
+    session  = await getStorage('session')
+    //过期处理
+    if(!!session) {
+      let cookieExpires = parseCookie(session, 'Expires')
+      let expiresTime = new Date(cookieExpires).getTime()
+      let nowTime = new Date().getTime()
 
-  //过期处理
-  if(!!session) {
+      if(nowTime > expiresTime) {
+        session =  await getSession()
+      }
+    }
 
-    let cookieExpires = parseCookie(session, 'Expires')
-    let expiresTime = new Date(cookieExpires).getTime()
-    let nowTime = new Date().getTime()
-
-    if(nowTime > expiresTime) {
+    //不存在session
+    if(!session) {
       session =  await getSession()
     }
-  }
 
-  //不存在session
-  if(!session) {
-    session =  await getSession()
+    //仍然不存在
+    if(!session) {
+      Taro.showToast({
+        title: '获取不到登录信息',
+        icon: 'none'
+      })
+    }
   }
-
-  //仍然不存在
-  if(!session) {
-    Taro.showToast({
-      title: '获取不到登录信息',
-      icon: 'none'
-    })
-  }
-
   header['cookie'] = !!session ? session : ''
 
   return Taro.request({
