@@ -83,7 +83,7 @@ class BookInfo extends Component {
         url:this.$router.params.url,
         wd: this.$router.params.wd,
       }).then((res)=>{
-        console.log(res)
+        // console.log(res)
         this.setState({
           loading: false,
         })

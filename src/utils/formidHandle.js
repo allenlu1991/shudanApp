@@ -16,6 +16,6 @@ export default function formSubmitHandle(e) {
         payload, 
         method: 'POST',
     }).then(res => {
-        console.log(res)
+        // console.log(res)
     })
 }
