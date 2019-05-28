@@ -38,6 +38,10 @@ class Search extends Component {
   componentWillUnmount () { }
 
   componentWillMount() {
+    this.props.dispatchAppCheck({
+      app: 'novalapp'
+    })
+
     this.props.dispatchHotWords({
       n: 1
     })
@@ -61,6 +65,8 @@ class Search extends Component {
   }
 
   render () {
+    console.log(this.props)
+
     let {bookShelfData} = this.props.readRecord
 
     let isShowRecord = !!bookShelfData && bookShelfData.length > 0

@@ -1,9 +1,13 @@
 import {
-  HOT_WORDS
+  HOT_WORDS,
+  APP_CHECK,
 } from '@constants/search'
 
+const appVersion = '2.0.0'
+
 const INITIAL_STATE = {
-  hotWords: []
+  hotWords: [],
+  isCheck: true,
 }
 
 export default function search(state = INITIAL_STATE, action) {
@@ -12,6 +16,21 @@ export default function search(state = INITIAL_STATE, action) {
       return {
         ...state,
         hotWords: action.payload
+      }
+    }
+    case APP_CHECK: {
+      const {data} = action.payload
+      let isCheck
+
+      if(action.payload.status = 'success' && data && data.checkVersion == appVersion && !!data.isCheck) {
+        isCheck = true
+      } else {
+        isCheck = false
+      }
+
+      return {
+        ...state,
+        isCheck,
       }
     }
     // case HOME_INFO: {
