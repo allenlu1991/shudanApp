@@ -43,7 +43,7 @@ class App extends Component {
         pagePath: "pages/search/search",
         iconPath: "./assets/tab-bar/search.png",
         selectedIconPath: "./assets/tab-bar/search-active.png",
-        text: "搜索"
+        text: "首页"
       }, {
         pagePath: "pages/my/my",
         iconPath: "./assets/tab-bar/my.png",

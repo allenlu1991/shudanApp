@@ -16,7 +16,7 @@ export default class NoData extends Component {
         <View className='no-data-tips'>有没有想看的书</View>
 
         <Button className='no-data-bttn' onClick={this.doSearch.bind(this)}>
-          去搜搜看看
+          去看看
         </Button>
       </View>
     )

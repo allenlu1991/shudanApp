@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Button, Text } from '@tarojs/components'
+import { View, Button, Text, Image } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 
 import * as actions from '@actions/search'
@@ -10,6 +10,8 @@ import Logo from './Logo'
 import SearchBox from './searchbox'
 import HotWords from './hotwords'
 import ReadRecord from './readrecord'
+
+import ShudanImg from '@assets/search/shudan.jpg'
 
 import './search.scss'
 
@@ -23,6 +25,10 @@ class Search extends Component {
 
   config = {
     navigationBarTitleText: '',
+  }
+
+  state = {
+    isCheck: true,
   }
 
   componentWillReceiveProps (nextProps) {
@@ -62,29 +68,42 @@ class Search extends Component {
     return (
       <View className='search'>
         {
-        !isShowRecord &&
+        !this.state.isCheck && !isShowRecord &&
         <View style={{height:'40px', width: '100%'}}></View>
         }
-        <Logo />
         {
-        !isShowRecord &&
+          !this.state.isCheck &&  <Logo />
+        }
+        {
+        !this.state.isCheck && !isShowRecord &&
         <View style={{height:'15px', width: '100%'}}></View>
         }
-        <SearchBox />
-        <HotWords 
-          list={this.props.search.hotWords}
-          hotWordsRefresh={this.props.dispatchHotWords}
-        />
+
+        {
+          !this.state.isCheck && <SearchBox />
+        }
         
         {
-          isShowRecord && 
+          !this.state.isCheck &&
+          <HotWords 
+            list={this.props.search.hotWords}
+            hotWordsRefresh={this.props.dispatchHotWords}
+          />
+        }
+        
+        {
+          !this.state.isCheck && isShowRecord && 
           <View className='search-separator'></View>
         }
         {
-          isShowRecord && 
+          !this.state.isCheck && isShowRecord && 
           <ReadRecord />
         }
 
+        {
+          this.state.isCheck && 
+          <Image src={ShudanImg} mode='widthFix' />
+        }
         {/* <BookLoading /> */}
       </View>
     )
