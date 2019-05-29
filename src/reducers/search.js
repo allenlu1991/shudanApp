@@ -3,7 +3,7 @@ import {
   APP_CHECK,
 } from '@constants/search'
 
-const appVersion = '2.0.0'
+const appVersion = '2.0.1'
 
 const INITIAL_STATE = {
   hotWords: [],
@@ -19,10 +19,10 @@ export default function search(state = INITIAL_STATE, action) {
       }
     }
     case APP_CHECK: {
-      const {data} = action.payload
+      const {status, data} = action.payload
       let isCheck
 
-      if(action.payload.status = 'success' && data && data.checkVersion == appVersion && !!data.isCheck) {
+      if(status == 'success' && data && data.checkVersion == appVersion && !!data.isCheck) {
         isCheck = true
       } else {
         isCheck = false

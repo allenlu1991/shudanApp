@@ -1,6 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image, Button } from '@tarojs/components'
 import './index.scss'
+import formSubmitHandle from '@utils/formidHandle'
 
 export default class BookMenu extends Component {
 
@@ -54,11 +55,11 @@ export default class BookMenu extends Component {
     let sideBarStyle, menuBarStyel
 
     if(this.props.appear == true) {
-      sideBarStyle = 'book-menu-sidebar move_appear_right'
-      menuBarStyel = 'book-menu-bar move_appear'
+      sideBarStyle = 'book-menu-sidebar move-appearright'
+      menuBarStyel = 'book-menu-bar move-appear'
     } else if(this.props.appear == false){
-      sideBarStyle = 'book-menu-sidebar move_disappear_right'
-      menuBarStyel = 'book-menu-bar move_disappear'
+      sideBarStyle = 'book-menu-sidebar move-disappearright'
+      menuBarStyel = 'book-menu-bar move-disappear'
     } else {
       sideBarStyle = menuBarStyel = 'displaynone'
     }
@@ -82,6 +83,7 @@ export default class BookMenu extends Component {
     }
 
     return (
+      <Form report-submit onSubmit={(e)=>formSubmitHandle(e)}>
       <View className='book-menu'>
         <View className={sideBarStyle}>
           <Button className='book-menu-sidebar-share' open-type="share">分享书籍</Button>
@@ -92,9 +94,9 @@ export default class BookMenu extends Component {
         <View className={menuBarStyel}>
           <View className='book-menu-bar-title'>{this.props.title}</View>
           <View className='book-menu-bar-chapters'>
-            <View className='book-menu-bar-chapters-pre' onClick={this.preChapter.bind(this)}>上一章</View>
-            <View className='book-menu-bar-chapters-link' onClick={this.showChapters.bind(this)}>目录</View>
-            <View className='book-menu-bar-chapters-next' onClick={this.nextChapter.bind(this)}>下一章</View>
+            <Button className='book-menu-bar-chapters-pre' form-type="submit" onClick={this.preChapter.bind(this)}>上一章</Button>
+            <Button className='book-menu-bar-chapters-link' form-type="submit" onClick={this.showChapters.bind(this)}>目录</Button>
+            <Button className='book-menu-bar-chapters-next' form-type="submit" onClick={this.nextChapter.bind(this)}>下一章</Button>
           </View>
           <View className='book-menu-bar-style'>
             <View className='book-menu-bar-style-font'>
@@ -109,6 +111,7 @@ export default class BookMenu extends Component {
           </View>
         </View>
       </View>
+      </Form>
     )
   }
 }

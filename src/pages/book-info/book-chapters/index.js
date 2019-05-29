@@ -6,6 +6,7 @@ import './index.scss'
 import rightIcon from '@assets/book-info/right.png'
 
 import * as actions from '@actions/book-info'
+import formSubmitHandle from '@utils/formidHandle'
 
 @connect(state => state.bookInfo, { ...actions })
 export default class BookChapters extends Component {
@@ -43,7 +44,9 @@ export default class BookChapters extends Component {
           </View>
         </View>
         <View className='book-chapters-separator'></View>
-        <View className='book-chapters-content'>
+        {/* <View className='book-chapters-content'> */}
+        <Form report-submit onSubmit={(e)=>formSubmitHandle(e)}>
+        <Button className='book-chapters-content' form-type="submit">
           {chaptersInfo.chapters.map((item,index)=>{
             if(index < 5) {
               return(
@@ -56,7 +59,9 @@ export default class BookChapters extends Component {
               )
             }
           })}
-        </View>
+          </Button>
+          </Form>
+        {/* </View> */}
       </View>
     )
   }

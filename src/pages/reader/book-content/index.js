@@ -7,6 +7,7 @@ import bookCover from '@assets/search/book.jpg'
 import { getWindowHeight } from '@utils/style'
 
 import wxParse from './wxParse/wxParse'
+import formSubmitHandle from '@utils/formidHandle'
 
 let systemInfo = Taro.getSystemInfoSync();
 let ratio = systemInfo.windowWidth / 750;
@@ -150,13 +151,15 @@ export default class BookContent extends Component {
           
           {
           data && data.title &&
+          <Form report-submit onSubmit={(e)=>formSubmitHandle(e)}>
           <View className='book-content-container-chapterLink'>
-            <View className="book-content-container-chapterLink-next" onClick={this.nextChapter.bind(this)}>下一章</View>
+            <Button form-type="submit" className="book-content-container-chapterLink-next" onClick={this.nextChapter.bind(this)}>下一章</Button>
             <View className='book-content-container-chapterLink-otherlink'>
-              <View className="book-content-container-chapterLink-otherlink-prev" onClick={this.preChapter.bind(this)}>上一章</View>
-              <View className="book-content-container-chapterLink-otherlink-chapterMenu" onClick={this.showChapters.bind(this)}>目录</View>
+              <Button form-type="submit" className="book-content-container-chapterLink-otherlink-prev" onClick={this.preChapter.bind(this)}>上一章</Button>
+              <Button form-type="submit" className="book-content-container-chapterLink-otherlink-chapterMenu" onClick={this.showChapters.bind(this)}>目录</Button>
             </View>
           </View>
+          </Form>
           }
         </ScrollView>
     </View> 

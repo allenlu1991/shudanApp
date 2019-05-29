@@ -7,6 +7,7 @@ import {
 } from '@constants/api'
 
 let session = ''
+let lock = false //加锁避免多次请求登录，导致存储session信息无法一一对应（回调的不确定性）
 
 // import { API_USER, API_USER_LOGIN } from '@constants/api'
 
@@ -102,27 +103,35 @@ function getStorage(key) {
 }
 
 function getSession() {
-  return Taro.login().then(res=>{
-    let code = res.code
-    let method = 'GET'
-    return Taro.request({
-      url: API_USER,
-      method,
-      data: {
-        code,
-      },
-    }).then(res => {
-      if(res.statusCode == 200) {
-        let cookie = res.header["set-cookie"] || res.header["Set-Cookie"];
-        if (!!cookie) {
-          Taro.setStorageSync('session', cookie)
-          return cookie
-        }
-      }
+  if(!lock) {
+    lock = true
 
-      return ''
-    }).catch(() => '')
-  })
+    return Taro.login().then(res=>{
+      let code = res.code
+      let method = 'GET'
+      return Taro.request({
+        url: API_USER,
+        method,
+        data: {
+          code,
+        },
+      }).then(res => {
+
+        if(res.statusCode == 200) {
+          let cookie = res.header["set-cookie"] || res.header["Set-Cookie"];
+          if (!!cookie) {
+            Taro.setStorageSync('session', cookie)
+
+            lock = false
+            return cookie
+          }
+        }
+
+        lock = false
+        return ''
+      }).catch(() => '')
+    })
+  }
 }
 
 export default async function fetch(options) {
@@ -163,12 +172,13 @@ export default async function fetch(options) {
     }
 
     //仍然不存在
-    if(!session) {
-      Taro.showToast({
-        title: '获取不到登录信息',
-        icon: 'none'
-      })
-    }
+    // if(!session) {
+    //   console.log('hi')
+    //   Taro.showToast({
+    //     title: '获取不到登录信息',
+    //     icon: 'none'
+    //   })
+    // }
   }
   header['cookie'] = !!session ? session : ''
 

@@ -4,6 +4,10 @@
 
 .search-results {
     width: 100%;
+    background: #ffffff;
+    text-align: inherit;
+    padding: 0;
+    border-radius: 0;
 
     &-item {
         height: 324px;
@@ -16,6 +20,7 @@
     
     &-item-title {
         font-size: 38px;
+        line-height: 57px;
         color: #030303;
         overflow : hidden;
         text-overflow: ellipsis;
@@ -26,6 +31,7 @@
 
     &-item-abstract {
         font-size: 28px;
+        line-height: 42px;
         color: #212121;
         overflow : hidden;
         text-overflow: ellipsis;
@@ -37,6 +43,7 @@
     &-item-site {
         font-size: 28px;
         color: #969696;
+        line-height: 42px;
     }
 
     &-separator {

@@ -14,7 +14,12 @@ import {
 import './my.scss'
 
 
-@connect(state => state.readRecord)
+@connect(state => {
+  return {
+    readRecord: state.readRecord,
+    search: state.search,
+  }
+})
 class My extends Component {
 
   config = {
@@ -81,16 +86,17 @@ class My extends Component {
         <UserInfo 
           userInfo = {{
             ...this.state.userInfo,
-            readBookCount: this.props.bookShelfData.length,
+            readBookCount: this.props.readRecord.bookShelfData.length,
           }}
+          isCheck = {this.props.search.isCheck}
         />
         }
         {
-          this.props.bookShelfData.length == 0 && this.state.hasUserInfo &&
+          this.props.readRecord.bookShelfData.length == 0 && this.state.hasUserInfo &&
           <Nodata />
         }
         {
-          this.props.bookShelfData.length > 0 && this.state.hasUserInfo &&
+          this.props.readRecord.bookShelfData.length > 0 && this.state.hasUserInfo &&
           <ReadRecordContent />
         }
         {

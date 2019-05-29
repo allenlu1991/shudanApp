@@ -43,6 +43,13 @@
         height: 28px;
     }
 
+    &-content {
+        background: #ffffff;
+        border-radius: 0;
+        padding: 0;
+        text-align: inherit;
+    }
+
     &-content-item {
         height: 86px;
         line-height: 86px;

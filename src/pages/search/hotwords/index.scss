@@ -65,6 +65,7 @@
         flex-direction: row;
         flex-wrap: wrap;
         padding: 16px 0;
+        background: #ffffff;
     }
 
     &-content-item {
@@ -85,6 +86,7 @@
         display: -webkit-box;
         -webkit-line-clamp: 1;
         -webkit-box-orient: vertical;
+        line-height: 40px;
     }
 
     &-content-item-firstnum {

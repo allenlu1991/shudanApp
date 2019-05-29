@@ -15,6 +15,8 @@ import ShudanImg from '@assets/search/shudan.jpg'
 
 import './search.scss'
 
+const appVersion = '2.0.1'
+
 @connect(state => {
   return {
     readRecord: state.readRecord,
@@ -38,9 +40,13 @@ class Search extends Component {
   componentWillUnmount () { }
 
   componentWillMount() {
-    this.props.dispatchAppCheck({
-      app: 'novalapp'
-    })
+    let isCheckCache = Taro.getStorageSync('isCheck');
+
+    if(!!isCheckCache) {
+      this.setState({
+        isCheck: isCheckCache == 'yes' ? true : false
+      })
+    }
 
     this.props.dispatchHotWords({
       n: 1
@@ -49,23 +55,49 @@ class Search extends Component {
     this.props.dispatchGetAllRecord()
   }
 
+  componentDidShow() {
+    let isCheckCache = Taro.getStorageSync('isCheck');
+
+    if(!!isCheckCache) {
+      this.setState({
+        isCheck: isCheckCache == 'yes' ? true : false
+      })
+    }
+
+    this.props.dispatchAppCheck({
+      app: 'novalapp'
+    }).then((res)=>{
+      const {status, data} = res
+      let isCheck
+      
+      if(status == 'success' && data && data.checkVersion == appVersion && !!data.isCheck) {
+        isCheck = true
+      } else {
+        isCheck = false
+      }
+
+      this.setState({
+        isCheck
+      })
+
+      Taro.setStorageSync('isCheck', isCheck ? 'yes' : 'no');
+    })
+  }
+
   componentDidMount() {
     
   }
-
-  componentDidShow () { }
 
   componentDidHide () { }
 
   onShareAppMessage (res) {
     return {
-      title: '想看的书，查一查就有！',
+      title: '想看的书，查查就有！',
       path: '/pages/search/search'
     }
   }
 
   render () {
-    console.log(this.props)
 
     let {bookShelfData} = this.props.readRecord
 
@@ -108,7 +140,7 @@ class Search extends Component {
 
         {
           this.state.isCheck && 
-          <Image src={ShudanImg} mode='widthFix' />
+          <Image src={ShudanImg} mode='widthFix' style={{width:'100%'}}/>
         }
         {/* <BookLoading /> */}
       </View>

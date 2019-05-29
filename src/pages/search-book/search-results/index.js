@@ -3,6 +3,7 @@ import { View, Text, ScrollView } from '@tarojs/components'
 import { getWindowHeight } from '@utils/style'
 
 import './index.scss'
+import formSubmitHandle from '@utils/formidHandle'
 
 export default class SearchResults extends Component {
   static defaultProps = {
@@ -39,7 +40,9 @@ export default class SearchResults extends Component {
     
     return (
       <ScrollView className='search-results-scrollview' scrollY style={this.scrollViewStyle}>
-        <View className='search-results'>
+        <Form report-submit onSubmit={(e)=>formSubmitHandle(e)}>
+        <Button className='search-results' form-type="submit">
+        {/* <View className='search-results'> */}
           {
           list.map((item,index) => {
             return(
@@ -54,7 +57,9 @@ export default class SearchResults extends Component {
             )
           })
           }
-        </View>
+        {/* </View> */}
+        </Button>
+        </Form>
       </ScrollView>
     )
   }

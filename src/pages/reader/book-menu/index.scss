@@ -115,12 +115,24 @@
         @include menu-chapters;
     }
 
+    &-bar-chapters-pre::after {
+        border-style: none;
+    }
+
     &-bar-chapters-link {
         @include menu-chapters;
     }
 
+    &-bar-chapters-link::after {
+        border-style: none;
+    }
+
     &-bar-chapters-next {
         @include menu-chapters;
+    }
+
+    &-bar-chapters-next::after {
+        border-style: none;
     }
 
     &-bar-style {
@@ -169,7 +181,6 @@
         @include menu-mode;
         background: #C7EDCB;
     }
-
 }
 
 .style-mode-active {
@@ -190,38 +201,33 @@
     to {bottom:0px;}
 }
 
-@keyframes disappear_right {
+@keyframes disappearright {
     from {right:0px;}
     to {right:-182px;}
 }
 
-@keyframes appear_right {
+@keyframes appearright {
     from {right:-182px;}
     to {right:0px;}
 }
 
-.move_disappear {
-    animation: disappear 0.5s 1;
-    animation-fill-mode:forwards;
-    animation-timing-function: ease-out;
-}
-
-.move_appear {
+.move-appear {
     animation: appear 0.5s 1;
-    animation-fill-mode:forwards;
-    animation-timing-function: ease-out;
 }
 
-
-
-.move_disappear_right {
-    animation: disappear_right 0.5s 1;
-    animation-fill-mode:forwards;
-    animation-timing-function: ease-out;
+.move-disappear {
+    animation: disappear 0.5s 1;
 }
 
-.move_appear_right {
-    animation: appear_right 0.5s 1;
+.move-appearright {
+    animation: appearright 0.5s 1;
+}
+
+.move-disappearright {
+    animation: disappearright 0.5s 1;
+}
+
+.move-appear, .move-disappear, .move-appearright, .move-disappearright {
     animation-fill-mode:forwards;
     animation-timing-function: ease-out;
 }

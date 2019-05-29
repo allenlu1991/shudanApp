@@ -49,6 +49,12 @@
         align-items: center;
         padding: 30px 30px 80px 30px;
         box-sizing: border-box;
+        background: transparent;
+        border-radius: 0;
+      }
+
+      &-container-chapterLink::after {
+        border-style: none;
       }
       
       &-container-chapterLink-otherlink {
@@ -68,8 +74,9 @@
         text-align: center;
         border-radius: 40px;
         width: 48%;
-        margin-top: 30px;
+        margin: 30px 0 0 0;
         box-sizing: border-box;
+        background: transparent;
       }
 
       &-container-chapterLink-otherlink-chapterMenu {
@@ -81,8 +88,9 @@
         text-align: center;
         border-radius: 40px;
         width: 48%;
-        margin-top: 30px;
+        margin: 30px 0 0 0;
         box-sizing: border-box;
+        background: transparent;
       }
       
       &-container-chapterLink-next {
@@ -95,5 +103,6 @@
         border-radius: 40px;
         width: 100%;
         box-sizing: border-box;
+        background: transparent;
       }
 }

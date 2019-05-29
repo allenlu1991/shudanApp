@@ -7,9 +7,11 @@ import rightIcon from '@assets/my/right.png'
 export default class UserInfo extends Component {
 
   goToMyinfo() {
-    Taro.navigateTo({
-      url: '/pages/my-info/my-info'
-    })
+    if(!this.props.isCheck) {
+      Taro.navigateTo({
+        url: '/pages/my-info/my-info'
+      })
+    }
   }
   
   render () {
@@ -34,10 +36,13 @@ export default class UserInfo extends Component {
               <Text className='user-info-container-userinfo-text-desc'>{readBookCount > 0?`最近读了${readBookCount}本书`:'不看书会变sa哦~'}</Text>
             </View>
           </View>
+          {
+          !this.props.isCheck &&
           <View className='user-info-container-link'>
-            <Text className='user-info-container-link-text'>个人主页</Text>
+            <Text className='user-info-container-link-text'>个人主页</Text>    
             <Image className='user-info-container-link-icon' src={rightIcon}></Image>
           </View>
+          }
         </View>
       </View>
     )
