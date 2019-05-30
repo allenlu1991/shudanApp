@@ -21,7 +21,7 @@ const INITIAL_STATE = {
   currentChapterSliceNum: 1,
   isFirstChapterSlice: true,
   isLastChapterSlice: false,
-  chaptersNumPerSlice: 1000,
+  chaptersNumPerSlice: 500,
   oneChapterInfo: {},
 }
 

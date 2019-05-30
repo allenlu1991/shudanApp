@@ -15,7 +15,7 @@ import ShudanImg from '@assets/search/shudan.jpg'
 
 import './search.scss'
 
-const appVersion = '2.0.1'
+const appVersion = '2.0.2'
 
 @connect(state => {
   return {

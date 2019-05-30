@@ -53,6 +53,8 @@
         color: #6E6E6E;
         font-size: 28px;
         line-height: 42px;
+        word-wrap:break-word;//避免被链接撑开
+        word-break:break-all;
     }
 
     &-abstract-text-fold {
@@ -60,7 +62,9 @@
         text-overflow: ellipsis;
         display: -webkit-box;
         -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical
+        -webkit-box-orient: vertical;
+        word-wrap:break-word;//避免被链接撑开
+        word-break:break-all;
     }
 
     &-abstract-bttn {

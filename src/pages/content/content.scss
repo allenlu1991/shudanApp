@@ -3,4 +3,6 @@
     color: #141414;
     padding: 30px;
     line-height: 45px;
+    word-wrap:break-word;//避免被链接撑开
+    word-break:break-all;
 }
