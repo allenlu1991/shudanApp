@@ -80,8 +80,8 @@ class BookInfo extends Component {
     
     if(this.$router.params && this.$router.params.url && this.$router.params.wd) {
       this.props.dispatchBookInfo({
-        url:this.$router.params.url,
-        wd: this.$router.params.wd,
+        url: decodeURIComponent(this.$router.params.url),
+        wd: decodeURIComponent(this.$router.params.wd),
       }).then((res)=>{
         // console.log(res)
         this.setState({
@@ -95,7 +95,7 @@ class BookInfo extends Component {
           })
         }
         
-        // const dataKey = md5(this.$router.params.url)
+        // const dataKey = md5(decodeURIComponent(this.$router.params.url))
         // Taro.setStorageSync(dataKey, res.data)
       })
     }
@@ -175,7 +175,7 @@ class BookInfo extends Component {
 
     return {
       title: bookName,
-      path: '/pages/book-info/book-info?url=' + (this.$router.params.url) + '&wd=' + ('share')
+      path: '/pages/book-info/book-info?url=' + encodeURIComponent(decodeURIComponent(this.$router.params.url)) + '&wd=' + encodeURIComponent('share')
     }
   }
 
@@ -202,8 +202,8 @@ class BookInfo extends Component {
               //只要当 JSX 组件传入的参数是函数，参数名就必须以 on 开头
               onOpenSelector={this.onOpenSelector.bind(this)}
               chaptersInfo={this.props.bookInfoData}
-              wd={this.$router.params.wd}
-              url={this.$router.params.url}
+              wd={decodeURIComponent(this.$router.params.wd)}
+              url={decodeURIComponent(this.$router.params.url)}
             />
           </ScrollView>
 
@@ -218,7 +218,7 @@ class BookInfo extends Component {
           <ChaptersSelector 
             // data={this.props.chaptersData}
             onDisappear={this.onDisappear.bind(this)}
-            url={this.$router.params.url}
+            url={decodeURIComponent(this.$router.params.url)}
             onScrollLower={this.onScrollLower.bind(this)}
           />
           }

@@ -360,7 +360,7 @@ class Read extends Component {
 
     return {
       title: bookName,
-      path: '/pages/book-info/book-info?url=' + (this.$router.params.chapters_url) + '&wd=' + ('share')
+      path: '/pages/book-info/book-info?url=' + encodeURIComponent(this.$router.params.chapters_url) + '&wd=' + encodeURIComponent('share')
     }
   }
 
