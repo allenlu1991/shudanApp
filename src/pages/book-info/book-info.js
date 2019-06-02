@@ -35,7 +35,9 @@ class BookInfo extends Component {
   onReadCurrent() {
     // console.log(this.props)
     const {chapters,bookName,chaptersCount} = this.props.bookInfoData
-    const {url, wd} = this.$router.params
+    const url = decodeURIComponent(this.$router.params.url)
+    const wd = decodeURIComponent(this.$router.params.wd)
+
     Taro.navigateTo({
       url: '/pages/reader/reader?content_url=' + encodeURIComponent(chapters[0].chapter_url) + '&content_name=' + encodeURIComponent(chapters[0].title) + '&chapters_url=' + encodeURIComponent(url) + '&wd=' + encodeURIComponent(wd) + '&book_name=' + encodeURIComponent(bookName) + '&chapter_count=' + chaptersCount + '&chapter_num=' + 1
     })
