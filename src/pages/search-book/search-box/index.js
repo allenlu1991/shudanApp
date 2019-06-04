@@ -47,6 +47,18 @@ export default class SearchBox extends Component {
         loading: false,
         searched: true,
       })
+
+      //请求后两页
+      this.props.dispatchSearchBook({
+        wd,
+        pn: 2,
+      }).then((res)=>{
+        this.props.dispatchSearchBook({
+          wd,
+          pn: 3,
+        })
+      })
+
     })
   }
 

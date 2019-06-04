@@ -16,6 +16,15 @@ const INITIAL_STATE = {
 export default function searchBook(state = INITIAL_STATE, action) {
   switch(action.type) {
     case SEARCH_BOOK: {
+      
+      if(!!action.reqPayload && !!action.reqPayload.pn) {
+        return {
+          ...state,
+          resultsCount: action.payload.resultsCount + state.resultsCount,
+          results: state.results.concat(action.payload.results),
+        }
+      }
+
       return {
         ...state,
         resultsCount: action.payload.resultsCount,
