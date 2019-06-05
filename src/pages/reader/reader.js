@@ -55,7 +55,7 @@ class Read extends Component {
     })
 
     Taro.setNavigationBarTitle({
-      title: this.$router.params.book_name
+      title: decodeURIComponent(this.$router.params.book_name)
     })
   }
 
@@ -81,7 +81,9 @@ class Read extends Component {
       loading: true,
     })
 
-    const {chapters_url, wd} = this.$router.params
+    let {chapters_url, wd} = this.$router.params
+    chapters_url = decodeURIComponent(chapters_url)
+    wd = decodeURIComponent(wd)
 
     this.getBookContent(chapters_url, parseInt(this.state.currentChapterNum) + 1, wd, {})
   }
@@ -91,7 +93,9 @@ class Read extends Component {
       loading: true,
     })
 
-    const {chapters_url, wd} = this.$router.params
+    let {chapters_url, wd} = this.$router.params
+    chapters_url = decodeURIComponent(chapters_url)
+    wd = decodeURIComponent(wd)
 
     this.getBookContent(chapters_url, parseInt(this.state.currentChapterNum) - 1, wd, {})
   }
@@ -288,7 +292,11 @@ class Read extends Component {
   }
 
   componentWillMount() {
-    const {content_url, content_name, chapters_url, wd, book_name, chapter_count, chapter_num} = this.$router.params
+    let {content_url, content_name, chapters_url, wd, book_name, chapter_count, chapter_num} = this.$router.params
+
+    chapters_url = decodeURIComponent(chapters_url)
+    wd = decodeURIComponent(wd)
+    chapter_num = decodeURIComponent(chapter_num)
 
     this.setState({
       loading: true,
@@ -321,7 +329,7 @@ class Read extends Component {
 
   componentDidMount() {
     Taro.setNavigationBarTitle({
-      title: this.$router.params.book_name
+      title: decodeURIComponent(this.$router.params.book_name)
     })
 
     let readMode = 'normal'
@@ -360,7 +368,7 @@ class Read extends Component {
 
     return {
       title: bookName,
-      path: '/pages/book-info/book-info?url=' + encodeURIComponent(this.$router.params.chapters_url) + '&wd=' + encodeURIComponent('share')
+      path: '/pages/book-info/book-info?url=' + encodeURIComponent(decodeURIComponent(this.$router.params.chapters_url)) + '&wd=' + encodeURIComponent('share')
     }
   }
 
@@ -403,7 +411,7 @@ class Read extends Component {
         <ChaptersSelector 
           // data={charptersData}
           onDisappear={this.onDisappear.bind(this)}
-          url={this.$router.params.chapters_url}
+          url={decodeURIComponent(this.$router.params.chapters_url)}
           onGetBookContent={this.getBookContent.bind(this)}
           currentChapterNum={this.state.currentChapterNum}
         />

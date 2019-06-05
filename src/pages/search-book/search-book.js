@@ -49,7 +49,10 @@ class SearchBook extends Component {
   componentDidHide () { }
 
   componentWillMount() { //组件装载之前
-    const {wd} = this.$router.params
+    let {wd} = this.$router.params
+    //解码
+    wd = decodeURIComponent(wd)
+
     this.setState({
       wd,
     })

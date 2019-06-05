@@ -3,7 +3,7 @@ import {
   APP_CHECK,
 } from '@constants/search'
 
-const appVersion = '2.0.4'
+const appVersion = '2.0.5'
 
 const INITIAL_STATE = {
   hotWords: [],
