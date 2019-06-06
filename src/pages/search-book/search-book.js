@@ -51,7 +51,8 @@ class SearchBook extends Component {
   componentWillMount() { //组件装载之前
     let {wd} = this.$router.params
     //解码
-    wd = decodeURIComponent(wd)
+    wd = !!wd ? decodeURIComponent(wd) : null
+    // wd = decodeURIComponent(wd)
 
     this.setState({
       wd,
