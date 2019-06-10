@@ -81,6 +81,13 @@
     line-height: 36px;
     height: 36px;
     color: #A0A0A0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    word-wrap:break-word;//避免被撑开
+    word-break:break-all;
   }
 
   &-item-tags {
