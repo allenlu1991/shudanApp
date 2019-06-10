@@ -21,6 +21,7 @@ class App extends Component {
   config = {
     pages: [
       'pages/search/search',
+      'pages/ranking/ranking',
       'pages/search-book/search-book',
       'pages/reader/reader',
       'pages/book-info/book-info',
@@ -31,8 +32,8 @@ class App extends Component {
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: '书单查查',
-      navigationBarTextStyle: 'black'
+      navigationBarTitleText: '',
+      navigationBarTextStyle: 'black',
     },
     tabBar: {
       color: "#94A0AE",
@@ -44,6 +45,11 @@ class App extends Component {
         iconPath: "./assets/tab-bar/search.png",
         selectedIconPath: "./assets/tab-bar/search-active.png",
         text: "首页"
+      }, {
+        pagePath: "pages/ranking/ranking",
+        iconPath: "./assets/tab-bar/ranking.png",
+        selectedIconPath: "./assets/tab-bar/ranking-active.png",
+        text: "排行"
       }, {
         pagePath: "pages/my/my",
         iconPath: "./assets/tab-bar/my.png",

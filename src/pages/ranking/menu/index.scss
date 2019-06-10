@@ -1,0 +1,41 @@
+@import "@styles/theme.scss";
+
+.ranking-menu {
+  width: 100%;
+}
+
+.ranking-menu__item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px 0;
+
+  &--active {
+    background: #ffffff;
+  }
+
+  &-container {
+    height: 60px;
+    border: 0 solid #F6F7FB;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-left-width: 8px; 
+  }
+
+  &-container--active {
+    border-left-color: #E94A47;
+  }
+
+  &-name {
+    margin-left: -8px;
+    width: 100%;
+    color: #A3A7B0;
+    font-size: 28px;
+    text-align: center;
+
+    &--active {
+      color: #D54752;
+    }
+  }
+}

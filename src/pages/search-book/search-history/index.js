@@ -20,7 +20,7 @@ export default class SearchHistory extends Component {
 
   searchByWd(wd) {
     Taro.redirectTo({
-      url: '/pages/search-book/search-book?wd=' + encodeURIComponent(wd)
+      url: '/pages/search-book/search-book?wd=' + encodeURIComponent(wd)+ '&source=' + encodeURIComponent('search_history')
     })
   }
 

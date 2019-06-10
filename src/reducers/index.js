@@ -5,6 +5,7 @@ import bookInfo from './book-info'
 import reader from './reader'
 import readRecord from './read-record'
 import content from './content'
+import ranking from './ranking'
 
 
 export default combineReducers({
@@ -14,4 +15,5 @@ export default combineReducers({
   reader,
   readRecord,
   content,
+  ranking,
 })

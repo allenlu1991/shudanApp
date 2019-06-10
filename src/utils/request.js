@@ -143,7 +143,7 @@ export default async function fetch(options) {
   }
 
   //存在缓存，返回缓存结果
-  if(!!payload.url) {
+  if(!!payload && !!payload.url) {
     let cacheUrl = md5(payload.url)
     let urlDataCache = getUrlDataCache(cacheUrl)
   

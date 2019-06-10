@@ -1,0 +1,55 @@
+@import "@styles/theme.scss";
+
+.ranking-sub-tab {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-around;
+  @include border(bottom, 1px, solid, rgba(241,241,241,1));
+  @include hairline(border-bottom-width);
+
+  /**
+   * // NOTE H5、微信小程序中，横向滚动的 ScrollView 必须设置 white-space: nowrap
+   * 并且 ScrollView 的子元素必须为 display: inline-block
+   */
+  // @include eject(display, block);
+  @include eject(white-space, nowrap);
+  @include eject(line-height, 0);
+}
+
+.ranking-sub-tab-item {
+  position: relative;
+  // margin: 0 60px;
+  display: flex;
+  flex-direction: row;
+  @include eject(display, inline-block);
+
+  &-txt {
+    // padding: 0 8px;
+    height: 80px;
+    color: #939396;
+    font-size: 28px;
+    line-height: 80px;
+    @include eject(display, inline-block);
+  }
+
+  &-txt-active {
+    // padding: 0 8px;
+    height: 80px;
+    color: #D54752;
+    font-size: 28px;
+    line-height: 80px;
+    font-weight: bold;
+    @include eject(display, inline-block);
+  }
+
+  &-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: #E94A47;
+    border-radius: 2px;
+  }
+}

@@ -22,6 +22,7 @@ class SearchBook extends Component {
     loading: false,
     wd: '',
     searched: false,
+    source: null,
   }
 
   onSearchLoading= ({wd, loading, searched = false}) => {
@@ -49,13 +50,15 @@ class SearchBook extends Component {
   componentDidHide () { }
 
   componentWillMount() { //组件装载之前
-    let {wd} = this.$router.params
+    let {wd, source} = this.$router.params
     //解码
     wd = !!wd ? decodeURIComponent(wd) : null
+    source = !!source ? decodeURIComponent(source) : null
     // wd = decodeURIComponent(wd)
 
     this.setState({
       wd,
+      source,
     })
   }
 
@@ -66,6 +69,7 @@ class SearchBook extends Component {
           dispatchSearchBook={this.props.dispatchSearchBook}
           onSearchLoading={this.onSearchLoading}
           wd={this.state.wd}
+          source={this.state.source}
         />
 
        {

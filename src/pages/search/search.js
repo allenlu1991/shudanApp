@@ -31,6 +31,7 @@ class Search extends Component {
 
   state = {
     isCheck: true,
+    isShowShudan: false,
   }
 
   componentWillReceiveProps (nextProps) {
@@ -40,6 +41,14 @@ class Search extends Component {
   componentWillUnmount () { }
 
   componentWillMount() {
+
+    //首页跳转
+    if(this.$router.params && this.$router.params.navigateToUrl) {
+      Taro.navigateTo({
+        url: decodeURIComponent(this.$router.params.navigateToUrl)
+      })
+    }
+
     let isCheckCache = Taro.getStorageSync('isCheck');
 
     if(!!isCheckCache) {
@@ -60,7 +69,8 @@ class Search extends Component {
 
     if(!!isCheckCache) {
       this.setState({
-        isCheck: isCheckCache == 'yes' ? true : false
+        isCheck: isCheckCache == 'yes' ? true : false,
+        isShowShudan: isCheckCache == 'yes' ? true : false,
       })
     }
 
@@ -68,16 +78,19 @@ class Search extends Component {
       app: 'novalapp'
     }).then((res)=>{
       const {status, data} = res
-      let isCheck
+      let isCheck, isShowShudan
       
       if(status == 'success' && data && data.checkVersion == appVersion && !!data.isCheck) {
         isCheck = true
+        isShowShudan = true
       } else {
         isCheck = false
+        isShowShudan = false
       }
 
       this.setState({
-        isCheck
+        isCheck,
+        isShowShudan
       })
 
       Taro.setStorageSync('isCheck', isCheck ? 'yes' : 'no');
@@ -139,7 +152,7 @@ class Search extends Component {
         }
 
         {
-          this.state.isCheck && 
+          this.state.isCheck && this.state.isShowShudan &&
           <Image src={ShudanImg} mode='widthFix' style={{width:'100%'}}/>
         }
         {/* <BookLoading /> */}

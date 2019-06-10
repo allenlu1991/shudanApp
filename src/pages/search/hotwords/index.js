@@ -25,7 +25,7 @@ export default class HotWords extends Component {
 
   searchBywords(words) {
     Taro.navigateTo({
-      url: '/pages/search-book/search-book?wd=' + encodeURIComponent(words)
+      url: '/pages/search-book/search-book?wd=' + encodeURIComponent(words) + '&source=' + encodeURIComponent('hotwords')
     })
   }
 

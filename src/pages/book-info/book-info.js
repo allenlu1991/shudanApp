@@ -174,10 +174,12 @@ class BookInfo extends Component {
   onShareAppMessage (res) {
     
     let {bookName} = this.props.bookInfoData
+    let rawUrl = '/pages/book-info/book-info?url=' + encodeURIComponent(decodeURIComponent(this.$router.params.url)) + '&wd=' + encodeURIComponent('share')
+    let shareUrl = '/pages/search/search?navigateToUrl=' + encodeURIComponent(rawUrl)
 
     return {
       title: bookName,
-      path: '/pages/book-info/book-info?url=' + encodeURIComponent(decodeURIComponent(this.$router.params.url)) + '&wd=' + encodeURIComponent('share')
+      path: shareUrl,
     }
   }
 

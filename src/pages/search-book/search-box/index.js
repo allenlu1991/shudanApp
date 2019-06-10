@@ -12,18 +12,18 @@ export default class SearchBox extends Component {
   }
 
   componentDidMount() {
-    const {wd} = this.props
+    const {wd, source} = this.props
     if(!!wd) {
       this.setState({
         inputValue: wd,
         focus: false,
         cancle: true,
       })
-      this.searchByWd(wd)
+      this.searchByWd(wd, source)
     }
   }
 
-  searchByWd(wd) {
+  searchByWd(wd, source = null) {
     if(!wd) {
       Taro.showToast({
         title: '搜索不能为空哦~',
@@ -41,6 +41,7 @@ export default class SearchBox extends Component {
 
     this.props.dispatchSearchBook({
       wd,
+      source,
     }).then((res)=>{
       this.props.onSearchLoading({
         wd,
@@ -51,10 +52,12 @@ export default class SearchBox extends Component {
       //请求后两页
       this.props.dispatchSearchBook({
         wd,
+        source,
         pn: 2,
       }).then((res)=>{
         this.props.dispatchSearchBook({
           wd,
+          source,
           pn: 3,
         })
       })

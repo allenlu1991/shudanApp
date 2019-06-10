@@ -35,3 +35,5 @@ export const API_FORMID = `${host}/bookapi/v2/formids`
 //ischeck
 export const API_APP_CHECK = `${host}/bookapi/apps`
 
+//ranking
+export const API_RANKING = `${host}/bookapi/v2/ranking`

@@ -1,0 +1,35 @@
+@import "@styles/theme.scss";
+
+.ranking {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+
+    &-tab {
+        width: 100%;
+    }
+
+    &-swiper {
+        width: 100%;
+    }
+
+    &-swiper-item {
+        display: flex;
+        flex-direction: row;
+        
+    }
+
+    &-list {
+        width: 588px;
+        flex-shrink: 0;
+    }
+
+    &-submenu {
+        width: 162px;
+        flex-shrink: 0;
+        background: #F6F7FB;
+    }
+
+
+}
