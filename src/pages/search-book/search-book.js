@@ -23,13 +23,15 @@ class SearchBook extends Component {
     wd: '',
     searched: false,
     source: null,
+    threeSearched: false,
   }
 
-  onSearchLoading= ({wd, loading, searched = false}) => {
+  onSearchLoading= ({wd, loading, searched = false, threeSearched = false}) => {
     this.setState({
       wd,
       loading,
-      searched
+      searched,
+      threeSearched,
     })
 
     if(!!wd && searched == true) {
@@ -71,7 +73,7 @@ class SearchBook extends Component {
           wd={this.state.wd}
           source={this.state.source}
         />
-
+        <View className='blank-view'></View>
        {
          !this.state.wd &&
          <SearchHistory 
@@ -86,13 +88,13 @@ class SearchBook extends Component {
         />
         }
         {
-        !this.state.loading && this.props.results.length == 0 && this.state.searched &&
+        !this.state.loading && this.props.results.length == 0 && this.state.searched && this.state.threeSearched &&
         <SearchLoading 
           type='nodata'
         />
         }
         {
-          !this.state.loading && this.state.searched && !!this.state.wd &&
+          this.state.searched && !!this.state.wd &&
           <SearchResults
             list={this.props.results}
             wd={this.state.wd}

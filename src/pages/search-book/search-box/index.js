@@ -45,7 +45,7 @@ export default class SearchBox extends Component {
     }).then((res)=>{
       this.props.onSearchLoading({
         wd,
-        loading: false,
+        loading: true,
         searched: true,
       })
 
@@ -59,6 +59,13 @@ export default class SearchBox extends Component {
           wd,
           source,
           pn: 3,
+        }).then(res=>{
+          this.props.onSearchLoading({
+            wd,
+            loading: false,
+            searched: true,
+            threeSearched: true,
+          })
         })
       })
 
