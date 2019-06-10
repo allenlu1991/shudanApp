@@ -11,7 +11,10 @@ import * as actions from '@actions/ranking'
 
 import './ranking.scss'
 
-@connect(state => state.ranking, { ...actions })
+@connect(state => ({
+  ...state.ranking,
+  isCheck: state.search.isCheck,
+}), { ...actions })
 class Ranking extends Component {
 
   config = {
@@ -30,14 +33,22 @@ class Ranking extends Component {
 
   componentWillMount() {
     this.props.dispatchRinkingCate().then((res)=> {
-
       if(res.status == 'success') {
+
+        this.setState({
+          loading: true,
+        })
+
         let subCurrent = this.state.subCurrent[this.state.current] || 0
         
         this.props.dispatchRinkingList({
           f: res.data[this.state.current].type,
           s: res.data[this.state.current]['subCategories'][subCurrent].type,
           page: 1,
+        }).then(res=>{
+          this.setState({
+            loading: false,
+          })
         })
       }
     })
@@ -118,7 +129,7 @@ class Ranking extends Component {
 
     const height = getWindowHeight() - 80 * ratio
 
-    let {rankingCate, rankingList} = this.props
+    let {rankingCate, rankingList, isCheck} = this.props
 
     return (
       <View className='ranking'>
@@ -172,6 +183,7 @@ class Ranking extends Component {
                       <Loading />
                       :
                       <List
+                        isCheck = {isCheck}
                         list = {rankingList[firstCate][subCate]}
                       />
                     }
