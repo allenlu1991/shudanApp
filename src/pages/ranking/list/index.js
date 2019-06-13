@@ -31,7 +31,15 @@ export default class List extends Component {
             list && list.records && list.records.map((item, index) => {
 
               return (
-              <Form report-submit onSubmit={(e)=>formSubmitHandle(e)} taroKey={index}>
+              <Form 
+                report-submit 
+                onSubmit={(e)=>{
+                  if(!this.props.isCheck) {
+                    formSubmitHandle(e)
+                  }
+                }} 
+                taroKey={index}
+              >
               <Button className='formid-bttn' form-type="submit">
                 <View className='ranking-list-item' onClick={this.handleClick.bind(this, item.bookName)} hoverClass='ranking-list-item-hover'>
                   <Image className='ranking-list-item-img' src={item.coverUrl}></Image>
