@@ -61,7 +61,12 @@ export function setBookInfoCache(bookKey, bookInfoData) {
             }
         }
 
-        Taro.setStorageSync(bookKey, bookInfoData) //写入实际数据（先删除后写入）
+        try {
+            Taro.setStorageSync(bookKey, bookInfoData) //写入实际数据（先删除后写入）
+        } catch (e) { //插入失败
+            bookDataArr.shift() //去掉索引
+            console.log(e)
+        }
     }
 
     Taro.setStorageSync(bookDataKey, bookDataArr) //更新索引数据
@@ -123,7 +128,13 @@ export function setContentCache(contentKey, contentData) {
             }
         }
 
-        Taro.setStorageSync(contentKey, contentData) //写入实际数据（先删除后写入）
+        try {
+            Taro.setStorageSync(contentKey, contentData) //写入实际数据（先删除后写入）
+        } catch (e) { //插入失败
+            contentDataArr.shift() //去掉索引
+            console.log(e)
+        }
+        
     }
 
     Taro.setStorageSync(contentDataKey, contentDataArr) //更新索引数据
