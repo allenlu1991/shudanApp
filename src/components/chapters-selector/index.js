@@ -68,15 +68,18 @@ export default class ChaptersSelector extends Component {
     Taro.setNavigationBarTitle({
         title: '目录'
     })
-    Taro.setNavigationBarColor({
-        frontColor: '#000000',
-        backgroundColor: '#ffffff',
-        animation: {
-            duration: 0,
-            timingFunc: 'linear'
-        }
-    })
 
+    if (process.env.TARO_ENV === 'weapp') {
+      Taro.setNavigationBarColor({
+          frontColor: '#000000',
+          backgroundColor: '#ffffff',
+          animation: {
+              duration: 0,
+              timingFunc: 'linear'
+          }
+      })
+    }
+    
     let scrollViewHeight = getWindowHeight(false);
 
     let scrollViewStyle = {

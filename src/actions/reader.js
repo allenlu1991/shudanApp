@@ -15,5 +15,8 @@ import { createAction } from '@utils/redux'
 export const dispatchBookContent = payload => createAction({
   url: API_READ_CONTENT,
   type: READ_CONTENT,
-  payload
+  payload: {
+    ...payload,
+    rawtext: 'yes',
+  }
 })

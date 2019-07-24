@@ -8,6 +8,8 @@
     box-shadow: 0 -2px 4px 0 rgba(0,0,0,0.10);
     background: #ffffff;
     border-radius: 0px;
+    border-style: none;
+    justify-content: center;
 
     &-share {
         width: 50%;
@@ -17,6 +19,7 @@
         font-size: 32px;
         color: #353535;
         background: #FFFFFF;
+        border-style: none;
     }
 
     &-share::after{ 

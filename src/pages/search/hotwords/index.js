@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Image } from '@tarojs/components'
+import { View, Text, Image, Button } from '@tarojs/components'
 import './index.scss'
 
 import titleIcon from '@assets/search/title-icon.png'
@@ -61,9 +61,11 @@ export default class HotWords extends Component {
             <Image className='hot-words-head-refresh-icon' animation={this.state.animation} src={refreshIcon}></Image>
           </View>
         </View>
+
+        {/* <Form report-submit onSubmit={(e)=>formSubmitHandle(e)}> */}
         
-        <Form report-submit onSubmit={(e)=>formSubmitHandle(e)}>
-        <Button className='hot-words-content' form-type="submit">
+        {/* <Button className='hot-words-content' form-type="submit"> */}
+        <View className='hot-words-content'>
         {/* <View className='hot-words-content'> */}
           {list.map((item, index) => {
             let numClass = 'hot-words-content-item-othernum'
@@ -91,8 +93,10 @@ export default class HotWords extends Component {
           })}
         {/* </View> */}
 
-        </Button>
-        </Form>
+        </View>
+
+        {/* </Form> */}
+
       </View>
     )
   }

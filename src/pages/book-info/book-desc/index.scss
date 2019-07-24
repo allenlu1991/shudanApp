@@ -62,9 +62,10 @@
         text-overflow: ellipsis;
         display: -webkit-box;
         -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
         word-wrap:break-word;//避免被链接撑开
         word-break:break-all;
+        /*! autoprefixer: off */
+        -webkit-box-orient: vertical;
     }
 
     &-abstract-bttn {

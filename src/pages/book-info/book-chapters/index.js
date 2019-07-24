@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Image } from '@tarojs/components'
+import { View, Text, Image, Form, Button } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 
 import './index.scss'
@@ -45,8 +45,8 @@ export default class BookChapters extends Component {
         </View>
         <View className='book-chapters-separator'></View>
         {/* <View className='book-chapters-content'> */}
-        <Form report-submit onSubmit={(e)=>formSubmitHandle(e)}>
-        <Button className='book-chapters-content' form-type="submit">
+        {/* <Form report-submit onSubmit={(e)=>formSubmitHandle(e)}> */}
+        {/* <Button className='book-chapters-content' form-type="submit"> */}
           {chaptersInfo.chapters.map((item,index)=>{
             if(index < 5) {
               return(
@@ -59,8 +59,8 @@ export default class BookChapters extends Component {
               )
             }
           })}
-          </Button>
-          </Form>
+          {/* </Button> */}
+          {/* </Form> */}
         {/* </View> */}
       </View>
     )

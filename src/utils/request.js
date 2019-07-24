@@ -134,6 +134,10 @@ function getSession() {
   }
 }
 
+function getToken(time) {
+  return md5(time + 'l' + 'w' + 'x' + '1' + '9' + '9' + '0');
+}
+
 export default async function fetch(options) {
   const { url, payload, method = 'GET', showToast = true, autoLogin = true } = options
   let header = {}
@@ -146,14 +150,15 @@ export default async function fetch(options) {
   if(!!payload && !!payload.url) {
     let cacheUrl = md5(payload.url)
     let urlDataCache = getUrlDataCache(cacheUrl)
-  
+
     if(!!urlDataCache) {
       urlDataCache.cached = true
       return Promise.resolve(urlDataCache) 
     }
   }
 
-  if(!session) { //这个过程只是程序启动的时候执行一次
+
+  if(!session && process.env.TARO_ENV != 'h5') { //这个过程只是程序启动的时候执行一次
     session  = await getStorage('session')
     //过期处理
     if(!!session) {
@@ -182,10 +187,17 @@ export default async function fetch(options) {
   }
   header['cookie'] = !!session ? session : ''
 
+  let currentTime = (new Date()).getTime();
+  let token = getToken(currentTime);
   return Taro.request({
     url,
     method,
-    data: payload,
+    data: {
+      ...payload,
+      token: '762c79f5a952bbb5feacfbd03850cb9e',
+      // token: token,
+      // t: currentTime,
+    },
     header
   }).then(async (res) => {
     const { statusCode, data } = res

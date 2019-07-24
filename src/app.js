@@ -17,13 +17,13 @@ import './app.scss'
 const store = configStore()
 
 class App extends Component {
-
-  config = {
+  config = process.env.TARO_ENV === 'weapp' ? {
     pages: [
       'pages/search/search',
       'pages/ranking/ranking',
       'pages/search-book/search-book',
       'pages/reader/reader',
+      // 'pages/readerV2/readerV2',
       'pages/book-info/book-info',
       'pages/my/my',
       'pages/my-info/my-info',
@@ -50,12 +50,57 @@ class App extends Component {
         iconPath: "./assets/tab-bar/ranking.png",
         selectedIconPath: "./assets/tab-bar/ranking-active.png",
         text: "排行"
-      }, {
+      }, 
+      {
         pagePath: "pages/my/my",
         iconPath: "./assets/tab-bar/my.png",
         selectedIconPath: "./assets/tab-bar/my-active.png",
         text: "我的"
-      }]
+      }
+    ]
+    }
+
+  } : {
+    pages: [
+      'pages/search/search',
+      'pages/ranking/ranking',
+      'pages/search-book/search-book',
+      'pages/reader/reader',
+      // 'pages/readerV2/readerV2',
+      'pages/book-info/book-info',
+      // 'pages/my/my',
+      'pages/my-info/my-info',
+      'pages/content/content',
+    ],
+    window: {
+      backgroundTextStyle: 'light',
+      navigationBarBackgroundColor: '#fff',
+      navigationBarTitleText: '',
+      navigationBarTextStyle: 'black',
+    },
+    tabBar: {
+      color: "#94A0AE",
+      selectedColor: "#F42423",
+      backgroundColor: "#fafafa",
+      borderStyle: 'black',
+      list: [{
+        pagePath: "pages/search/search",
+        iconPath: "./assets/tab-bar/search.png",
+        selectedIconPath: "./assets/tab-bar/search-active.png",
+        text: "首页"
+      }, {
+        pagePath: "pages/ranking/ranking",
+        iconPath: "./assets/tab-bar/ranking.png",
+        selectedIconPath: "./assets/tab-bar/ranking-active.png",
+        text: "排行"
+      }, 
+      // {
+      //   pagePath: "pages/my/my",
+      //   iconPath: "./assets/tab-bar/my.png",
+      //   selectedIconPath: "./assets/tab-bar/my-active.png",
+      //   text: "我的"
+      // }
+    ]
     }
 
   }

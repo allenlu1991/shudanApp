@@ -35,13 +35,16 @@ export default function ranking(state = INITIAL_STATE, action) {
           }
         }
       }
-
-      return {
-        ...state,
-        rankingList: {
-          [action.reqPayload.f]: rankingListData[action.reqPayload.f]
-        }
+      let rankingList = {
+        [action.reqPayload.f]: rankingListData[action.reqPayload.f]
       }
+
+      let res = {
+        ...state,
+        rankingList,
+      }
+
+      return res
     }
     case RANKING_CATE_LIST_MORE: {
       if(action.payload.status == 'success' && rankingListData[action.reqPayload.f] && rankingListData[action.reqPayload.f][action.reqPayload.s]) {

@@ -50,9 +50,10 @@
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
     word-wrap:break-word;//避免被撑开
     word-break:break-all;
+    /*! autoprefixer: off */
+    -webkit-box-orient: vertical;
   }
 
   &-item-abstract {
@@ -63,10 +64,11 @@
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
     color: #909090;
     word-wrap:break-word;//避免被撑开
     word-break:break-all;
+    /*! autoprefixer: off */
+    -webkit-box-orient: vertical;
   }
 
   &-item-wrap-lastline {
@@ -85,9 +87,10 @@
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
     word-wrap:break-word;//避免被撑开
     word-break:break-all;
+    /*! autoprefixer: off */
+    -webkit-box-orient: vertical;
   }
 
   &-item-tags {

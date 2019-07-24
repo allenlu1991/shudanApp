@@ -45,8 +45,8 @@ export default class ReadRecordContent extends Component {
         this.props.bookShelfData.map((item,index)=>{
           return(
             <View taroKey={index}>
-              <Form report-submit onSubmit={(e)=>formSubmitHandle(e)}>
-              <Button className='formid-bttn' form-type="submit">
+              {/* <Form report-submit onSubmit={(e)=>formSubmitHandle(e)}>
+              <Button className='formid-bttn' form-type="submit"> */}
               <View className='read-record-content-item' onClick={this.readCurrent.bind(this, item)}>
                 <Image className='read-record-content-item-cover' onError={this.imgErrorHandle.bind(this,item.cover)} src={!!item.cover && !this.isDefault(item.cover) ? item.cover : defaultCover}></Image>
                 <View className='read-record-content-item-info'>
@@ -56,8 +56,8 @@ export default class ReadRecordContent extends Component {
                 </View>
               </View>
               <View className='read-record-content-item-separator'></View>
-              </Button>
-              </Form>
+              {/* </Button>
+              </Form> */}
             </View>
           )
         })

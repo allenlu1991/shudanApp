@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, ScrollView } from '@tarojs/components'
+import { View, Text, ScrollView, Button } from '@tarojs/components'
 import { getWindowHeight } from '@utils/style'
 
 import './index.scss'
@@ -40,8 +40,8 @@ export default class SearchResults extends Component {
     
     return (
       <ScrollView className='search-results-scrollview' scrollY style={this.scrollViewStyle}>
-        <Form report-submit onSubmit={(e)=>formSubmitHandle(e)}>
-        <Button className='search-results' form-type="submit">
+        {/* <Form report-submit onSubmit={(e)=>formSubmitHandle(e)}> */}
+        <View className='search-results'>
         {/* <View className='search-results'> */}
           {
           list.map((item,index) => {
@@ -58,8 +58,8 @@ export default class SearchResults extends Component {
           })
           }
         {/* </View> */}
-        </Button>
-        </Form>
+        </View>
+        {/* </Form> */}
       </ScrollView>
     )
   }

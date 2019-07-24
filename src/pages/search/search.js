@@ -11,11 +11,19 @@ import SearchBox from './searchbox'
 import HotWords from './hotwords'
 import ReadRecord from './readrecord'
 
-import ShudanImg from '@assets/search/shudan.jpg'
+// import ShudanImg from '@assets/search/shudan.jpg'
 
 import './search.scss'
 
-const appVersion = '2.0.8'
+const ShudanImg = 'https://carrotapp.applinzi.com/static/images/shudan/shudan.jpg'
+
+let appVersion;
+
+if (process.env.TARO_ENV === 'weapp') {
+   appVersion = '2.0.9'
+} else {
+   appVersion = '1.0.0'
+}
 
 @connect(state => {
   return {

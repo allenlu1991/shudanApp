@@ -83,10 +83,10 @@ export default class BookMenu extends Component {
     }
 
     return (
-      <Form report-submit onSubmit={(e)=>formSubmitHandle(e)}>
+      // <Form report-submit onSubmit={(e)=>formSubmitHandle(e)}>
       <View className='book-menu'>
         <View className={sideBarStyle}>
-          <Button className='book-menu-sidebar-share' open-type="share">分享书籍</Button>
+          {/* <Button className='book-menu-sidebar-share' open-type="share">分享书籍</Button> */}
           <View className='book-menu-sidebar-site' onClick={this.checkSite.bind(this)}>查看源址</View>
           <View className='book-menu-sidebar-home' onClick={this.goBackHome.bind(this)}>返回首页</View>
         </View>
@@ -94,9 +94,12 @@ export default class BookMenu extends Component {
         <View className={menuBarStyel}>
           <View className='book-menu-bar-title'>{this.props.title}</View>
           <View className='book-menu-bar-chapters'>
-            <Button className='book-menu-bar-chapters-pre' form-type="submit" onClick={this.preChapter.bind(this)}>上一章</Button>
+            {/* <Button className='book-menu-bar-chapters-pre' form-type="submit" onClick={this.preChapter.bind(this)}>上一章</Button>
             <Button className='book-menu-bar-chapters-link' form-type="submit" onClick={this.showChapters.bind(this)}>目录</Button>
-            <Button className='book-menu-bar-chapters-next' form-type="submit" onClick={this.nextChapter.bind(this)}>下一章</Button>
+            <Button className='book-menu-bar-chapters-next' form-type="submit" onClick={this.nextChapter.bind(this)}>下一章</Button> */}
+            <View className='book-menu-bar-chapters-pre' onClick={this.preChapter.bind(this)}>上一章</View>
+            <View className='book-menu-bar-chapters-link' onClick={this.showChapters.bind(this)}>目录</View>
+            <View className='book-menu-bar-chapters-next' onClick={this.nextChapter.bind(this)}>下一章</View>
           </View>
           <View className='book-menu-bar-style'>
             <View className='book-menu-bar-style-font'>
@@ -111,7 +114,7 @@ export default class BookMenu extends Component {
           </View>
         </View>
       </View>
-      </Form>
+      // </Form>
     )
   }
 }

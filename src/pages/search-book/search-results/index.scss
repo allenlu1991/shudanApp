@@ -26,6 +26,7 @@
         text-overflow: ellipsis;
         display: -webkit-box;
         -webkit-line-clamp: 2;
+        /*! autoprefixer: off */
         -webkit-box-orient: vertical;
         word-wrap:break-word;//避免被链接撑开
         word-break:break-all;
@@ -39,6 +40,7 @@
         text-overflow: ellipsis;
         display: -webkit-box;
         -webkit-line-clamp: 2;
+        /*! autoprefixer: off */
         -webkit-box-orient: vertical;
         word-wrap:break-word;//避免被链接撑开
         word-break:break-all;

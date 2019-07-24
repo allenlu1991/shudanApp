@@ -37,9 +37,12 @@ class BookInfo extends Component {
     const {chapters,bookName,chaptersCount} = this.props.bookInfoData
     const url = decodeURIComponent(this.$router.params.url)
     const wd = decodeURIComponent(this.$router.params.wd)
+    const content_url = encodeURIComponent(chapters[0].chapter_url)
+    const content_name = encodeURIComponent(chapters[0].title)
+    const navUrl = '/pages/reader/reader?content_url=' + content_url + '&content_name=' + content_name + '&chapters_url=' + encodeURIComponent(url) + '&wd=' + encodeURIComponent(wd) + '&book_name=' + encodeURIComponent(bookName) + '&chapter_count=' + chaptersCount + '&chapter_num=' + 1
 
     Taro.navigateTo({
-      url: '/pages/reader/reader?content_url=' + encodeURIComponent(chapters[0].chapter_url) + '&content_name=' + encodeURIComponent(chapters[0].title) + '&chapters_url=' + encodeURIComponent(url) + '&wd=' + encodeURIComponent(wd) + '&book_name=' + encodeURIComponent(bookName) + '&chapter_count=' + chaptersCount + '&chapter_num=' + 1
+      url: navUrl
     })
   }
 
@@ -55,7 +58,7 @@ class BookInfo extends Component {
     })
 
     Taro.setNavigationBarTitle({
-      title: ''
+      title: ' '
     })
   }
 

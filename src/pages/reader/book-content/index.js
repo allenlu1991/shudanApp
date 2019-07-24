@@ -74,39 +74,45 @@ export default class BookContent extends Component {
         readerStyle.color = '#424952'
         readerStyle.backgroundColor = '#080C10'
 
-        Taro.setNavigationBarColor({
-          frontColor: '#ffffff',
-          backgroundColor: '#080C10',
-          animation: {
-            duration: 0,
-            timingFunc: 'linear'
-          }
-        })
+        if (process.env.TARO_ENV === 'weapp') {
+          Taro.setNavigationBarColor({
+            frontColor: '#ffffff',
+            backgroundColor: '#080C10',
+            animation: {
+              duration: 0,
+              timingFunc: 'linear'
+            }
+          })
+        }
         break
       }
       case 'eyecare': {
         readerStyle.color = '#333'
         readerStyle.backgroundColor = '#C7EDCC'
 
-        Taro.setNavigationBarColor({
-          frontColor: '#000000',
-          backgroundColor: '#C7EDCC',
-          animation: {
-            duration: 0,
-            timingFunc: 'linear'
-          }
-        })
+        if (process.env.TARO_ENV === 'weapp') {
+          Taro.setNavigationBarColor({
+            frontColor: '#000000',
+            backgroundColor: '#C7EDCC',
+            animation: {
+              duration: 0,
+              timingFunc: 'linear'
+            }
+          })
+        }
         break
       }
       case 'normal': {
-        Taro.setNavigationBarColor({
-          frontColor: '#000000',
-          backgroundColor: '#F2EEEA',
-          animation: {
-            duration: 0,
-            timingFunc: 'linear'
-          }
-        })
+        if (process.env.TARO_ENV === 'weapp') {
+          Taro.setNavigationBarColor({
+            frontColor: '#000000',
+            backgroundColor: '#F2EEEA',
+            animation: {
+              duration: 0,
+              timingFunc: 'linear'
+            }
+          })
+        }
         break
       }
       default:
@@ -124,10 +130,13 @@ export default class BookContent extends Component {
       lineHeight: readerStyle.lineHeight + 'px',
     }
 
+    let contentArr = []
+
     //去除多余的换行符
     if(data && data.body) {
-      const body = data.body.replace(/(<br\s?\/?>\s*)+/gi, '$1').replace(/<(script|a).*?>.*?<\/(script|a)>/gi, '')
-      wxParse.wxParse('article', 'html', body, this.$scope, 5)
+      // const body = data.body.replace(/(<br\s?\/?>\s*)+/gi, '$1').replace(/<(script|a).*?>.*?<\/(script|a)>/gi, '')
+      // wxParse.wxParse('article', 'html', body, this.$scope, 5)
+      contentArr = data.body.split('\r\n');
     }
 
     return (
@@ -138,8 +147,17 @@ export default class BookContent extends Component {
           {data.title}
           </View>
           <View className='book-content-container-body' style={bodyStyle}>
-            <import src='./wxParse/wxParse.wxml' />
-            <template is='wxParse' data='{{wxParseData:article.nodes}}'/>
+            {/* <import src='./wxParse/wxParse.wxml' />
+            <template is='wxParse' data='{{wxParseData:article.nodes}}'/> */}
+            {contentArr.map((value, index) => {
+              if(value != '') {
+                return(
+                  <Text className='book-content-container-body-text'>
+                    {value}
+                  </Text>
+                )
+              }
+            })}
           </View> 
           {
             this.state.lock && 
@@ -151,7 +169,7 @@ export default class BookContent extends Component {
           
           {
           data && data.title &&
-          <Form report-submit onSubmit={(e)=>formSubmitHandle(e)}>
+          // <Form report-submit onSubmit={(e)=>formSubmitHandle(e)}>
           <View className='book-content-container-chapterLink'>
             <Button form-type="submit" className="book-content-container-chapterLink-next" onClick={this.nextChapter.bind(this)}>下一章</Button>
             <View className='book-content-container-chapterLink-otherlink'>
@@ -159,7 +177,7 @@ export default class BookContent extends Component {
               <Button form-type="submit" className="book-content-container-chapterLink-otherlink-chapterMenu" onClick={this.showChapters.bind(this)}>目录</Button>
             </View>
           </View>
-          </Form>
+          // </Form>
           }
         </ScrollView>
     </View> 

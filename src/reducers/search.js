@@ -3,7 +3,13 @@ import {
   APP_CHECK,
 } from '@constants/search'
 
-const appVersion = '2.0.8'
+let appVersion;
+
+if (process.env.TARO_ENV === 'weapp') {
+   appVersion = '2.0.9'
+} else {
+   appVersion = '1.0.0'
+}
 
 const INITIAL_STATE = {
   hotWords: [],

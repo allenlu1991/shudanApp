@@ -14,12 +14,12 @@ export default class SearchBox extends Component {
 
   render () {
     return (
-      <Form report-submit onSubmit={(e)=>formSubmitHandle(e)}>
-        <Button className='search-box' form-type="submit" onClick={this.handleSearchClick.bind(this)}>
-          <Text className='search-box-text'>输入书名或作者</Text>
-          <Image className='search-box-icon' src={searchBoxIcon}></Image>
+      // <Form report-submit onSubmit={(e)=>formSubmitHandle(e)}>
+        <Button className='search-box-home' form-type="submit" onClick={this.handleSearchClick.bind(this)}>
+          <Text className='search-box-home-text'>输入书名或作者</Text>
+          <Image className='search-box-home-icon' src={searchBoxIcon}></Image>
         </Button>
-      </Form>
+      // </Form>
     )
   }
 }

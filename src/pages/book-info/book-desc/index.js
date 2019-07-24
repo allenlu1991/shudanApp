@@ -28,7 +28,7 @@ export default class BookDesc extends Component {
     return (
       <View className='book-desc'>
         <View className='book-desc-base'>
-          <Image className='book-desc-base-cover' onError={this.imgErrorHandle.bind(this)} src={!!bookInfo.bookCover && !defaultImg ? bookInfo.bookCover : bookDefaultCover}></Image>
+          <Image className='book-desc-base-cover' onError={this.imgErrorHandle.bind(this)} src={!!bookInfo.bookCover && !this.state.defaultImg ? bookInfo.bookCover : bookDefaultCover}></Image>
           <Text className='book-desc-base-name'>{bookInfo.bookName}</Text>
           <Text className='book-desc-base-author'>{bookInfo.author}</Text>
           <Text className='book-desc-base-site'>来源：{bookInfo.domainName}</Text>

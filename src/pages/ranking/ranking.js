@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Button, Text, Swiper, SwiperItem } from '@tarojs/components'
+import { View, Button, Text, Swiper, SwiperItem, ScrollView } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import Tab from './tab'
 import Menu from './menu'
@@ -133,6 +133,7 @@ class Ranking extends Component {
 
     return (
       <View className='ranking'>
+         
         <View className='ranking-tab'>
           <Tab 
             list={rankingCate}
@@ -141,7 +142,7 @@ class Ranking extends Component {
           />
         </View>
 
-        <Swiper
+        <Swiper 
           className='ranking-swiper'
           current={this.state.current}
           onChange={(e)=>{this.tabChangeHandle(e.detail.current)}}
@@ -153,6 +154,9 @@ class Ranking extends Component {
               let currentIndex = this.state.subCurrent[index] ? this.state.subCurrent[index] : 0
               let firstCate = rankingCate[index].type
               let subCate = rankingCate[index]['subCategories'][currentIndex].type
+              let subRankingList = rankingList && rankingList[firstCate] ? rankingList[firstCate][subCate] : {}
+              let subRankingListPN = subRankingList ? subRankingList.pageNum : 1
+              let subRankingListIL = subRankingList ? subRankingList.isLast : 1
 
               return (
               <SwiperItem 
@@ -170,13 +174,13 @@ class Ranking extends Component {
                       onSubMenuChange = {this.subMenuChangeHandle.bind(this)}
                     />
                   </ScrollView>
-
+                
                   <ScrollView
                     scrollY
                     className='ranking-list'
                     style={{ height: height+'px' }}
                     lowerThreshold = '80'
-                    onScrollToLower = {this.loadListMore.bind(this, firstCate, subCate, rankingList[firstCate][subCate].pageNum, rankingList[firstCate][subCate].isLast)}
+                    onScrollToLower = {this.loadListMore.bind(this, firstCate, subCate, subRankingListPN, subRankingListIL)}
                   >
                     {
                       this.state.loading ? 
@@ -184,18 +188,19 @@ class Ranking extends Component {
                       :
                       <List
                         isCheck = {isCheck}
-                        list = {rankingList[firstCate][subCate]}
+                        list = {subRankingList}
                       />
                     }
                     
                   </ScrollView>
-              </SwiperItem>
+              </SwiperItem> 
               )
             })
           }
           
 
         </Swiper>
+     
       </View>
     )
   }

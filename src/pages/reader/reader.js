@@ -148,35 +148,39 @@ class Read extends Component {
       chapterNum,
     })
 
-    let bookInfo
-    if(JSON.stringify(bookInfoData) == "{}") {
-      bookInfo = this.props.bookInfo.bookInfoData
-    } else {
-      bookInfo = bookInfoData
-    }
+    setTimeout(() => {
 
-    if(!bookInfo) {
-      return
-    }
+      let bookInfo
+      if(JSON.stringify(bookInfoData) == "{}") {
+        bookInfo = this.props.bookInfo.bookInfoData
+      } else {
+        bookInfo = bookInfoData
+      }
 
-    if(chapterNum <= bookInfo.chaptersCount && chapterNum >= 1) {
-      let content_url = this.props.bookInfo.oneChapterInfo.chapter_url
-      let content_name = this.props.bookInfo.oneChapterInfo.title
-      let chapters_url = chaptersUrl
-      let book_name = bookInfo.bookName
-      let chapter_count = bookInfo.chaptersCount
-      let chapter_num = chapterNum
+      if(!bookInfo) {
+        return
+      }
 
-      this.props.dispatchBookContent({
-        url: content_url,
-        content_name,
-        chapters_url,
-        wd,
-        book_name,
-        chapter_count,
-        chapter_num,
-      })
-    }
+      if(chapterNum <= bookInfo.chaptersCount && chapterNum >= 1) {
+        let content_url = this.props.bookInfo.oneChapterInfo.chapter_url
+        let content_name = this.props.bookInfo.oneChapterInfo.title
+        let chapters_url = chaptersUrl
+        let book_name = bookInfo.bookName
+        let chapter_count = bookInfo.chaptersCount
+        let chapter_num = chapterNum
+
+        this.props.dispatchBookContent({
+          url: content_url,
+          content_name,
+          chapters_url,
+          wd,
+          book_name,
+          chapter_count,
+          chapter_num,
+        })
+      }
+
+    }, 500);
   }
 
   getBookContent(chaptersUrl, chapterNum = 1, wd='', bookInfoData={}) {
@@ -185,106 +189,110 @@ class Read extends Component {
       chapterNum,
     })
 
-    let bookInfo
-    if(JSON.stringify(bookInfoData) == "{}") {
-      bookInfo = this.props.bookInfo.bookInfoData
-    } else {
-      bookInfo = bookInfoData
-    }
+    setTimeout(() => {
 
-    if(!bookInfo) {
-      this.setState({
-        loading: false,
-      })
+      let bookInfo
+      if(JSON.stringify(bookInfoData) == "{}") {
+        bookInfo = this.props.bookInfo.bookInfoData
+      } else {
+        bookInfo = bookInfoData
+      }
 
-      Taro.showToast({
-        title: '没有书籍信息',
-        icon: 'none',
-      })
-
-      return
-    }
-
-    if(chapterNum <= bookInfo.chaptersCount && chapterNum >= 1) {
-      this.setState({
-        loading: true,
-      })
-
-      let content_url = this.props.bookInfo.oneChapterInfo.chapter_url
-      let content_name = this.props.bookInfo.oneChapterInfo.title
-      let chapters_url = chaptersUrl
-      let book_name = bookInfo.bookName
-      let chapter_count = bookInfo.chaptersCount
-      let chapter_num = chapterNum
-      let book_cover = bookInfo.bookCover
-
-      this.props.dispatchBookContent({
-        url: content_url,
-        content_name,
-        chapters_url,
-        wd,
-        book_name,
-        chapter_count,
-        chapter_num,
-      }).then((res)=>{
+      if(!bookInfo) {
         this.setState({
-          contentUrl: content_url,
           loading: false,
-          contentData: res.data,
-          currentChapterNum: chapterNum,
-          scrollTop: this.state.scrollTop * (-1),//必须得让state的值发生变化，否则不会更新视图
         })
 
-        if(res.status == 'success') {
-          let shelfData = {
-            url: chapters_url,
-            name: book_name,
-            cover: book_cover,
-            readNum: chapter_num,
-            chapterCount: parseInt(chapter_count),
-            laterScrollTop: 0, //上次滑动的距离
-            chapterName: res.data.title,
-            lastTime: getNowFormatDate(),
-          }
+        Taro.showToast({
+          title: '没有书籍信息',
+          icon: 'none',
+        })
 
-          this.props.dispatchUpdateOneRecord(shelfData)
-          
-          //预加载后面1章
-          this.preloadingContent(chaptersUrl, parseInt(chapterNum)+1, wd, {})
+        return
+      }
 
-        } else {
-          Taro.showToast({
-            title: '呜呜~ 书丢了',
-            icon: 'none',
-            duration: 2000,
+      if(chapterNum <= bookInfo.chaptersCount && chapterNum >= 1) {
+        this.setState({
+          loading: true,
+        })
+
+        let content_url = this.props.bookInfo.oneChapterInfo.chapter_url
+        let content_name = this.props.bookInfo.oneChapterInfo.title
+        let chapters_url = chaptersUrl
+        let book_name = bookInfo.bookName
+        let chapter_count = bookInfo.chaptersCount
+        let chapter_num = chapterNum
+        let book_cover = bookInfo.bookCover
+
+        this.props.dispatchBookContent({
+          url: content_url,
+          content_name,
+          chapters_url,
+          wd,
+          book_name,
+          chapter_count,
+          chapter_num,
+        }).then((res)=>{
+          this.setState({
+            contentUrl: content_url,
+            loading: false,
+            contentData: res.data,
+            currentChapterNum: chapterNum,
+            scrollTop: this.state.scrollTop * (-1),//必须得让state的值发生变化，否则不会更新视图
           })
-        }
-       
-      })
 
-    }else if(chapterNum > bookInfo.chaptersCount) {
-      this.setState({
-        loading: false,
-      })
+          if(res.status == 'success') {
+            let shelfData = {
+              url: chapters_url,
+              name: book_name,
+              cover: book_cover,
+              readNum: chapter_num,
+              chapterCount: parseInt(chapter_count),
+              laterScrollTop: 0, //上次滑动的距离
+              chapterName: res.data.title,
+              lastTime: getNowFormatDate(),
+            }
 
-      Taro.showToast({
-        title: '已是最后一章',
-        icon: 'none',
-      })
+            this.props.dispatchUpdateOneRecord(shelfData)
+            
+            //预加载后面1章
+            this.preloadingContent(chaptersUrl, parseInt(chapterNum)+1, wd, {})
 
-      return
-    }else if(chapterNum < 1) {
-      this.setState({
-        loading: false,
-      })
+          } else {
+            Taro.showToast({
+              title: '呜呜~ 书丢了',
+              icon: 'none',
+              duration: 2000,
+            })
+          }
+        
+        })
 
-      Taro.showToast({
-        title: '已是第一章',
-        icon: 'none',
-      })
+      }else if(chapterNum > bookInfo.chaptersCount) {
+        this.setState({
+          loading: false,
+        })
 
-      return
-    }
+        Taro.showToast({
+          title: '已是最后一章',
+          icon: 'none',
+        })
+
+        return
+      }else if(chapterNum < 1) {
+        this.setState({
+          loading: false,
+        })
+
+        Taro.showToast({
+          title: '已是第一章',
+          icon: 'none',
+        })
+
+        return
+      }
+
+    }, 500);
   }
 
   componentWillReceiveProps (nextProps) {
@@ -293,7 +301,7 @@ class Read extends Component {
 
   componentWillMount() {
     let {content_url, content_name, chapters_url, wd, book_name, chapter_count, chapter_num} = this.$router.params
-
+    
     chapters_url = decodeURIComponent(chapters_url)
     wd = decodeURIComponent(wd)
     chapter_num = decodeURIComponent(chapter_num)
@@ -310,7 +318,9 @@ class Read extends Component {
         loading: false,
       })
       if(res.status == 'success') {
-        this.getBookContent(chapters_url, parseInt(chapter_num), wd, {})
+        setTimeout(() => {
+          this.getBookContent(chapters_url, parseInt(chapter_num), wd, {})
+        }, 100);
       } else {
         Taro.showToast({
           title: '呜呜~这本书丢了~',

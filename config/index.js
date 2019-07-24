@@ -96,19 +96,20 @@ const config = {
     }
   },
   h5: {
+    // NOTE H5 打包静态资源时带 hash 值，方便缓存、版本管理
     publicPath: '/',
     staticDirectory: 'static',
     output: {
-      filename: 'js/[name].[hash].js',
-      chunkFilename: 'js/[name].[chunkhash].js'
+      filename: 'static/javascripts/shudan/[name].[hash].js',
+      chunkFilename: 'static/javascripts/shudan/[name].[chunkhash].js'
     },
     imageUrlLoaderOption: {
       limit: 5000,
-      name: 'static/images/[name].[hash].[ext]'
+      name: 'static/images/shudan/[name].[hash].[ext]'
     },
     miniCssExtractPluginOption: {
-      filename: 'css/[name].[hash].css',
-      chunkFilename: 'css/[name].[chunkhash].css',
+      filename: 'static/stylesheets/shudan/[name].[hash].css',
+      chunkFilename: 'static/stylesheets/shudan/[name].[chunkhash].css',
     },
     module: {
       postcss: {
